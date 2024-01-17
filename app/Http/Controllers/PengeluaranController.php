@@ -7,29 +7,31 @@ use App\Models\Pengeluaran;
 
 class PengeluaranController extends Controller
 {
+    // show the expenses page
     public function index()
     {
         return view('pengeluaran.index');
     }
 
+    // displaying all expenses list
     public function data()
     {
-        $pengeluaran = Pengeluaran::orderBy('id_pengeluaran', 'desc')->get();
+        $expenses = Pengeluaran::orderBy('id_pengeluaran', 'desc')->get();
 
         return datatables()
-            ->of($pengeluaran)
+            ->of($expenses)
             ->addIndexColumn()
-            ->addColumn('created_at', function ($pengeluaran) {
-                return tanggal_indonesia($pengeluaran->created_at, false);
+            ->addColumn('created_at', function ($expenses) {
+                return tanggal_indonesia($expenses->created_at, false);
             })
-            ->addColumn('nominal', function ($pengeluaran) {
-                return format_uang($pengeluaran->nominal);
+            ->addColumn('nominal', function ($expenses) {
+                return format_uang($expenses->nominal);
             })
-            ->addColumn('aksi', function ($pengeluaran) {
+            ->addColumn('aksi', function ($expenses) {
                 return '
                 <div class="btn-group">
-                    <button type="button" onclick="editForm(`'. route('pengeluaran.update', $pengeluaran->id_pengeluaran) .'`)" class="btn btn-xs btn-primary btn-flat"><i class="fa fa-pencil"></i></button>
-                    <button type="button" onclick="deleteData(`'. route('pengeluaran.destroy', $pengeluaran->id_pengeluaran) .'`)" class="btn btn-xs btn-danger btn-flat"><i class="fa fa-trash"></i></button>
+                    <button type="button" onclick="editForm(`'. route('pengeluaran.update', $expenses->id_pengeluaran) .'`)" class="btn btn-xs btn-primary btn-flat"><i class="fa fa-pencil"></i></button>
+                    <button type="button" onclick="deleteData(`'. route('pengeluaran.destroy', $expenses->id_pengeluaran) .'`)" class="btn btn-xs btn-danger btn-flat"><i class="fa fa-trash"></i></button>
                 </div>
                 ';
             })
@@ -37,77 +39,78 @@ class PengeluaranController extends Controller
             ->make(true);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    // store the new expenses
     public function store(Request $request)
     {
-        $pengeluaran = Pengeluaran::create($request->all());
-
-        return response()->json('Data saved successfully', 200);
+        try {
+            $expenses = Pengeluaran::create($request->all());
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Expenses added successfully!'
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Error adding this expenses!'
+            ], 500);
+        }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    // show specific expenses
     public function show($id)
     {
-        $pengeluaran = Pengeluaran::find($id);
-
-        return response()->json($pengeluaran);
+        try {
+            $expenses = Pengeluaran::find($id);
+            return response()->json($expenses);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Expenses not found!'
+            ], 404);
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         //
     }
-    // visit "codeastro" for more projects!
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
+    // update the specific expenses
     public function update(Request $request, $id)
     {
-        $pengeluaran = Pengeluaran::find($id)->update($request->all());
-
-        return response()->json('Data saved successfully', 200);
+        try {
+            $expenses = Pengeluaran::find($id)->update($request->all());
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Expenses updated successfully!'
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Error updating this expenses!'
+            ], 500);
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    // delete the specific expenses
     public function destroy($id)
     {
-        $pengeluaran = Pengeluaran::find($id)->delete();
-
-        return response(null, 204);
+        try {
+            $expenses = Pengeluaran::find($id)->delete();
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Expenses deleted successfully!'
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Error deleting this expenses!'
+            ], 500);
+        }
     }
 }

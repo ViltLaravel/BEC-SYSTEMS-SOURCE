@@ -145,7 +145,7 @@
                             }
                         });
                     } else if (result.dismiss === Swal.DismissReason.cancel) {
-                        Swal.fire("Category is safe!", "", "info");
+                        Swal.fire("Canceled", "The category remains secure.", "success");
                     }
                 });
         }

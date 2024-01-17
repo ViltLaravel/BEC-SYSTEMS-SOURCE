@@ -188,11 +188,12 @@ Purchase
                 })
                 .done(response => {
                     $(this).on('mouseout', function () {
+                        Swal.fire("Success", response.message, 'success');
                         table.ajax.reload(() => loadForm($('#diskon').val()));
                     });
                 })
                 .fail(errors => {
-                    alert('Unable to save data');
+                    Swal.fire("Information", "Unable to save data", 'info');
                     return;
                 });
         });

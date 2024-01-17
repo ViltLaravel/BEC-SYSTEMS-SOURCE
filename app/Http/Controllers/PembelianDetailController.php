@@ -83,13 +83,28 @@ class PembelianDetailController extends Controller
 
         return response()->json('Data saved successfully', 200);
     }
-    // visit "codeastro" for more projects!
+
+    // update the purchase
     public function update(Request $request, $id)
     {
-        $detail = PembelianDetail::find($id);
-        $detail->jumlah = $request->jumlah;
-        $detail->subtotal = $detail->harga_beli * $request->jumlah;
-        $detail->update();
+        try {
+            $detail = PembelianDetail::findOrFail($id);
+
+            $detail->update([
+                'jumlah' => $request->jumlah,
+                'subtotal' => $detail->harga_beli * $request->jumlah,
+            ]);
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Purchase updated successfully.'
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Error updating purchase details!'
+            ], 500);
+        }
     }
 
     public function destroy($id)

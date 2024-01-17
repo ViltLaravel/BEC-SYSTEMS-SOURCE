@@ -193,7 +193,7 @@
                             }
                         });
                     } else if (result.dismiss === Swal.DismissReason.cancel) {
-                        Swal.fire("Cancelled", "Product is safe!", "error");
+                        Swal.fire("Canceled", "The product remains secure.", "success");
                     }
                 });
         }
@@ -225,7 +225,7 @@
                                     Swal.fire("Error", response.message, "error");
                                 });
                         } else if (result.dismiss === Swal.DismissReason.cancel) {
-                            Swal.fire("Cancelled", "Product is safe!", "error");
+                            Swal.fire("Canceled", "The product remains secure.", "success");
                         }
                     });
             } else {

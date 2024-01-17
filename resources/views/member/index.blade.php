@@ -169,7 +169,7 @@
                             }
                         });
                     } else if (result.dismiss === Swal.DismissReason.cancel) {
-                        Swal.fire("Cancelled", "Branch is safe!", "error");
+                        Swal.fire("Canceled", "The branch remains secure.", "success");
                     }
                 });
         }
