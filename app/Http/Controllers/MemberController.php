@@ -9,16 +9,13 @@ use PDF;
 
 class MemberController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    // view the branch page
     public function index()
     {
         return view('member.index');
     }
 
+    // display all branches
     public function data()
     {
         $member = Member::orderBy('kode_member')->get();
@@ -46,89 +43,97 @@ class MemberController extends Controller
             ->make(true);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    // store new branch
     public function store(Request $request)
     {
-        $member = Member::latest()->first() ?? new Member();
-        $kode_member = (int) $member->kode_member +1;
+        try {
+            $latestMember = Member::latest()->first();
+            $kode_member = $latestMember ? (int) $latestMember->kode_member + 1 : 1;
 
-        $member = new Member();
-        $member->kode_member = tambah_nol_didepan($kode_member, 5);
-        $member->nama = $request->nama;
-        $member->telepon = $request->telepon;
-        $member->alamat = $request->alamat;
-        $member->save();
+            $member = new Member();
+            $member->kode_member = 'BRANCH' . tambah_nol_didepan($kode_member, 6);
+            $member->nama = $request->nama;
+            $member->telepon = $request->telepon;
+            $member->alamat = $request->alamat;
 
-        return response()->json('Data saved successfully', 200);
+            $member->save();
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Branch successfully added!',
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Error adding branch!',
+            ], 500);
+        }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
+    // show the specific branch
     public function show($id)
     {
         $member = Member::find($id);
-
-        return response()->json($member);
+        if (!$member) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Branch not found!'
+            ], 404);
+        }
+        else {
+            return response()->json($member);
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
+    // update the specific branch
     public function update(Request $request, $id)
     {
-        $member = Member::find($id)->update($request->all());
+        try {
+            $member = Member::findOrFail($id);
+            $member->update($request->all());
 
-        return response()->json('Data saved successfully', 200);
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Branch updated successfully!'
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Error updating branch!'
+            ], 500);
+        }
     }
-    // visit "codeastro" for more projects!
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
+
+    // delete the specific branch
     public function destroy($id)
     {
-        $member = Member::find($id);
-        $member->delete();
+        try {
+            $member = Member::findOrFail($id);
+            $member->delete();
 
-        return response(null, 204);
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Branch deleted successfully!'
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Error deleting this branch!'
+            ], 500);
+        }
     }
 
+    // generate card of branches
     public function cetakMember(Request $request)
     {
         $datamember = collect(array());

@@ -7,11 +7,13 @@ use App\Models\Supplier;
 
 class SupplierController extends Controller
 {
+    // view the supplier page
     public function index()
     {
         return view('supplier.index');
     }
 
+    // view all the list of supplier
     public function data()
     {
         $supplier = Supplier::orderBy('id_supplier', 'desc')->get();
@@ -31,78 +33,80 @@ class SupplierController extends Controller
             ->make(true);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    // store new supplier
     public function store(Request $request)
     {
-        $supplier = Supplier::create($request->all());
+        try {
+            $supplier = Supplier::create($request->all());
 
-        return response()->json('Data saved successfully', 200);
+            return response()->json([
+                'status'  => 'success',
+                'message' => 'Supplier added successfully!',
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status'  => 'error',
+                'message' => 'Error adding supplier!',
+            ], 500);
+        }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    // show specific supplier
     public function show($id)
     {
         $supplier = Supplier::find($id);
 
-        return response()->json($supplier);
+        if ($supplier) {
+            return response()->json($supplier);
+        }
+
+        return response()->json([
+            'status'  => 'error',
+            'message' => 'Supplier not found!',
+        ], 404);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         //
     }
-    // visit "codeastro" for more projects!
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
+    // update the specific supplier
     public function update(Request $request, $id)
     {
-        $supplier = Supplier::find($id)->update($request->all());
-
-        return response()->json('Data saved successfully', 200);
+        try {
+            $supplier = Supplier::find($id)->update($request->all());
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Supplier updated successfully!'
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Error updating this supplier!'
+            ], 500);
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    // delete specific supplier
     public function destroy($id)
     {
-        $supplier = Supplier::find($id)->delete();
-
-        return response(null, 204);
+        try {
+            $supplier = Supplier::find($id)->delete();
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Supplier deleted successfully!'
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Error deleting this supplier!'
+            ], 500);
+        }
     }
 }
-// visit "codeastro" for more projects!

@@ -56,7 +56,7 @@ class KategoriController extends Controller
                 'message' => 'Category added successfully!'
             ], 200);
         }
-        catch (Exception $e) {
+        catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'Error adding category!'

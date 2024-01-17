@@ -81,7 +81,7 @@ class ProdukController extends Controller
                 'message' => 'Product successfully added!'
             ], 200);
         }
-        catch(Exception $e){
+        catch(\Exception $e){
             return response()->json([
                 'status' => 'error',
                 'message' => 'Error adding product!'
@@ -123,7 +123,8 @@ class ProdukController extends Controller
                 'status' => 'success',
                 'message' => 'Product successfully updated!'
             ], 200);
-        } catch(Exception $e) {
+        }
+        catch(\Exception $e) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'Error updating product!'
@@ -148,7 +149,7 @@ class ProdukController extends Controller
                 'message' => 'Products successfully deleted!'
             ], 200);
         }
-        catch (Exception $e) {
+        catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'Error deleting this product!'
@@ -172,7 +173,8 @@ class ProdukController extends Controller
                         'status' => 'success',
                         'message' => 'Selected product successfully deleted!'
                     ], 200);
-                }catch(Exception $e){
+                }
+                catch(\Exception $e){
                     return response()->json([
                         'status' => 'error',
                         'message' => 'Error deleting this selected product!'
