@@ -11,45 +11,47 @@ use PDF;
 
 class PenjualanController extends Controller
 {
+    // show the sales page
     public function index()
     {
         return view('penjualan.index');
     }
 
+    // show all sales
     public function data()
     {
-        $penjualan = Penjualan::with('member')->orderBy('id_penjualan', 'desc')->get();
+        $sales = Penjualan::with('member')->orderBy('id_penjualan', 'desc')->get();
 
         return datatables()
-            ->of($penjualan)
+            ->of($sales)
             ->addIndexColumn()
-            ->addColumn('total_item', function ($penjualan) {
-                return ($penjualan->total_item);
+            ->addColumn('total_item', function ($sales) {
+                return ($sales->total_item);
             })
-            ->addColumn('total_harga', function ($penjualan) {
-                return '₱ '. format_uang($penjualan->total_harga);
+            ->addColumn('total_harga', function ($sales) {
+                return '₱ '. format_uang($sales->total_harga);
             })
-            ->addColumn('bayar', function ($penjualan) {
-                return '₱ '. format_uang($penjualan->bayar);
+            ->addColumn('bayar', function ($sales) {
+                return '₱ '. format_uang($sales->bayar);
             })
-            ->addColumn('tanggal', function ($penjualan) {
-                return tanggal_indonesia($penjualan->created_at, false);
+            ->addColumn('tanggal', function ($sales) {
+                return tanggal_indonesia($sales->created_at, false);
             })
-            ->addColumn('kode_member', function ($penjualan) {
-                $member = $penjualan->member->kode_member ?? '';
+            ->addColumn('kode_member', function ($sales) {
+                $member = $sales->member->kode_member ?? '';
                 return '<span class="label label-success">'. $member .'</spa>';
             })
-            ->editColumn('diskon', function ($penjualan) {
-                return $penjualan->diskon . '%';
+            ->editColumn('diskon', function ($sales) {
+                return $sales->diskon . '%';
             })
-            ->editColumn('kasir', function ($penjualan) {
-                return $penjualan->user->name ?? '';
+            ->editColumn('kasir', function ($sales) {
+                return $sales->user->name ?? '';
             })
-            ->addColumn('aksi', function ($penjualan) {
+            ->addColumn('aksi', function ($sales) {
                 return '
                 <div class="btn-group">
-                    <button onclick="showDetail(`'. route('penjualan.show', $penjualan->id_penjualan) .'`)" class="btn btn-xs btn-primary btn-flat"><i class="fa fa-eye"></i></button>
-                    <button onclick="deleteData(`'. route('penjualan.destroy', $penjualan->id_penjualan) .'`)" class="btn btn-xs btn-danger btn-flat"><i class="fa fa-trash"></i></button>
+                    <button onclick="showDetail(`'. route('penjualan.show', $sales->id_penjualan) .'`)" class="btn btn-xs btn-primary btn-flat"><i class="fa fa-eye"></i></button>
+                    <button onclick="deleteData(`'. route('penjualan.destroy', $sales->id_penjualan) .'`)" class="btn btn-xs btn-danger btn-flat"><i class="fa fa-trash"></i></button>
                 </div>
                 ';
             })
@@ -97,49 +99,65 @@ class PenjualanController extends Controller
         return redirect()->route('transaksi.selesai');
     }
 
+    // show the specific sales details
     public function show($id)
     {
-        $detail = PenjualanDetail::with('produk')->where('id_penjualan', $id)->get();
+        try {
+            $detail = PenjualanDetail::with('produk')->where('id_penjualan', $id)->get();
 
-        return datatables()
-            ->of($detail)
-            ->addIndexColumn()
-            ->addColumn('kode_produk', function ($detail) {
-                return '<span class="label label-success">'. $detail->produk->kode_produk .'</span>';
-            })
-            ->addColumn('nama_produk', function ($detail) {
-                return $detail->produk->nama_produk;
-            })
-            ->addColumn('harga_jual', function ($detail) {
-                return '₱ '. format_uang($detail->harga_jual);
-            })
-            ->addColumn('jumlah', function ($detail) {
-                return ($detail->jumlah);
-            })
-            ->addColumn('subtotal', function ($detail) {
-                return '₱ '. format_uang($detail->subtotal);
-            })
-            ->rawColumns(['kode_produk'])
-            ->make(true);
+            return datatables()
+                ->of($detail)
+                ->addIndexColumn()
+                ->addColumn('kode_produk', function ($detail) {
+                    return '<span class="label label-success">'. $detail->produk->kode_produk .'</span>';
+                })
+                ->addColumn('nama_produk', function ($detail) {
+                    return $detail->produk->nama_produk;
+                })
+                ->addColumn('harga_jual', function ($detail) {
+                    return '₱ '. format_uang($detail->harga_jual);
+                })
+                ->addColumn('jumlah', function ($detail) {
+                    return ($detail->jumlah);
+                })
+                ->addColumn('subtotal', function ($detail) {
+                    return '₱ '. format_uang($detail->subtotal);
+                })
+                ->rawColumns(['kode_produk'])
+                ->make(true);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Sales not found!'
+            ], 404);
+        }
     }
 
+    // delete specific sales
     public function destroy($id)
     {
-        $penjualan = Penjualan::find($id);
-        $detail    = PenjualanDetail::where('id_penjualan', $penjualan->id_penjualan)->get();
+      try {
+        $sales = Penjualan::find($id);
+        $detail    = PenjualanDetail::where('id_penjualan', $sales->id_penjualan)->get();
         foreach ($detail as $item) {
             $produk = Produk::find($item->id_produk);
             if ($produk) {
                 $produk->stok += $item->jumlah;
                 $produk->update();
             }
-
             $item->delete();
         }
-
-        $penjualan->delete();
-
-        return response(null, 204);
+        $sales->delete();
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Sales deleted successfully.'
+            ], 200);
+      } catch (\Throwable $th) {
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Error deleting this sales!'
+        ], 500);
+      }
     }
 
     public function selesai()
