@@ -83,68 +83,89 @@ class UserController extends Controller
         //
     }
 
-
-    // End of the day
-
-
+    // update the user's details
     public function update(Request $request, $id)
     {
-        $user = User::find($id);
-        $user->name = $request->name;
-        $user->email = $request->email;
-        if ($request->has('password') && $request->password != "")
-            $user->password = bcrypt($request->password);
-        $user->update();
+        try {
+            $user = User::find($id);
+            $user->name = $request->name;
+            $user->email = $request->email;
+            if ($request->has('password') && $request->password != "")
+                $user->password = bcrypt($request->password);
+            $user->update();
 
-        return response()->json('Data saved successfully', 200);
+            return response()->json([
+                'status' => 'success',
+                'message' => 'User updated successfully.'
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Error updating this user!'
+            ], 500);
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    // delete specific user
     public function destroy($id)
     {
-        $user = User::find($id)->delete();
+        try {
+            $user = User::find($id)->delete();
 
-        return response(null, 204);
+            return response()->json([
+                'status' => 'success',
+                'message' => 'User deleted successfully.'
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Error deleting user!'
+            ], 500);
+        }
     }
 
+    // view profile page
     public function profil()
     {
         $profil = auth()->user();
         return view('user.profil', compact('profil'));
     }
 
+    // update user profile
     public function updateProfil(Request $request)
     {
-        $user = auth()->user();
+        try {
+            $user = auth()->user();
 
-        $user->name = $request->name;
-        if ($request->has('password') && $request->password != "") {
-            if (Hash::check($request->old_password, $user->password)) {
-                if ($request->password == $request->password_confirmation) {
-                    $user->password = bcrypt($request->password);
+            $user->name = $request->name;
+            if ($request->has('password') && $request->password != "") {
+                if (Hash::check($request->old_password, $user->password)) {
+                    if ($request->password == $request->password_confirmation) {
+                        $user->password = bcrypt($request->password);
+                    } else {
+                        return response()->json('Confirm password is incorrect!', 422);
+                    }
                 } else {
-                    return response()->json('Confirm password is incorrect', 422);
+                    return response()->json('Old password is incorrect!', 422);
                 }
-            } else {
-                return response()->json('The old password is incorrect', 422);
             }
+
+            if ($request->hasFile('foto')) {
+                $file = $request->file('foto');
+                $nama = 'logo-' . date('YmdHis') . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('/img'), $nama);
+
+                $user->foto = "/img/$nama";
+            }
+
+            $user->update();
+
+            return response()->json([
+                'title' => 'Success',
+                'message' => 'Profile updated successfully.'
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json('Error saving profile!', 500);
         }
-
-        if ($request->hasFile('foto')) {
-            $file = $request->file('foto');
-            $nama = 'logo-' . date('YmdHis') . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('/img'), $nama);
-
-            $user->foto = "/img/$nama";
-        }
-
-        $user->update();
-
-        return response()->json($user, 200);
     }
 }

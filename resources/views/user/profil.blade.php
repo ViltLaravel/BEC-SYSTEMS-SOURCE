@@ -16,10 +16,6 @@
             <form action="{{ route('user.update_profil') }}" method="post" class="form-profil" data-toggle="validator" enctype="multipart/form-data">
                 @csrf
                 <div class="box-body">
-                    <div class="alert alert-info alert-dismissible" style="display: none;">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                        <i class="icon fa fa-check"></i> Changes saved successfully
-                    </div>
                     <div class="form-group row">
                         <label for="name" class="col-lg-2 control-label">Name</label>
                         <div class="col-lg-6">
@@ -42,7 +38,7 @@
                     <div class="form-group row">
                         <label for="old_password" class="col-lg-2 control-label">Old Password</label>
                         <div class="col-lg-6">
-                            <input type="password" name="old_password" id="old_password" class="form-control" 
+                            <input type="password" name="old_password" id="old_password" class="form-control"
                             minlength="6">
                             <span class="help-block with-errors"></span>
                         </div>
@@ -50,7 +46,7 @@
                     <div class="form-group row">
                         <label for="password" class="col-lg-2 control-label">Password</label>
                         <div class="col-lg-6">
-                            <input type="password" name="password" id="password" class="form-control" 
+                            <input type="password" name="password" id="password" class="form-control"
                             minlength="6">
                             <span class="help-block with-errors"></span>
                         </div>
@@ -58,7 +54,7 @@
                     <div class="form-group row">
                         <label for="password_confirmation" class="col-lg-2 control-label">Confirm Password</label>
                         <div class="col-lg-6">
-                            <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" 
+                            <input type="password" name="password_confirmation" id="password_confirmation" class="form-control"
                                 data-match="#password">
                             <span class="help-block with-errors"></span>
                         </div>
@@ -96,16 +92,16 @@
                     $('.tampil-foto').html(`<img src="{{ url('/') }}${response.foto}" width="200">`);
                     $('.img-profil').attr('src', `{{ url('/') }}/${response.foto}`);
 
-                    $('.alert').fadeIn();
+                    Swal.fire(response.title, response.message, 'success');
                     setTimeout(() => {
-                        $('.alert').fadeOut();
+                        window.location.reload();
                     }, 3000);
                 })
                 .fail(errors => {
                     if (errors.status == 422) {
-                        alert(errors.responseJSON); 
+                        Swal.fire("Error", errors.responseJSON, 'error');
                     } else {
-                        alert('Unable to save data');
+                        Swal.fire("Error", errors.responseJSON, 'error');
                     }
                     return;
                 });

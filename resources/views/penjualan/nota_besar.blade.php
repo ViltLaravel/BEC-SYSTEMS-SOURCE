@@ -9,7 +9,7 @@
     <style>
         table td {
             /* font-family: Arial, Helvetica, sans-serif; */
-            font-size: 14px;
+            font-size: 12px;
         }
         table.data td,
         table.data th {
@@ -31,7 +31,7 @@
     <table width="100%">
         <tr>
             <td rowspan="4" width="60%">
-                <img src="{{ public_path($setting->path_logo) }}" alt="{{ $setting->path_logo }}" width="120">
+                <img src="{{ public_path($setting->path_logo) }}" alt="{{ $setting->path_logo }}" width="50">
                 <br>
                 {{ $setting->alamat }}
                 <br>
