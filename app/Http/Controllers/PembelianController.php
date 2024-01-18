@@ -8,6 +8,7 @@ use App\Models\PembelianDetail;
 use App\Models\Produk;
 use App\Models\Supplier;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Session;
 
 class PembelianController extends Controller
 {
@@ -87,6 +88,8 @@ class PembelianController extends Controller
         }
     }
 
+
+    // storing new purchase
     public function store(Request $request)
     {
         try {
@@ -104,9 +107,22 @@ class PembelianController extends Controller
                 $product->update();
             }
 
-            return redirect()->route('pembelian.index');
+            $message = 'Purchase added successfully.';
+            Session::flash('sweetAlertMessage', $message);
+            Session::flash('showSweetAlert', true);
+            Session::flash('sweetAlertIcon', 'success');
+            Session::flash('sweetAlertTitle', 'Success');
+
+            return redirect()->route('pembelian.index')->withInput();
+
         } catch (\Throwable $th) {
-            return response(null, 404);
+            $message = 'Error adding this purchase!';
+            Session::flash('sweetAlertMessage', $message);
+            Session::flash('showSweetAlert', true);
+            Session::flash('sweetAlertIcon', 'error');
+            Session::flash('sweetAlertTitle', 'Error');
+
+            return redirect()->route('pembelian.index')->withInput();
         }
     }
 

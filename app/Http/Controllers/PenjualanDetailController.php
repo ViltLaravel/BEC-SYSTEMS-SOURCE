@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 
 class PenjualanDetailController extends Controller
 {
+    // show the data in the sales transaction page
     public function index()
     {
         $produk = Produk::orderBy('nama_produk')->get();
@@ -32,56 +33,71 @@ class PenjualanDetailController extends Controller
         }
     }
 
+    // display the selected product in the datatable
     public function data($id)
     {
-        $detail = PenjualanDetail::with('produk')
+        try {
+            $detail = PenjualanDetail::with('produk')
             ->where('id_penjualan', $id)
             ->get();
 
-        $data = array();
-        $total = 0;
-        $total_item = 0;
+            $data = array();
+            $total = 0;
+            $total_item = 0;
 
-        foreach ($detail as $item) {
-            $row = array();
-            $row['kode_produk'] = '<span class="label label-success">'. $item->produk['kode_produk'] .'</span';
-            $row['nama_produk'] = $item->produk['nama_produk'];
-            $row['harga_jual']  = '₱ '. format_uang($item->harga_jual);
-            $row['jumlah']      = '<input type="number" class="form-control input-sm quantity" data-id="'. $item->id_penjualan_detail .'" value="'. $item->jumlah .'">';
-            $row['diskon']      = $item->diskon . '%';
-            $row['subtotal']    = '₱ '. format_uang($item->subtotal);
-            $row['aksi']        = '<div class="btn-group">
-                                    <button onclick="deleteData(`'. route('transaksi.destroy', $item->id_penjualan_detail) .'`)" class="btn btn-xs btn-danger btn-flat"><i class="fa fa-trash"></i></button>
-                                </div>';
-            $data[] = $row;
+            foreach ($detail as $item) {
+                $row = array();
+                $row['kode_produk'] = '<span class="label label-success">'. $item->produk['kode_produk'] .'</span';
+                $row['nama_produk'] = $item->produk['nama_produk'];
+                $row['harga_jual']  = '₱ '. format_uang($item->harga_jual);
+                $row['jumlah']      = '<input type="number" class="form-control input-sm quantity" data-id="'. $item->id_penjualan_detail .'" value="'. $item->jumlah .'">';
+                $row['diskon']      = $item->diskon . '%';
+                $row['subtotal']    = '₱ '. format_uang($item->subtotal);
+                $row['aksi']        = '<div class="btn-group">
+                                        <button onclick="deleteData(`'. route('transaksi.destroy', $item->id_penjualan_detail) .'`)" class="btn btn-xs btn-danger btn-flat"><i class="fa fa-trash"></i></button>
+                                    </div>';
+                $data[] = $row;
 
-            $total += $item->harga_jual * $item->jumlah - (($item->diskon * $item->jumlah) / 100 * $item->harga_jual);;
-            $total_item += $item->jumlah;
+                $total += $item->harga_jual * $item->jumlah - (($item->diskon * $item->jumlah) / 100 * $item->harga_jual);;
+                $total_item += $item->jumlah;
+            }
+            $data[] = [
+                'kode_produk' => '
+                    <div class="total hide">'. $total .'</div>
+                    <div class="total_item hide">'. $total_item .'</div>',
+                'nama_produk' => '',
+                'harga_jual'  => '',
+                'jumlah'      => '',
+                'diskon'      => '',
+                'subtotal'    => '',
+                'aksi'        => '',
+            ];
+
+            return datatables()
+                ->of($data)
+                ->addIndexColumn()
+                ->rawColumns(['aksi', 'kode_produk', 'jumlah'])
+                ->make(true);
+        } catch (\Throwable $th) {
+            $message = 'Unable to display the data!';
+            Session::flash('sweetAlertMessage', $message);
+            Session::flash('showSweetAlert', true);
+            Session::flash('sweetAlertIcon', 'error');
+            Session::flash('sweetAlertTitle', 'Error');
+
+            return redirect()->route('transaksi.baru')->withInput();
         }
-        $data[] = [
-            'kode_produk' => '
-                <div class="total hide">'. $total .'</div>
-                <div class="total_item hide">'. $total_item .'</div>',
-            'nama_produk' => '',
-            'harga_jual'  => '',
-            'jumlah'      => '',
-            'diskon'      => '',
-            'subtotal'    => '',
-            'aksi'        => '',
-        ];
-
-        return datatables()
-            ->of($data)
-            ->addIndexColumn()
-            ->rawColumns(['aksi', 'kode_produk', 'jumlah'])
-            ->make(true);
     }
 
+    // store the product that is selected and will be displayed in the data
     public function store(Request $request)
     {
         $produk = Produk::where('id_produk', $request->id_produk)->first();
         if (! $produk) {
-            return response()->json('Data failed to save', 400);
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Error adding this product!'
+            ], 500);
         }
 
         $detail = new PenjualanDetail();
@@ -93,9 +109,13 @@ class PenjualanDetailController extends Controller
         $detail->subtotal = $produk->harga_jual - ($produk->diskon / 100 * $produk->harga_jual);;
         $detail->save();
 
-        return response()->json('Data saved successfully', 200);
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Product successfully added.'
+        ], 200);
     }
-    // visit "codeastro" for more projects!
+
+    // update the sales
     public function update(Request $request, $id)
     {
         $detail = PenjualanDetail::find($id);
@@ -104,27 +124,48 @@ class PenjualanDetailController extends Controller
         $detail->update();
     }
 
+    // deleted the selected product
     public function destroy($id)
     {
-        $detail = PenjualanDetail::find($id);
-        $detail->delete();
+        try {
+            $detail = PenjualanDetail::find($id);
+            $detail->delete();
 
-        return response(null, 204);
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Product removed successfully.'
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Error removing this product!'
+            ], 500);
+        }
     }
 
+    // load the data realtime
     public function loadForm($diskon = 0, $total = 0, $diterima = 0)
     {
         $bayar   = $total - ($diskon / 100 * $total);
         $kembali = ($diterima != 0) ? $diterima - $bayar : 0;
-        $data    = [
-            'totalrp' => format_uang($total),
-            'bayar' => $bayar,
-            'bayarrp' => format_uang($bayar),
-            'terbilang' => ucwords(terbilang($bayar). ' Pesos'),
-            'kembalirp' => format_uang($kembali),
-            'kembali_terbilang' => ucwords(terbilang($kembali). ' Pesos'),
-        ];
+        try {
+            $data    = [
+                'totalrp' => format_uang($total),
+                'bayar' => $bayar,
+                'bayarrp' => format_uang($bayar),
+                'terbilang' => ucwords(terbilang($bayar). ' Pesos'),
+                'kembalirp' => format_uang($kembali),
+                'kembali_terbilang' => ucwords(terbilang($kembali). ' Pesos'),
+            ];
+            return response()->json($data);
+        } catch (\Throwable $th) {
+            $message = 'Unable to load data!';
+            Session::flash('sweetAlertMessage', $message);
+            Session::flash('showSweetAlert', true);
+            Session::flash('sweetAlertIcon', 'error');
+            Session::flash('sweetAlertTitle', 'error');
 
-        return response()->json($data);
+            return redirect()->route('transaksi.baru')->withInput();
+        }
     }
 }

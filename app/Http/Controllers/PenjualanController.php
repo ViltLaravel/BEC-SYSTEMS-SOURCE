@@ -8,6 +8,7 @@ use App\Models\Produk;
 use App\Models\Setting;
 use Illuminate\Http\Request;
 use PDF;
+use Illuminate\Support\Facades\Session;
 
 class PenjualanController extends Controller
 {
@@ -59,44 +60,74 @@ class PenjualanController extends Controller
             ->make(true);
     }
 
+    // archieve the latest sales
     public function create()
     {
-        $penjualan = new Penjualan();
-        $penjualan->id_member = null;
-        $penjualan->total_item = 0;
-        $penjualan->total_harga = 0;
-        $penjualan->diskon = 0;
-        $penjualan->bayar = 0;
-        $penjualan->diterima = 0;
-        $penjualan->id_user = auth()->id();
-        $penjualan->save();
+        try {
+            $penjualan = new Penjualan();
+            $penjualan->id_member = null;
+            $penjualan->total_item = 0;
+            $penjualan->total_harga = 0;
+            $penjualan->diskon = 0;
+            $penjualan->bayar = 0;
+            $penjualan->diterima = 0;
+            $penjualan->id_user = auth()->id();
+            $penjualan->save();
 
-        session(['id_penjualan' => $penjualan->id_penjualan]);
-        return redirect()->route('transaksi.index');
+            session(['id_penjualan' => $penjualan->id_penjualan]);
+
+            return redirect()->route('transaksi.index');
+
+        } catch (\Throwable $th) {
+            $message = 'Error archieving latest sales!';
+            Session::flash('sweetAlertMessage', $message);
+            Session::flash('showSweetAlert', true);
+            Session::flash('sweetAlertIcon', 'error');
+            Session::flash('sweetAlertTitle', 'error');
+
+            return redirect()->route('transaksi.index')->withInput();
+        }
     }
 
+    // store new sales
     public function store(Request $request)
     {
-        $penjualan = Penjualan::findOrFail($request->id_penjualan);
-        $penjualan->id_member = $request->id_member;
-        $penjualan->total_item = $request->total_item;
-        $penjualan->total_harga = $request->total;
-        $penjualan->diskon = $request->diskon;
-        $penjualan->bayar = $request->bayar;
-        $penjualan->diterima = $request->diterima;
-        $penjualan->update();
+        try {
+            $penjualan = Penjualan::findOrFail($request->id_penjualan);
+            $penjualan->id_member = $request->id_member;
+            $penjualan->total_item = $request->total_item;
+            $penjualan->total_harga = $request->total;
+            $penjualan->diskon = $request->diskon;
+            $penjualan->bayar = $request->bayar;
+            $penjualan->diterima = $request->diterima;
+            $penjualan->update();
 
-        $detail = PenjualanDetail::where('id_penjualan', $penjualan->id_penjualan)->get();
-        foreach ($detail as $item) {
-            $item->diskon = $request->diskon;
-            $item->update();
+            $detail = PenjualanDetail::where('id_penjualan', $penjualan->id_penjualan)->get();
+            foreach ($detail as $item) {
+                $item->diskon = $request->diskon;
+                $item->update();
 
-            $produk = Produk::find($item->id_produk);
-            $produk->stok -= $item->jumlah;
-            $produk->update();
+                $produk = Produk::find($item->id_produk);
+                $produk->stok -= $item->jumlah;
+                $produk->update();
+            }
+            $message = 'Sales added successfully.';
+            Session::flash('sweetAlertMessage', $message);
+            Session::flash('showSweetAlert', true);
+            Session::flash('sweetAlertIcon', 'success');
+            Session::flash('sweetAlertTitle', 'Success');
+
+            return redirect()->route('transaksi.selesai')->withInput();
+
+        } catch (\Throwable $th) {
+            $message = 'Error saving this sales!';
+            Session::flash('sweetAlertMessage', $message);
+            Session::flash('showSweetAlert', true);
+            Session::flash('sweetAlertIcon', 'error');
+            Session::flash('sweetAlertTitle', 'error');
+
+            return redirect()->route('transaksi.selesai')->withInput();
         }
-
-        return redirect()->route('transaksi.selesai');
     }
 
     // show the specific sales details
@@ -160,6 +191,8 @@ class PenjualanController extends Controller
       }
     }
 
+
+    // settings in customizing the layouts
     public function selesai()
     {
         $setting = Setting::first();

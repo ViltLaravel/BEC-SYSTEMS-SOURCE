@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 
 class PembelianDetailController extends Controller
 {
+    // show and display the data in the page
     public function index()
     {
         $id_pembelian = session('id_pembelian');
@@ -24,6 +25,7 @@ class PembelianDetailController extends Controller
         return view('pembelian_detail.index', compact('id_pembelian', 'produk', 'supplier', 'diskon'));
     }
 
+    // displaying the product in the datatable
     public function data($id)
     {
         $detail = PembelianDetail::with('produk')
@@ -66,51 +68,61 @@ class PembelianDetailController extends Controller
             ->make(true);
     }
 
+    // store product
     public function store(Request $request)
     {
-        $produk = Produk::where('id_produk', $request->id_produk)->first();
-        if (! $produk) {
-            return response()->json('Data failed to save', 400);
+        $product = Produk::where('id_produk', $request->id_produk)->first();
+        if (! $product) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Error fetching the product!'
+            ], 500);
         }
 
         $detail = new PembelianDetail();
         $detail->id_pembelian = $request->id_pembelian;
-        $detail->id_produk = $produk->id_produk;
-        $detail->harga_beli = $produk->harga_beli;
+        $detail->id_produk = $product->id_produk;
+        $detail->harga_beli = $product->harga_beli;
         $detail->jumlah = 1;
-        $detail->subtotal = $produk->harga_beli;
+        $detail->subtotal = $product->harga_beli;
         $detail->save();
 
-        return response()->json('Data saved successfully', 200);
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Product added successfully'
+        ], 200);
     }
 
     // update the purchase
     public function update(Request $request, $id)
     {
+        $detail = PembelianDetail::findOrFail($id);
+
+        $detail->update([
+            'jumlah' => $request->jumlah,
+            'subtotal' => $detail->harga_beli * $request->jumlah,
+        ]);
+
+        return response()->json('Purchase updated successfully', 200);
+    }
+
+    // delete the product added in the datatable
+    public function destroy($id)
+    {
+        $product_detail = PembelianDetail::find($id);
         try {
-            $detail = PembelianDetail::findOrFail($id);
-
-            $detail->update([
-                'jumlah' => $request->jumlah,
-                'subtotal' => $detail->harga_beli * $request->jumlah,
-            ]);
-
+            $product_detail->delete();
             return response()->json([
                 'status' => 'success',
-                'message' => 'Purchase updated successfully.'
+                'message' => 'Product successfully removed!'
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Error updating purchase details!'
-            ], 500);
+                'message' => 'Product details not found!'
+            ], 404);
         }
-    }
 
-    public function destroy($id)
-    {
-        $detail = PembelianDetail::find($id);
-        $detail->delete();
 
         return response(null, 204);
     }

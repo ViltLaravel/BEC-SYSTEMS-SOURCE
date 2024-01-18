@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -20,10 +21,12 @@
        folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="{{ asset('/AdminLTE-2/dist/css/skins/_all-skins.min.css') }}">
     <!-- DataTables -->
-    <link rel="stylesheet" href="{{ asset('/AdminLTE-2/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
+    <link rel="stylesheet"
+        href="{{ asset('/AdminLTE-2/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
 
     <!-- Google Font -->
-    <link rel="stylesheet"href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    <link
+        rel="stylesheet"href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -82,11 +85,25 @@
     <script src="{{ asset('js/validator.min.js') }}"></script>
 
     <script>
-        function preview(selector, temporaryFile, width = 200)  {
+        function preview(selector, temporaryFile, width = 200) {
             $(selector).empty();
             $(selector).append(`<img src="${window.URL.createObjectURL(temporaryFile)}" width="${width}">`);
         }
     </script>
     @stack('scripts')
+
+    @if (session('showSweetAlert'))
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                Swal.fire({
+                    icon: '{!! session('sweetAlertIcon') !!}',
+                    title: '{!! session('sweetAlertTitle') !!}',
+                    text: '{!! session('sweetAlertMessage') !!}',
+                });
+            });
+        </script>
+    @endif
+    
 </body>
+
 </html>
