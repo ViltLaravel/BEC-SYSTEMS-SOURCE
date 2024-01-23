@@ -282,16 +282,22 @@
 
         // add the products
         function tambahProduk() {
-            $.post('{{ route('transaksi.store') }}', $('.form-produk').serialize())
-                .done(response => {
-                    $('#kode_produk').focus();
-                    table.ajax.reload(() => loadForm($('#diskon').val()));
-                    Swal.fire("Success", response.message, 'success');
-                })
-                .fail(errors => {
-                    Swal.fire("Error", response.message, 'error');
-                    return;
-                });
+        $.post('{{ route('transaksi.store') }}', $('.form-produk').serialize())
+            .done(response => {
+                $('#kode_produk').focus();
+                table.ajax.reload(() => loadForm($('#diskon').val()));
+                Swal.fire("Success", response.message, 'success');
+            })
+            .fail(errors => {
+                // Handle error response and show error message
+                let errorMessage = "An error occurred while processing the request.";
+
+                if (errors.responseJSON && errors.responseJSON.message) {
+                    errorMessage = errors.responseJSON.message;
+                }
+
+                Swal.fire("Error", errorMessage, 'error');
+            });
         }
 
         // member modal show

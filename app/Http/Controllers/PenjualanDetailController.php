@@ -93,21 +93,36 @@ class PenjualanDetailController extends Controller
     public function store(Request $request)
     {
         $produk = Produk::where('id_produk', $request->id_produk)->first();
-        if (! $produk) {
+
+        // Check if the product exists
+        if (!$produk) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'Error adding this product!'
             ], 500);
         }
 
+        // Check if the product is out of stock
+        if ($produk->stok <= 0) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Product is out of stock and cannot be added to the sale.'
+            ], 400);
+        }
+
+        // Continue with the sale if the product is available
         $detail = new PenjualanDetail();
         $detail->id_penjualan = $request->id_penjualan;
         $detail->id_produk = $produk->id_produk;
         $detail->harga_jual = $produk->harga_jual;
         $detail->jumlah = 1;
         $detail->diskon = $produk->diskon;
-        $detail->subtotal = $produk->harga_jual - ($produk->diskon / 100 * $produk->harga_jual);;
+        $detail->subtotal = $produk->harga_jual - ($produk->diskon / 100 * $produk->harga_jual);
         $detail->save();
+
+        // Update the product stock
+        $produk->stok - 1;
+        $produk->save();
 
         return response()->json([
             'status' => 'success',

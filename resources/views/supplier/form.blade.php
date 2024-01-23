@@ -21,7 +21,7 @@
                     <div class="form-group row">
                         <label for="telepon" class="col-lg-2 col-lg-offset-1 control-label">Telephone</label>
                         <div class="col-lg-6">
-                            <input type="text" name="telepon" id="telepon" class="form-control" required>
+                            <input type="number" name="telepon" id="telepon" class="form-control" required>
                             <span class="help-block with-errors"></span>
                         </div>
                     </div>

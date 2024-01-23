@@ -65,7 +65,7 @@
                     <td>{{ $item->produk->nama_produk }}</td>
                     <td>{{ $item->produk->kode_produk }}</td>
                     <td class="text-right">{{ format_uang($item->harga_jual) }}</td>
-                    <td class="text-right">{{ format_uang($item->jumlah) }}</td>
+                    <td class="text-right">{{ $item->jumlah }}</td>
                     <td class="text-right">{{ $item->diskon }}</td>
                     <td class="text-right">{{ format_uang($item->subtotal) }}</td>
                 </tr>
