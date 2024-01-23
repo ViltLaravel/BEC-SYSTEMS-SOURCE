@@ -25,7 +25,7 @@
             @if (auth()->user()->level == 1)
             <li class="header">MASTER</li>
             <li>
-                <a href="{{ route('kategori.index') }}">
+                <a href="{{ route('category.data') }}">
                     <i class="fa fa-cube"></i> <span>Category</span>
                 </a>
             </li>

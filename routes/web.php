@@ -15,6 +15,7 @@ use App\Http\Controllers\{
     SupplierController,
     UserController,
 };
+use App\Http\Controllers\Category\CategoryController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 
@@ -37,8 +38,14 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::group(['middleware' => 'level:1'], function () {
-        Route::get('/kategori/data', [KategoriController::class, 'data'])->name('kategori.data');
-        Route::resource('/kategori', KategoriController::class);
+        // Route::get('/kategori/data', [KategoriController::class, 'data'])->name('kategori.data');
+        // Route::resource('/kategori', KategoriController::class);
+
+        // start category routes
+        Route::get('/category/data', [CategoryController::class, 'data'])->name('category.data');
+        Route::resource('/category', CategoryController::class);
+        // end category routes
+
 
         Route::get('/produk/data', [ProdukController::class, 'data'])->name('produk.data');
         Route::post('/produk/delete-selected', [ProdukController::class, 'deleteSelected'])->name('produk.delete_selected');
