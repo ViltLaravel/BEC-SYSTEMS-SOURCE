@@ -143,11 +143,32 @@ class PenjualanDetailController extends Controller
     // update the sales
     public function update(Request $request, $id)
     {
-        $detail = PenjualanDetail::find($id);
-        $detail->jumlah = $request->jumlah;
-        $detail->subtotal = $detail->harga_jual * $request->jumlah - (($detail->diskon * $request->jumlah) / 100 * $detail->harga_jual);;
-        $detail->update();
+        try {
+            $detail = PenjualanDetail::findOrFail($id);
+
+            // Validate input
+            $request->validate([
+                'jumlah' => 'required|integer|min:1', // Add any additional validation rules as needed
+            ]);
+
+            // Check if the requested quantity exceeds the stock
+            if ($request->jumlah > $detail->produk->stok) {
+                return response()->json(['error' => 'Quantity exceeds available stock'], 400);
+            }
+
+            // Update quantity and subtotal
+            $detail->jumlah = $request->jumlah;
+            $detail->subtotal = $detail->harga_jual * $request->jumlah - (($detail->diskon * $request->jumlah) / 100 * $detail->harga_jual);
+            $detail->save();
+
+            // Return success response
+            return response()->json(['message' => 'PenjualanDetail updated successfully']);
+        } catch (\Throwable $th) {
+            // Log the error or handle it as needed
+            return response()->json(['error' => 'Unable to update PenjualanDetail'], 500);
+        }
     }
+
 
     // deleted the selected product
     public function destroy($id)

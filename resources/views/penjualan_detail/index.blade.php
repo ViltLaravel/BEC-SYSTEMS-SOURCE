@@ -200,27 +200,6 @@
                     bSort: false,
                     paginate: false
                 })
-
-                  // Event delegation for input changes on quantity inputs
-                  $('.table-penjualan').on('input', '.quantity', function() {
-                    var row = table.row($(this).closest('tr')).data();
-                    var quantity = parseInt($(this).val());
-
-                    // Check if quantity exceeds stock
-                    if (quantity > parseInt(row.produk.stok)) {
-                        Swal.fire("Error", "Quantity exceeds available stock!", "error");
-                        // Optionally, you can disable the input or highlight it for better user experience
-                        $(this).addClass('quantity-exceeds-stock');
-                    } else {
-                        // Remove the highlight if the quantity is within the stock limit
-                        $(this).removeClass('quantity-exceeds-stock');
-                    }
-
-                    // Update the DataTable's data with the new quantity
-                    row.jumlah = quantity;
-                    table.row($(this).closest('tr')).data(row).draw(false);
-                })
-
                 .on('draw.dt', function() {
                     loadForm($('#diskon').val());
                     setTimeout(() => {
@@ -231,35 +210,49 @@
             table2 = $('.table-produk').DataTable();
 
             $(document).on('input', '.quantity', function() {
-                let id = $(this).data('id');
-                let jumlah = parseInt($(this).val());
+    let id = $(this).data('id');
+    let newQuantity = parseInt($(this).val());
 
-                if (jumlah < 1) {
-                    $(this).val(1);
-                    Swal.fire("Error", "The number cannot be less than 1", 'error');
-                    return;
-                }
-                if (jumlah > 10000) {
-                    $(this).val(10000);
-                    Swal.fire("Warning", "The number cannot exceed 10000", 'warning');
-                    return;
-                }
+    if (newQuantity < 1) {
+        $(this).val(1);
+        Swal.fire("Error", "The number cannot be less than 1", 'error');
+        return;
+    }
+    if (newQuantity > 10000) {
+        $(this).val(10000);
+        Swal.fire("Warning", "The number cannot exceed 10000", 'warning');
+        return;
+    }
 
-                $.post(`{{ url('/transaksi') }}/${id}`, {
-                        '_token': $('[name=csrf-token]').attr('content'),
-                        '_method': 'put',
-                        'jumlah': jumlah
-                    })
-                    .done(response => {
-                        $(this).on('mouseout', function() {
-                            table.ajax.reload(() => loadForm($('#diskon').val()));
-                        });
-                    })
-                    .fail(errors => {
-                        Swal.fire("Error", "Unable to save data", 'error');
-                        return;
-                    });
-            });
+    // Perform stock check before updating
+    $.ajax({
+        url: `{{ url('/transaksi') }}/${id}`,
+        method: 'PUT',
+        data: {
+            '_token': $('[name=csrf-token]').attr('content'),
+            '_method': 'put',
+            'jumlah': newQuantity
+        },
+        success: function(response) {
+            // Handle success
+            // Assuming the response includes a 'message' indicating success
+            Swal.fire("Success", response.message, 'success');
+
+            // Reload the DataTable and perform additional actions
+            table.ajax.reload(() => loadForm($('#diskon').val()));
+        },
+        error: function(jqXHR) {
+            // Handle error
+            if (jqXHR.status === 400) {
+                // Quantity exceeds available stock
+                Swal.fire("Error", "Quantity exceeds available stock", 'error');
+            } else {
+                // Other errors
+                Swal.fire("Error", "Unable to save data", 'error');
+            }
+        }
+    });
+});
 
             $(document).on('input', '#diskon', function() {
                 if ($(this).val() == "") {
