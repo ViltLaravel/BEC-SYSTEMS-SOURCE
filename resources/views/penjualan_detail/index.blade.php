@@ -210,49 +210,44 @@
             table2 = $('.table-produk').DataTable();
 
             $(document).on('input', '.quantity', function() {
-    let id = $(this).data('id');
-    let newQuantity = parseInt($(this).val());
+                let id = $(this).data('id');
+                let newQuantity = parseInt($(this).val());
 
-    if (newQuantity < 1) {
-        $(this).val(1);
-        Swal.fire("Error", "The number cannot be less than 1", 'error');
-        return;
-    }
-    if (newQuantity > 10000) {
-        $(this).val(10000);
-        Swal.fire("Warning", "The number cannot exceed 10000", 'warning');
-        return;
-    }
+                if (newQuantity < 1) {
+                    $(this).val(1);
+                    Swal.fire("Error", "The number cannot be less than 1", 'error');
+                    return;
+                }
+                if (newQuantity > 10000) {
+                    $(this).val(10000);
+                    Swal.fire("Warning", "The number cannot exceed 10000", 'warning');
+                    return;
+                }
 
-    // Perform stock check before updating
-    $.ajax({
-        url: `{{ url('/transaksi') }}/${id}`,
-        method: 'PUT',
-        data: {
-            '_token': $('[name=csrf-token]').attr('content'),
-            '_method': 'put',
-            'jumlah': newQuantity
-        },
-        success: function(response) {
-            // Handle success
-            // Assuming the response includes a 'message' indicating success
-            Swal.fire("Success", response.message, 'success');
-
-            // Reload the DataTable and perform additional actions
-            table.ajax.reload(() => loadForm($('#diskon').val()));
-        },
-        error: function(jqXHR) {
-            // Handle error
-            if (jqXHR.status === 400) {
-                // Quantity exceeds available stock
-                Swal.fire("Error", "Quantity exceeds available stock", 'error');
-            } else {
-                // Other errors
-                Swal.fire("Error", "Unable to save data", 'error');
-            }
-        }
-    });
-});
+                // Perform stock check before updating
+                $.ajax({
+                    url: `{{ url('/transaksi') }}/${id}`,
+                    method: 'PUT',
+                    data: {
+                        '_token': $('[name=csrf-token]').attr('content'),
+                        '_method': 'put',
+                        'jumlah': newQuantity
+                    },
+                    success: function(response) {
+                        table.ajax.reload(() => loadForm($('#diskon').val()));
+                    },
+                    error: function(jqXHR) {
+                        // Handle error
+                        if (jqXHR.status === 400) {
+                            // Quantity exceeds available stock
+                            Swal.fire("Error", "Quantity exceeds available stock", 'error');
+                        } else {
+                            // Other errors
+                            Swal.fire("Error", "Unable to save data", 'error');
+                        }
+                    }
+                });
+            });
 
             $(document).on('input', '#diskon', function() {
                 if ($(this).val() == "") {

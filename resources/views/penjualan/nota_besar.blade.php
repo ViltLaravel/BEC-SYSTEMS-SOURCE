@@ -54,7 +54,7 @@
                 <th>Name</th>
                 <th>Unit Price</th>
                 <th>Quantity</th>
-                <th>Discount</th>
+                {{-- <th>Discount</th> --}}
                 <th>Subtotal</th>
             </tr>
         </thead>
@@ -62,34 +62,34 @@
             @foreach ($detail as $key => $item)
                 <tr>
                     <td class="text-center">{{ $key+1 }}</td>
-                    <td>{{ $item->produk->nama_produk }}</td>
                     <td>{{ $item->produk->kode_produk }}</td>
+                    <td>{{ $item->produk->nama_produk }}</td>
                     <td class="text-right">{{ format_uang($item->harga_jual) }}</td>
                     <td class="text-right">{{ $item->jumlah }}</td>
-                    <td class="text-right">{{ $item->diskon }}</td>
+                    {{-- <td class="text-right">{{ $item->diskon }}</td> --}}
                     <td class="text-right">{{ format_uang($item->subtotal) }}</td>
                 </tr>
             @endforeach
         </tbody>
         <tfoot>
             <tr>
-                <td colspan="6" class="text-right"><b>Total Price</b></td>
+                <td colspan="5" class="text-right"><b>Total Price</b></td>
                 <td class="text-right"><b>{{ format_uang($penjualan->total_harga) }}</b></td>
             </tr>
-            <tr>
+            {{-- <tr>
                 <td colspan="6" class="text-right"><b>Discount</b></td>
                 <td class="text-right"><b>{{ format_uang($penjualan->diskon) }}</b></td>
-            </tr>
+            </tr> --}}
             <tr>
-                <td colspan="6" class="text-right"><b>Total Pay</b></td>
+                <td colspan="5" class="text-right"><b>Total Pay</b></td>
                 <td class="text-right"><b>{{ format_uang($penjualan->bayar) }}</b></td>
             </tr>
             <tr>
-                <td colspan="6" class="text-right"><b>Received</b></td>
+                <td colspan="5" class="text-right"><b>Received</b></td>
                 <td class="text-right"><b>{{ format_uang($penjualan->diterima) }}</b></td>
             </tr>
             <tr>
-                <td colspan="6" class="text-right"><b>Return</b></td>
+                <td colspan="5" class="text-right"><b>Return</b></td>
                 <td class="text-right"><b>{{ format_uang($penjualan->diterima - $penjualan->bayar) }}</b></td>
             </tr>
         </tfoot>
