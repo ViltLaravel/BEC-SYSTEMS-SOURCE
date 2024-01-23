@@ -67,7 +67,7 @@
                             <th>Name</th>
                             <th>Price</th>
                             <th width="15%">Quantity</th>
-                            <th>Discount</th>
+                            {{-- <th>Discount</th> --}}
                             <th>Subtotal</th>
                             <th width="15%"><i class="fa fa-cog"></i></th>
                         </thead>
@@ -107,7 +107,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group row">
+                                <div class="form-group row" hidden>
                                     <label for="diskon" class="col-lg-2 control-label">Discount</label>
                                     <div class="col-lg-8">
                                         <input type="number" name="diskon" id="diskon" class="form-control"
@@ -184,9 +184,9 @@
                         {
                             data: 'jumlah'
                         },
-                        {
-                            data: 'diskon'
-                        },
+                        // {
+                        //     data: 'diskon'
+                        // },
                         {
                             data: 'subtotal'
                         },
@@ -200,12 +200,34 @@
                     bSort: false,
                     paginate: false
                 })
+
+                  // Event delegation for input changes on quantity inputs
+                  $('.table-penjualan').on('input', '.quantity', function() {
+                    var row = table.row($(this).closest('tr')).data();
+                    var quantity = parseInt($(this).val());
+
+                    // Check if quantity exceeds stock
+                    if (quantity > parseInt(row.produk.stok)) {
+                        Swal.fire("Error", "Quantity exceeds available stock!", "error");
+                        // Optionally, you can disable the input or highlight it for better user experience
+                        $(this).addClass('quantity-exceeds-stock');
+                    } else {
+                        // Remove the highlight if the quantity is within the stock limit
+                        $(this).removeClass('quantity-exceeds-stock');
+                    }
+
+                    // Update the DataTable's data with the new quantity
+                    row.jumlah = quantity;
+                    table.row($(this).closest('tr')).data(row).draw(false);
+                })
+
                 .on('draw.dt', function() {
                     loadForm($('#diskon').val());
                     setTimeout(() => {
                         $('#diterima').trigger('input');
                     }, 300);
                 });
+
             table2 = $('.table-produk').DataTable();
 
             $(document).on('input', '.quantity', function() {
@@ -282,22 +304,22 @@
 
         // add the products
         function tambahProduk() {
-        $.post('{{ route('transaksi.store') }}', $('.form-produk').serialize())
-            .done(response => {
-                $('#kode_produk').focus();
-                table.ajax.reload(() => loadForm($('#diskon').val()));
-                Swal.fire("Success", response.message, 'success');
-            })
-            .fail(errors => {
-                // Handle error response and show error message
-                let errorMessage = "An error occurred while processing the request.";
+            $.post('{{ route('transaksi.store') }}', $('.form-produk').serialize())
+                .done(response => {
+                    $('#kode_produk').focus();
+                    table.ajax.reload(() => loadForm($('#diskon').val()));
+                    Swal.fire("Success", response.message, 'success');
+                })
+                .fail(errors => {
+                    // Handle error response and show error message
+                    let errorMessage = "An error occurred while processing the request.";
 
-                if (errors.responseJSON && errors.responseJSON.message) {
-                    errorMessage = errors.responseJSON.message;
-                }
+                    if (errors.responseJSON && errors.responseJSON.message) {
+                        errorMessage = errors.responseJSON.message;
+                    }
 
-                Swal.fire("Error", errorMessage, 'error');
-            });
+                    Swal.fire("Error", errorMessage, 'error');
+                });
         }
 
         // member modal show

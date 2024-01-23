@@ -38,34 +38,44 @@ class PenjualanDetailController extends Controller
     {
         try {
             $detail = PenjualanDetail::with('produk')
-            ->where('id_penjualan', $id)
-            ->get();
+                ->where('id_penjualan', $id)
+                ->get();
 
-            $data = array();
+            $data = [];
             $total = 0;
             $total_item = 0;
 
             foreach ($detail as $item) {
-                $row = array();
-                $row['kode_produk'] = '<span class="label label-success">'. $item->produk['kode_produk'] .'</span';
-                $row['nama_produk'] = $item->produk['nama_produk'];
-                $row['harga_jual']  = '₱ '. format_uang($item->harga_jual);
-                $row['jumlah']      = '<input type="number" class="form-control input-sm quantity" data-id="'. $item->id_penjualan_detail .'" value="'. $item->jumlah .'">';
-                $row['diskon']      = $item->diskon . '%';
-                $row['subtotal']    = '₱ '. format_uang($item->subtotal);
-                $row['aksi']        = '<div class="btn-group">
-                                        <button onclick="deleteData(`'. route('transaksi.destroy', $item->id_penjualan_detail) .'`)" class="btn btn-xs btn-danger btn-flat"><i class="fa fa-trash"></i></button>
-                                    </div>';
+                $row = [
+                    'kode_produk' => '<span class="label label-success">' . $item->produk['kode_produk'] . '</span',
+                    'nama_produk' => $item->produk['nama_produk'],
+                    'harga_jual'  => '₱ ' . format_uang($item->harga_jual),
+                    'jumlah'      => '<span class="quantity-input" data-id="' . $item->id_penjualan_detail . '">
+                                        <input type="number" class="form-control input-sm quantity" value="' . $item->jumlah . '">
+                                    </span>',
+                    'diskon'      => $item->diskon . '%',
+                    'subtotal'    => '₱ ' . format_uang($item->subtotal),
+                    'aksi'        => '<div class="btn-group">
+                                        <button onclick="deleteData(`' . route('transaksi.destroy', $item->id_penjualan_detail) . '`)" class="btn btn-xs btn-danger btn-flat"><i class="fa fa-trash"></i></button>
+                                    </div>',
+                ];
+
+                // Check if quantity exceeds stock
+                if ($item->jumlah > $item->produk['stok']) {
+                    // Display alert if quantity exceeds stock
+                    $row['jumlah'] .= '<script>Swal.fire("Error","Quantity exceeds available stock!","error");</script>';
+                }
+
                 $data[] = $row;
 
-                $total += $item->harga_jual * $item->jumlah - (($item->diskon * $item->jumlah) / 100 * $item->harga_jual);;
+                $total += $item->harga_jual * $item->jumlah - (($item->diskon * $item->jumlah) / 100 * $item->harga_jual);
                 $total_item += $item->jumlah;
             }
+
+            // Add totals to the end of the table
             $data[] = [
-                'kode_produk' => '
-                    <div class="total hide">'. $total .'</div>
-                    <div class="total_item hide">'. $total_item .'</div>',
-                'nama_produk' => '',
+                'kode_produk' => '<div class="total hide">' . $total . '</div>',
+                'nama_produk' => '<div class="total_item hide">' . $total_item . '</div>',
                 'harga_jual'  => '',
                 'jumlah'      => '',
                 'diskon'      => '',

@@ -38,7 +38,7 @@
                                 <th>Brand</th>
                                 <th>Purchase Price</th>
                                 <th>Selling Price</th>
-                                <th>Discount</th>
+                                {{-- <th>Discount</th> --}}
                                 <th>Stock</th>
                                 <th width="15%"><i class="fa fa-cog"></i></th>
                             </thead>
@@ -94,9 +94,9 @@
                     {
                         data: 'harga_jual'
                     },
-                    {
-                        data: 'diskon'
-                    },
+                    // {
+                    //     data: 'diskon'
+                    // },
                     {
                         data: 'stok'
                     },
