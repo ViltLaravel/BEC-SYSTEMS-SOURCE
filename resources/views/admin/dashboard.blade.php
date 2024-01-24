@@ -111,14 +111,14 @@
         <!-- small box -->
         <div class="small-box bg-green">
             <div class="inner">
-                <h3>₱ {{ $pembelian }}</h3>
+                <h3>₱ {{ $purchase }}</h3>
 
                 <p>Total Purchase</p>
             </div>
             <div class="icon">
                 <i class="fa fa-cart-plus"></i>
             </div>
-            <a href="{{ route('pembelian.index') }}" class="small-box-footer">View <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="{{ route('purchase.index') }}" class="small-box-footer">View <i class="fa fa-arrow-circle-right"></i></a>
         </div>
     </div>
     <!-- ./col -->

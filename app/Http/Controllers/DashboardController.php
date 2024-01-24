@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Branch;
-use App\Models\Pembelian;
+use App\Models\Purchase;
 use App\Models\Pengeluaran;
 use App\Models\Penjualan;
 use App\Models\Product;
@@ -19,9 +19,9 @@ class DashboardController extends Controller
         $product = Product::count();
         $supplier = Supplier::count();
         $branch = Branch::count();
+        $purchase = format_uang(Purchase::sum('total_pay'));
         $penjualan = format_uang(Penjualan::sum('diterima'));
         $pengeluaran = format_uang(Pengeluaran::sum('nominal'));
-        $pembelian = format_uang(Pembelian::sum('bayar'));
 
         $tanggal_awal = date('Y-m-01');
         $tanggal_akhir = date('Y-m-d');
@@ -33,10 +33,10 @@ class DashboardController extends Controller
             $data_tanggal[] = (int) substr($tanggal_awal, 8, 2);
 
             $total_penjualan = Penjualan::where('created_at', 'LIKE', "%$tanggal_awal%")->sum('bayar');
-            $total_pembelian = Pembelian::where('created_at', 'LIKE', "%$tanggal_awal%")->sum('bayar');
+            $total_purchase = Purchase::where('created_at', 'LIKE', "%$tanggal_awal%")->sum('total_pay');
             $total_pengeluaran = Pengeluaran::where('created_at', 'LIKE', "%$tanggal_awal%")->sum('nominal');
 
-            $pendapatan = $total_penjualan - $total_pembelian - $total_pengeluaran;
+            $pendapatan = $total_penjualan - $total_purchase - $total_pengeluaran;
             $data_pendapatan[] += $pendapatan;
 
             $tanggal_awal = date('Y-m-d', strtotime("+1 day", strtotime($tanggal_awal)));
@@ -45,7 +45,7 @@ class DashboardController extends Controller
         $tanggal_awal = date('Y-m-01');
 
         if (auth()->user()->level == 1) {
-            return view('admin.dashboard', compact('category', 'product', 'supplier', 'branch', 'penjualan', 'pengeluaran', 'pembelian', 'tanggal_awal', 'tanggal_akhir', 'data_tanggal', 'data_pendapatan'));
+            return view('admin.dashboard', compact('category', 'product', 'supplier', 'branch', 'penjualan', 'pengeluaran', 'purchase', 'tanggal_awal', 'tanggal_akhir', 'data_tanggal', 'data_pendapatan'));
         } else {
             return view('kasir.dashboard');
         }

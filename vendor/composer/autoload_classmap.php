@@ -26,6 +26,7 @@ return array(
     'App\\Http\\Controllers\\PenjualanController' => $baseDir . '/app/Http/Controllers/PenjualanController.php',
     'App\\Http\\Controllers\\PenjualanDetailController' => $baseDir . '/app/Http/Controllers/PenjualanDetailController.php',
     'App\\Http\\Controllers\\Product\\ProductController' => $baseDir . '/app/Http/Controllers/Product/ProductController.php',
+    'App\\Http\\Controllers\\Purchase\\PurchaseController' => $baseDir . '/app/Http/Controllers/Purchase/PurchaseController.php',
     'App\\Http\\Controllers\\SettingController' => $baseDir . '/app/Http/Controllers/SettingController.php',
     'App\\Http\\Controllers\\Supplier\\SupplierController' => $baseDir . '/app/Http/Controllers/Supplier/SupplierController.php',
     'App\\Http\\Controllers\\Unit\\UnitsController' => $baseDir . '/app/Http/Controllers/Unit/UnitsController.php',

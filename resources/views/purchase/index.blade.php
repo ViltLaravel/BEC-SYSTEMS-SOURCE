@@ -16,13 +16,13 @@
                 <div class="box-header with-border">
                     <button onclick="addForm()" class="btn btn-success btn-flat"><i class="fa fa-plus-circle"></i> Add New
                         Purchase</button>
-                    @empty(!session('id_pembelian'))
-                        <a href="{{ route('pembelian_detail.index') }}" class="btn btn-info btn-xs btn-flat"><i
+                    @empty(!session('id_purchase'))
+                        <a href="{{ route('purchase_detail.index') }}" class="btn btn-info btn-xs btn-flat"><i
                                 class="fa fa-pencil"></i> Active Transaction</a>
                     @endempty
                 </div>
                 <div class="box-body table-responsive">
-                    <table class="table table-stiped table-bordered table-pembelian table-hover">
+                    <table class="table table-stiped table-bordered table-purchase table-hover">
                         <thead>
                             <th width="5%">#</th>
                             <th>Date</th>
@@ -39,8 +39,8 @@
         </div>
     </div>
 
-    @includeIf('pembelian.supplier')
-    @includeIf('pembelian.detail')
+    @includeIf('purchase.supplier')
+    @includeIf('purchase.detail')
 @endsection
 
 @push('scripts')
@@ -49,13 +49,13 @@
 
         // data tables
         $(function() {
-            table = $('.table-pembelian').DataTable({
+            table = $('.table-purchase').DataTable({
                 responsive: true,
                 processing: true,
                 serverSide: true,
                 autoWidth: false,
                 ajax: {
-                    url: '{{ route('pembelian.data') }}',
+                    url: '{{ route('purchase.data') }}',
                 },
                 columns: [{
                         data: 'DT_RowIndex',
@@ -63,7 +63,7 @@
                         sortable: false
                     },
                     {
-                        data: 'tanggal'
+                        data: 'date'
                     },
                     {
                         data: 'supplier'
@@ -72,16 +72,16 @@
                         data: 'total_item'
                     },
                     {
-                        data: 'total_harga'
+                        data: 'total_price'
                     },
                     {
-                        data: 'diskon'
+                        data: 'discount'
                     },
                     {
-                        data: 'bayar'
+                        data: 'total_pay'
                     },
                     {
-                        data: 'aksi',
+                        data: 'action',
                         searchable: false,
                         sortable: false
                     },
@@ -99,16 +99,16 @@
                         sortable: false
                     },
                     {
-                        data: 'kode_produk'
+                        data: 'code_product'
                     },
                     {
-                        data: 'nama_produk'
+                        data: 'name_product'
                     },
                     {
-                        data: 'harga_beli'
+                        data: 'purchase_price'
                     },
                     {
-                        data: 'jumlah'
+                        data: 'stock'
                     },
                     {
                         data: 'subtotal'

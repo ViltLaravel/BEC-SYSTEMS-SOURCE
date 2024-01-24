@@ -17,8 +17,8 @@ class CreatePurchaseDetailsTable extends Migration
             $table->increments('id_purchase_detail');
             $table->integer('id_purchase');
             $table->integer('id_product');
-            $table->integer('harga_beli');
-            $table->integer('jumlah');
+            $table->integer('purchase_price');
+            $table->integer('stock');
             $table->integer('subtotal');
             $table->timestamps();
         });

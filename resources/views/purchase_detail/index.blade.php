@@ -17,7 +17,7 @@
             background: #f0f0f0;
         }
 
-        .table-pembelian tbody tr:last-child {
+        .table-purchase tbody tr:last-child {
             display: none;
         }
 
@@ -47,7 +47,7 @@
                             <td>: {{ $supplier->nama }}</td>
                         </tr>
                         <tr>
-                            <td>Telephone</td>
+                            <td>Phone</td>
                             <td>: {{ $supplier->telepon }}</td>
                         </tr>
                         <tr>
@@ -58,17 +58,17 @@
                 </div>
                 <div class="box-body">
 
-                    <form class="form-produk">
+                    <form class="form-product">
                         @csrf
                         <div class="form-group row">
-                            <label for="kode_produk" class="col-lg-2">Product Code</label>
+                            <label for="code_product" class="col-lg-2">Product Code</label>
                             <div class="col-lg-5">
                                 <div class="input-group">
-                                    <input type="hidden" name="id_pembelian" id="id_pembelian" value="{{ $id_pembelian }}">
-                                    <input type="hidden" name="id_produk" id="id_produk">
-                                    <input type="text" class="form-control" name="kode_produk" id="kode_produk">
+                                    <input type="hidden" name="id_purchase" id="id_purchase" value="{{ $id_purchase }}">
+                                    <input type="hidden" name="id_product" id="id_product">
+                                    <input type="text" class="form-control" name="code_product" id="code_product">
                                     <span class="input-group-btn">
-                                        <button onclick="tampilProduk()" class="btn btn-info btn-flat" type="button"><i
+                                        <button onclick="selectProduct()" class="btn btn-info btn-flat" type="button"><i
                                                 class="fa fa-arrow-right"></i></button>
                                     </span>
                                 </div>
@@ -76,7 +76,7 @@
                         </div>
                     </form>
 
-                    <table class="table table-stiped table-bordered table-pembelian table-hover">
+                    <table class="table table-stiped table-bordered table-purchase table-hover">
                         <thead>
                             <th width="5%">#</th>
                             <th>Code</th>
@@ -94,12 +94,12 @@
                             <div class="tampil-terbilang"></div>
                         </div>
                         <div class="col-lg-4">
-                            <form action="{{ route('pembelian.store') }}" class="form-pembelian" method="post">
+                            <form action="{{ route('purchase.store') }}" class="form-pembelian" method="post">
                                 @csrf
-                                <input type="hidden" name="id_pembelian" value="{{ $id_pembelian }}">
+                                <input type="hidden" name="id_purchase" value="{{ $id_purchase }}">
                                 <input type="hidden" name="total" id="total">
                                 <input type="hidden" name="total_item" id="total_item">
-                                <input type="hidden" name="bayar" id="bayar">
+                                <input type="hidden" name="total_pay" id="total_pay">
 
                                 <div class="form-group row">
                                     <label for="totalrp" class="col-lg-2 control-label">Total</label>
@@ -108,16 +108,16 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="diskon" class="col-lg-2 control-label">Discount</label>
+                                    <label for="discount" class="col-lg-2 control-label">Discount</label>
                                     <div class="col-lg-8">
-                                        <input type="number" name="diskon" id="diskon" class="form-control"
-                                            value="{{ $diskon }}">
+                                        <input type="number" name="discount" id="discount" class="form-control"
+                                            value="{{ $discount }}">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="bayar" class="col-lg-2 control-label">Pay</label>
+                                    <label for="total_pay" class="col-lg-2 control-label">Pay</label>
                                     <div class="col-lg-8">
-                                        <input type="text" id="bayarrp" class="form-control">
+                                        <input type="text" id="total_pay_rp" class="form-control">
                                     </div>
                                 </div>
                             </form>
@@ -133,7 +133,7 @@
         </div>
     </div>
 
-    @includeIf('pembelian_detail.produk')
+    @includeIf('purchase_detail.product')
 @endsection
 
 @push('scripts')
@@ -144,13 +144,13 @@
         $(function() {
             $('body').addClass('sidebar-collapse');
 
-            table = $('.table-pembelian').DataTable({
+            table = $('.table-purchase').DataTable({
                     responsive: true,
                     processing: true,
                     serverSide: true,
                     autoWidth: false,
                     ajax: {
-                        url: '{{ route('pembelian_detail.data', $id_pembelian) }}',
+                        url: '{{ route('purchase_detail.data', $id_purchase) }}',
                     },
                     columns: [{
                             data: 'DT_RowIndex',
@@ -158,22 +158,22 @@
                             sortable: false
                         },
                         {
-                            data: 'kode_produk'
+                            data: 'code_product'
                         },
                         {
-                            data: 'nama_produk'
+                            data: 'name_product'
                         },
                         {
-                            data: 'harga_beli'
+                            data: 'purchase_price'
                         },
                         {
-                            data: 'jumlah'
+                            data: 'stock'
                         },
                         {
                             data: 'subtotal'
                         },
                         {
-                            data: 'aksi',
+                            data: 'action',
                             searchable: false,
                             sortable: false
                         },
@@ -183,34 +183,34 @@
                     paginate: false
                 })
                 .on('draw.dt', function() {
-                    loadForm($('#diskon').val());
+                    loadForm($('#discount').val());
                 });
-            table2 = $('.table-produk').DataTable();
+            table2 = $('.table-product').DataTable();
 
             // showing the sweet alert in quantity and discount
             $(document).on('input', '.quantity', function() {
                 let id = $(this).data('id');
-                let jumlah = parseInt($(this).val());
+                let stock = parseInt($(this).val());
 
-                if (jumlah < 1) {
+                if (stock < 1) {
                     $(this).val(1);
                     Swal.fire("Error", "The number cannot be less than 1", 'error');
                     return;
                 }
-                if (jumlah > 10000) {
+                if (stock > 10000) {
                     $(this).val(10000);
                     Swal.fire("Warning", "The number cannot exceed 10000", 'warning');
                     return;
                 }
 
-                $.post(`{{ url('/pembelian_detail') }}/${id}`, {
+                $.post(`{{ url('/purchase_detail') }}/${id}`, {
                         '_token': $('[name=csrf-token]').attr('content'),
                         '_method': 'put',
-                        'jumlah': jumlah
+                        'stock': stock
                     })
                     .done(response => {
                         $(this).on('mouseout', function() {
-                            table.ajax.reload(() => loadForm($('#diskon').val()));
+                            table.ajax.reload(() => loadForm($('#discount').val()));
                         });
                     })
                     .fail(errors => {
@@ -219,7 +219,7 @@
                     });
             });
 
-            $(document).on('input', '#diskon', function() {
+            $(document).on('input', '#discount', function() {
                 if ($(this).val() == "") {
                     $(this).val(0).select();
                 }
@@ -233,29 +233,29 @@
         });
 
         // show the modal of product selection
-        function tampilProduk() {
-            $('#modal-produk').modal('show');
+        function selectProduct() {
+            $('#modal-product').modal('show');
         }
 
         // hide the modal of product selection
-        function hideProduk() {
-            $('#modal-produk').modal('hide');
+        function hideProduct() {
+            $('#modal-product').modal('hide');
         }
 
         // function in product selection
-        function pilihProduk(id, kode) {
-            $('#id_produk').val(id);
-            $('#kode_produk').val(kode);
-            hideProduk();
-            tambahProduk();
+        function pilihProduk(id, code) {
+            $('#id_product').val(id);
+            $('#code_product').val(code);
+            hideProduct();
+            addProduct();
         }
 
         // adding the selected product into data table
-        function tambahProduk() {
-            $.post('{{ route('pembelian_detail.store') }}', $('.form-produk').serialize())
+        function addProduct() {
+            $.post('{{ route('purchase_detail.store') }}', $('.form-product').serialize())
                 .done(response => {
-                    $('#kode_produk').focus();
-                    table.ajax.reload(() => loadForm($('#diskon').val()));
+                    $('#code_product').focus();
+                    table.ajax.reload(() => loadForm($('#discount').val()));
                     Swal.fire("Success", response.message, 'success');
                 })
                 .fail(errors => {
@@ -285,7 +285,7 @@
                             },
                             success: function(response) {
                                 Swal.fire("Success", response.message, "success");
-                                table.ajax.reload(() => loadForm($('#diskon').val()));
+                                table.ajax.reload(() => loadForm($('#discount').val()));
                             },
                             error: function(errors) {
                                 Swal.fire("Error", response.message, "error");
@@ -300,17 +300,17 @@
         }
 
         // realtime displaying the details
-        function loadForm(diskon = 0) {
+        function loadForm(discount = 0) {
             $('#total').val($('.total').text());
             $('#total_item').val($('.total_item').text());
 
-            $.get(`{{ url('/pembelian_detail/loadform') }}/${diskon}/${$('.total').text()}`)
+            $.get(`{{ url('/purchase_detail/loadform') }}/${discount}/${$('.total').text()}`)
                 .done(response => {
                     $('#totalrp').val('₱ ' + response.totalrp);
-                    $('#bayarrp').val('₱ ' + response.bayarrp);
-                    $('#bayar').val(response.bayar);
-                    $('.tampil-bayar').text('₱ ' + response.bayarrp);
-                    $('.tampil-terbilang').text(response.terbilang);
+                    $('#total_pay_rp').val('₱ ' + response.total_pay_rp);
+                    $('#total_pay').val(response.total_pay);
+                    $('.tampil-bayar').text('₱ ' + response.total_pay_rp);
+                    $('.tampil-terbilang').text(response.number_generate);
                 })
                 .fail(errors => {
                     Swal.fire("Error", "Unable to display data!", 'error');
