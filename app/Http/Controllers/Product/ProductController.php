@@ -1,70 +1,88 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Product;
 
-use App\Models\Kategori;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Produk;
+use App\Models\Product;
+use App\Models\Category;
+use App\Models\Unit;
 use PDF;
 
-class ProdukController extends Controller
+class ProductController extends Controller
 {
-    // show all category
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
-        $kategori = Kategori::all()->pluck('nama_kategori', 'id_kategori');
+        $category = Category::all()->pluck('name_category', 'id_category');
+        $unit = Unit::all()->pluck('name_unit', 'id_unit');
 
-        return view('produk.index', compact('kategori'));
+        return view('product.index', compact('category', 'unit'));
     }
 
     // show all product
     public function data()
     {
-        $product = Produk::leftJoin('kategori', 'kategori.id_kategori', 'produk.id_kategori')
-            ->select('produk.*', 'nama_kategori')
-            ->get();
+        $product = Product::leftJoin('categories', 'categories.id_category', 'products.id_category')
+        ->leftJoin('units', 'units.id_unit', 'products.id_unit')
+        ->select('products.*', 'name_category', 'name_unit')
+        ->get();
 
         return datatables()
             ->of($product)
             ->addIndexColumn()
             ->addColumn('select_all', function ($product) {
                 return '
-                    <input type="checkbox" name="id_produk[]" value="'. $product->id_produk .'">
+                    <input type="checkbox" name="id_product[]" value="'. $product->id_product .'">
                 ';
             })
-            ->addColumn('kode_produk', function ($product) {
-                return '<span class="label label-success">'. $product->kode_produk .'</span>';
+            ->addColumn('code_product', function ($product) {
+                return '<span class="label label-success">'. $product->code_product .'</span>';
             })
-            ->addColumn('harga_beli', function ($product) {
-                return format_uang($product->harga_beli);
+            ->addColumn('price_purchase', function ($product) {
+                return format_uang($product->price_purchase);
             })
-            ->addColumn('harga_jual', function ($product) {
-                return format_uang($product->harga_jual);
+            ->addColumn('price_selling', function ($product) {
+                return format_uang($product->price_selling);
             })
-            ->addColumn('stok', function ($product) {
-                return ($product->stok);
+            ->addColumn('stock', function ($product) {
+                return ($product->stock);
             })
-            ->addColumn('aksi', function ($product) {
+            ->addColumn('action', function ($product) {
                 return '
                 <div class="btn-group">
-                    <button type="button" onclick="editForm(`'. route('produk.update', $product->id_produk) .'`)" class="btn btn-xs btn-primary btn-flat"><i class="fa fa-pencil"></i></button>
-                    <button type="button" onclick="deleteData(`'. route('produk.destroy', $product->id_produk) .'`)" class="btn btn-xs btn-danger btn-flat"><i class="fa fa-trash"></i></button>
+                    <button type="button" onclick="editForm(`'. route('product.update', $product->id_product) .'`)" class="btn btn-xs btn-primary btn-flat"><i class="fa fa-pencil"></i></button>
+                    <button type="button" onclick="deleteData(`'. route('product.destroy', $product->id_product) .'`)" class="btn btn-xs btn-danger btn-flat"><i class="fa fa-trash"></i></button>
                 </div>
                 ';
             })
-            ->rawColumns(['aksi', 'kode_produk', 'select_all'])
+            ->rawColumns(['action', 'code_product', 'select_all'])
             ->make(true);
     }
 
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function create()
     {
         //
     }
 
-    // store product
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function store(Request $request)
     {
-        $product = Produk::latest()->first() ?? new Produk();
+        $product = Product::latest()->first() ?? new Product();
 
         if (!$product) {
             return response()->json([
@@ -73,9 +91,9 @@ class ProdukController extends Controller
             ], 404);
         }
 
-        $request['kode_produk'] = 'P'. tambah_nol_didepan((int)$product->id_produk +1, 6);
+        $request['code_product'] = 'P'. tambah_nol_didepan((int)$product->id_product +1, 6);
 
-        try { $product = Produk::create($request->all());
+        try { $product = Product::create($request->all());
             return response()->json([
                 'status' => 'success',
                 'message' => 'Product successfully added!'
@@ -89,10 +107,15 @@ class ProdukController extends Controller
         }
     }
 
-    // show specific product
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function show($id)
     {
-        $product = Produk::find($id);
+        $product = Product::find($id);
         if (!$product) {
             return response()->json([
                 'status' => 'error',
@@ -103,15 +126,27 @@ class ProdukController extends Controller
         }
     }
 
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function edit($id)
     {
         //
     }
 
-    // update specific product
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function update(Request $request, $id)
     {
-        $product = Produk::find($id);
+        $product = Product::find($id);
         if(!$product){
             return response()->json([
                 'status' => 'error',
@@ -132,10 +167,15 @@ class ProdukController extends Controller
         }
     }
 
-    // delete specific product
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function destroy($id)
     {
-        $product = Produk::find($id);
+        $product = Product::find($id);
         if(!$product) {
             return response()->json([
                 'status' => 'error',
@@ -160,8 +200,8 @@ class ProdukController extends Controller
     // delete selected product
     public function deleteSelected(Request $request)
     {
-        foreach ($request->id_produk as $id) {
-            $product = Produk::find($id);
+        foreach ($request->id_product as $id) {
+            $product = Product::find($id);
                 if (!$product){
                     return response()->json([
                         'status' => 'error',
@@ -187,16 +227,16 @@ class ProdukController extends Controller
     }
 
     // generate product barcode
-    public function cetakBarcode(Request $request)
+    public function barcode(Request $request)
     {
-        $dataproduk = array();
-        foreach ($request->id_produk as $id) {
-            $produk = Produk::find($id);
-            $dataproduk[] = $produk;
+        $dataproduct = array();
+        foreach ($request->id_product as $id) {
+            $product = Product::find($id);
+            $dataproduct[] = $product;
         }
 
         $no  = 1;
-        $pdf = PDF::loadView('produk.barcode', compact('dataproduk', 'no'));
+        $pdf = PDF::loadView('product.barcode', compact('dataproduct', 'no'));
         $pdf->setPaper('a4', 'potrait');
         return $pdf->stream('product.pdf');
     }

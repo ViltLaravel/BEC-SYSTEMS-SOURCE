@@ -15,12 +15,12 @@
             <div class="box">
                 <div class="box-header with-border">
                     <div class="btn-group">
-                        <button onclick="addForm('{{ route('produk.store') }}')" class="btn btn-success  btn-flat"><i
+                        <button onclick="addForm('{{ route('product.store') }}')" class="btn btn-success  btn-flat"><i
                                 class="fa fa-plus-circle"></i> Add New Product</button>
-                        <button onclick="deleteSelected('{{ route('produk.delete_selected') }}')"
+                        <button onclick="deleteSelected('{{ route('product.delete_selected') }}')"
                             class="btn btn-danger  btn-flat"><i class="fa fa-trash"></i> Delete</button>
-                        <button onclick="cetakBarcode('{{ route('produk.cetak_barcode') }}')"
-                            class="btn btn-warning  btn-flat"><i class="fa fa-barcode"></i> Print Barcode</button>
+                        <button onclick="barcode('{{ route('product.barcode') }}')" class="btn btn-warning  btn-flat"><i
+                                class="fa fa-barcode"></i> Print Barcode</button>
                     </div>
                 </div>
                 <div class="box-body table-responsive">
@@ -38,7 +38,6 @@
                                 <th>Brand</th>
                                 <th>Purchase Price</th>
                                 <th>Selling Price</th>
-                                {{-- <th>Discount</th> --}}
                                 <th>Stock</th>
                                 <th width="15%"><i class="fa fa-cog"></i></th>
                             </thead>
@@ -49,7 +48,7 @@
         </div>
     </div>
 
-@includeIf('produk.form')
+    @includeIf('product.form')
 @endsection
 
 @push('scripts')
@@ -64,7 +63,7 @@
                 serverSide: true,
                 autoWidth: false,
                 ajax: {
-                    url: '{{ route('produk.data') }}',
+                    url: '{{ route('product.data') }}',
                 },
                 columns: [{
                         data: 'select_all',
@@ -77,31 +76,28 @@
                         sortable: false
                     },
                     {
-                        data: 'kode_produk'
+                        data: 'code_product'
                     },
                     {
-                        data: 'nama_produk'
+                        data: 'name_product'
                     },
                     {
-                        data: 'nama_kategori'
+                        data: 'name_category'
                     },
                     {
-                        data: 'merk'
+                        data: 'brand'
                     },
                     {
-                        data: 'harga_beli'
+                        data: 'price_purchase'
                     },
                     {
-                        data: 'harga_jual'
-                    },
-                    // {
-                    //     data: 'diskon'
-                    // },
-                    {
-                        data: 'stok'
+                        data: 'price_selling'
                     },
                     {
-                        data: 'aksi',
+                        data: 'stock'
+                    },
+                    {
+                        data: 'action',
                         searchable: false,
                         sortable: false
                     },
@@ -136,7 +132,7 @@
             $('#modal-form form')[0].reset();
             $('#modal-form form').attr('action', url);
             $('#modal-form [name=_method]').val('post');
-            $('#modal-form [name=nama_produk]').focus();
+            $('#modal-form [name=name_product]').focus();
         }
 
         // modal edit form
@@ -147,17 +143,17 @@
             $('#modal-form form')[0].reset();
             $('#modal-form form').attr('action', url);
             $('#modal-form [name=_method]').val('put');
-            $('#modal-form [name=nama_produk]').focus();
+            $('#modal-form [name=name_product]').focus();
 
             $.get(url)
                 .done((response) => {
-                    $('#modal-form [name=nama_produk]').val(response.nama_produk);
-                    $('#modal-form [name=id_kategori]').val(response.id_kategori);
-                    $('#modal-form [name=merk]').val(response.merk);
-                    $('#modal-form [name=harga_beli]').val(response.harga_beli);
-                    $('#modal-form [name=harga_jual]').val(response.harga_jual);
-                    $('#modal-form [name=diskon]').val(response.diskon);
-                    $('#modal-form [name=stok]').val(response.stok);
+                    $('#modal-form [name=name_product]').val(response.name_product);
+                    $('#modal-form [name=id_category]').val(response.id_category);
+                    $('#modal-form [name=id_unit]').val(response.id_unit);
+                    $('#modal-form [name=brand]').val(response.brand);
+                    $('#modal-form [name=price_purchase]').val(response.price_purchase);
+                    $('#modal-form [name=price_selling]').val(response.price_selling);
+                    $('#modal-form [name=stock]').val(response.stock);
                 })
                 .fail((errors) => {
                     Swal.fire("Error", 'Unable to display data!');
@@ -234,7 +230,7 @@
         }
 
         // generate product barcode
-        function cetakBarcode(url) {
+        function barcode(url) {
             if ($('input:checked').length < 1) {
                 Swal.fire("Information", "Select product to print!", 'info');
                 return;

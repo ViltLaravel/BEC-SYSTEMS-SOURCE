@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class TambahForeignKeyToProdukTable extends Migration
+class AddNewColumnInProducts extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class TambahForeignKeyToProdukTable extends Migration
      */
     public function up()
     {
-        Schema::table('produk', function (Blueprint $table) {
-            $table->foreign('id_kategori')
-                  ->references('id_kategori')
-                  ->on('kategori')
+        Schema::table('products', function (Blueprint $table) {
+            $table->unsignedInteger('id_unit')->after('id_category');
+            $table->foreign('id_unit')
+                  ->references('id_unit')
+                  ->on('units')
                   ->onUpdate('restrict')
                   ->onDelete('restrict');
         });
@@ -29,8 +30,8 @@ class TambahForeignKeyToProdukTable extends Migration
      */
     public function down()
     {
-        Schema::table('produk', function (Blueprint $table) {
-            $table->dropForeign('produk_id_kategori_foreign');
+        Schema::table('products', function (Blueprint $table) {
+            $table->dropColumn('id_unit');
         });
     }
 }

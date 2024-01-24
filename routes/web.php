@@ -12,10 +12,14 @@ use App\Http\Controllers\{
     PenjualanController,
     PenjualanDetailController,
     SettingController,
-    SupplierController,
     UserController,
 };
 use App\Http\Controllers\Category\CategoryController;
+use App\Http\Controllers\Product\ProductController;
+use App\Http\Controllers\Branches\BranchesController;
+use App\Http\Controllers\Unit\UnitsController;
+use App\Http\Controllers\Supplier\SupplierController;
+
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 
@@ -38,26 +42,35 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::group(['middleware' => 'level:1'], function () {
-        // Route::get('/kategori/data', [KategoriController::class, 'data'])->name('kategori.data');
-        // Route::resource('/kategori', KategoriController::class);
 
         // start category routes
         Route::get('/category/data', [CategoryController::class, 'data'])->name('category.data');
         Route::resource('/category', CategoryController::class);
         // end category routes
 
+        // start unit routes
+        Route::get('/unit/data', [UnitsController::class, 'data'])->name('unit.data');
+        Route::resource('/unit', UnitsController::class);
+        // end unit routes
 
-        Route::get('/produk/data', [ProdukController::class, 'data'])->name('produk.data');
-        Route::post('/produk/delete-selected', [ProdukController::class, 'deleteSelected'])->name('produk.delete_selected');
-        Route::post('/produk/cetak-barcode', [ProdukController::class, 'cetakBarcode'])->name('produk.cetak_barcode');
-        Route::resource('/produk', ProdukController::class);
+        // start product routes
+        Route::get('/product/data', [ProductController::class, 'data'])->name('product.data');
+        Route::post('/product/delete-selected', [ProductController::class, 'deleteSelected'])->name('product.delete_selected');
+        Route::post('/product/generate-barcode', [ProductController::class, 'barcode'])->name('product.barcode');
+        Route::resource('/product', ProductController::class);
+        // end product routes
 
-        Route::get('/member/data', [MemberController::class, 'data'])->name('member.data');
-        Route::post('/member/cetak-member', [MemberController::class, 'cetakMember'])->name('member.cetak_member');
-        Route::resource('/member', MemberController::class);
+        // start branch routes
+        Route::get('/branch/data', [BranchesController::class, 'data'])->name('branch.data');
+        Route::post('/branch/card-branch', [BranchesController::class, 'generateBranch'])->name('branch.card_branch');
+        Route::resource('/branch', BranchesController::class);
+        // end branch routes
 
+        // start supplier routes
         Route::get('/supplier/data', [SupplierController::class, 'data'])->name('supplier.data');
         Route::resource('/supplier', SupplierController::class);
+        // end supplier routes
+
 
         Route::get('/pengeluaran/data', [PengeluaranController::class, 'data'])->name('pengeluaran.data');
         Route::resource('/pengeluaran', PengeluaranController::class);

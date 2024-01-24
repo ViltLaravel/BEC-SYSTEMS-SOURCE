@@ -25,17 +25,22 @@
             @if (auth()->user()->level == 1)
             <li class="header">MASTER</li>
             <li>
-                <a href="{{ route('category.data') }}">
+                <a href="{{ route('category.index') }}">
                     <i class="fa fa-cube"></i> <span>Category</span>
                 </a>
             </li>
             <li>
-                <a href="{{ route('produk.index') }}">
+                <a href="{{ route('unit.index') }}">
+                    <i class="fa fa-hourglass"></i> <span>Unit</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('product.index') }}">
                     <i class="fa fa-cubes"></i> <span>Product</span>
                 </a>
             </li>
             <li>
-                <a href="{{ route('member.index') }}">
+                <a href="{{ route('branch.index') }}">
                     <i class="fa fa-id-card"></i> <span>Branch</span>
                 </a>
             </li>
