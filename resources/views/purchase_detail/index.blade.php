@@ -164,7 +164,7 @@
                             data: 'name_product'
                         },
                         {
-                            data: 'purchase_price'
+                            data: 'price_purchase'
                         },
                         {
                             data: 'stock'
@@ -232,17 +232,17 @@
             });
         });
 
-        // show the modal of product selection
+        // Show the modal for product selection
         function selectProduct() {
             $('#modal-product').modal('show');
         }
 
-        // hide the modal of product selection
+        // Hide the modal for product selection
         function hideProduct() {
             $('#modal-product').modal('hide');
         }
 
-        // function in product selection
+        // Function for handling product selection
         function pilihProduk(id, code) {
             $('#id_product').val(id);
             $('#code_product').val(code);
@@ -250,7 +250,7 @@
             addProduct();
         }
 
-        // adding the selected product into data table
+        // Add the selected product into the data table
         function addProduct() {
             $.post('{{ route('purchase_detail.store') }}', $('.form-product').serialize())
                 .done(response => {
@@ -259,8 +259,8 @@
                     Swal.fire("Success", response.message, 'success');
                 })
                 .fail(errors => {
-                    Swal.fire("Error", response.message, 'error');
-                    return;
+                    // Display error message from the response
+                    Swal.fire("Error", errors.responseJSON.message || 'An error occurred', 'error');
                 });
         }
 

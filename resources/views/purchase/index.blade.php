@@ -105,7 +105,7 @@
                         data: 'name_product'
                     },
                     {
-                        data: 'purchase_price'
+                        data: 'price_purchase'
                     },
                     {
                         data: 'stock'

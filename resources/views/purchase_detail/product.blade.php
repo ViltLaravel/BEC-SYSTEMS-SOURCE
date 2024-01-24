@@ -21,7 +21,7 @@
                                 <td width="5%">{{ $key+1 }}</td>
                                 <td><span class="label label-success">{{ $item->code_product }}</span></td>
                                 <td>{{ $item->name_product }}</td>
-                                <td>{{ $item->purchase_price }}</td>
+                                <td>{{ $item->price_purchase }}</td>
                                 <td>
                                     <a href="#" class="btn btn-primary btn-xs btn-flat"
                                         onclick="pilihProduk('{{ $item->id_product }}', '{{ $item->code_product }}')">

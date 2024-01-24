@@ -44,7 +44,7 @@ class PurchaseDetailController extends Controller
             $row = array();
             $row['code_product'] = '<span class="label label-success">'. $item->product['code_product'] .'</span';
             $row['name_product'] = $item->product['name_product'];
-            $row['purchase_price']  = '₱ '.format_uang ($item->purchase_price);
+            $row['price_purchase']  = '₱ '.format_uang ($item->price_purchase);
             $row['stock']      = '<input type="number" class="form-control input-sm quantity" data-id="'. $item->id_purchase_detail .'" value="'. $item->stock .'">';
             $row['subtotal']    = '₱ '.format_uang ($item->subtotal);
             $row['action']        = '<div class="btn-group">
@@ -52,7 +52,7 @@ class PurchaseDetailController extends Controller
                                 </div>';
             $data[] = $row;
 
-            $total += $item->purchase_price * $item->stock;
+            $total += $item->price_purchase * $item->stock;
             $total_item += $item->stock;
         }
         $data[] = [
@@ -60,7 +60,7 @@ class PurchaseDetailController extends Controller
                 <div class="total hide">'. $total .'</div>
                 <div class="total_item hide">'. $total_item .'</div>',
             'name_product' => '',
-            'purchase_price'  => '',
+            'price_purchase'  => '',
             'stock'      => '',
             'subtotal'    => '',
             'action'        => '',
@@ -102,9 +102,9 @@ class PurchaseDetailController extends Controller
         $detail = new PurchaseDetails();
         $detail->id_purchase = $request->id_purchase;
         $detail->id_product = $product->id_product;
-        $detail->purchase_price = $product->purchase_price;
+        $detail->price_purchase = $product->price_purchase;
         $detail->stock = 1;
-        $detail->subtotal = $product->purchase_price;
+        $detail->subtotal = $product->price_purchase;
         $detail->save();
 
         return response()->json([
@@ -148,7 +148,7 @@ class PurchaseDetailController extends Controller
 
         $detail->update([
             'stock' => $request->stock,
-            'subtotal' => $detail->purchase_price * $request->stock,
+            'subtotal' => $detail->price_purchase * $request->stock,
         ]);
 
         return response()->json('Purchase updated successfully', 200);

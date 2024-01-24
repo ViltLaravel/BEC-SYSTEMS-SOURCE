@@ -158,8 +158,8 @@ class PurchaseController extends Controller
                 ->addColumn('name_product', function ($detail) {
                     return $detail->product->name_product;
                 })
-                ->addColumn('purchase_price', function ($detail) {
-                    return '₱ '. format_uang($detail->purchase_price);
+                ->addColumn('price_purchase', function ($detail) {
+                    return '₱ '. format_uang($detail->price_purchase);
                 })
                 ->addColumn('stock', function ($detail) {
                     return ($detail->stock);
