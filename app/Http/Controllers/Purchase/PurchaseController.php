@@ -102,12 +102,13 @@ class PurchaseController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+
+     public function store(Request $request)
+     {
         try {
             $purchase = Purchase::findOrFail($request->id_purchase);
             $purchase->total_item = $request->total_item;
-            $purchase->total_price = $request->total_price;
+            $purchase->total_price = $request->total;
             $purchase->discount = $request->discount;
             $purchase->total_pay = $request->total_pay;
             $purchase->update();
@@ -144,6 +145,7 @@ class PurchaseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    // show the specific purchase
     public function show($id)
     {
         try {
@@ -158,8 +160,8 @@ class PurchaseController extends Controller
                 ->addColumn('name_product', function ($detail) {
                     return $detail->product->name_product;
                 })
-                ->addColumn('price_purchase', function ($detail) {
-                    return '₱ '. format_uang($detail->price_purchase);
+                ->addColumn('purchase_price', function ($detail) {
+                    return '₱ '. format_uang($detail->purchase_price);
                 })
                 ->addColumn('stock', function ($detail) {
                     return ($detail->stock);
