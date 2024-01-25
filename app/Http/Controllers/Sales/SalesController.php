@@ -124,7 +124,7 @@ class SalesController extends Controller
             Session::flash('sweetAlertIcon', 'success');
             Session::flash('sweetAlertTitle', 'Success');
 
-            return redirect()->route('transaksi.selesai')->withInput();
+            return redirect()->route('transaction.sales')->withInput();
 
         } catch (\Throwable $th) {
             $message = 'Error saving this sales!';
@@ -133,7 +133,7 @@ class SalesController extends Controller
             Session::flash('sweetAlertIcon', 'error');
             Session::flash('sweetAlertTitle', 'error');
 
-            return redirect()->route('transaksi.selesai')->withInput();
+            return redirect()->route('transaction.sales')->withInput();
         }
     }
 

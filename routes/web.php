@@ -82,17 +82,15 @@ Route::group(['middleware' => 'auth'], function () {
             ->except('create', 'show', 'edit');
         // end purchase detail route
 
+        Route::get('/pengeluaran/data', [PengeluaranController::class, 'data'])->name('pengeluaran.data');
+        Route::resource('/pengeluaran', PengeluaranController::class);
+
         // start sales route
         Route::get('/sales/data', [SalesController::class, 'data'])->name('sales.data');
         Route::get('/sales', [SalesController::class, 'index'])->name('sales.index');
         Route::get('/sales/{id}', [SalesController::class, 'show'])->name('sales.show');
         Route::delete('/sales/{id}', [SalesController::class, 'destroy'])->name('sales.destroy');
         // end sales route
-
-
-
-        Route::get('/pengeluaran/data', [PengeluaranController::class, 'data'])->name('pengeluaran.data');
-        Route::resource('/pengeluaran', PengeluaranController::class);
     });
 
     Route::group(['middleware' => 'level:1,2'], function () {

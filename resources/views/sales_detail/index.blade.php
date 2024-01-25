@@ -17,7 +17,7 @@
             background: #f0f0f0;
         }
 
-        .table-penjualan tbody tr:last-child {
+        .table-sales tbody tr:last-child {
             display: none;
         }
 
@@ -41,7 +41,6 @@
         <div class="col-lg-12">
             <div class="box">
                 <div class="box-body">
-
                     <form class="form-product">
                         @csrf
                         <div class="form-group row">
@@ -60,7 +59,7 @@
                         </div>
                     </form>
 
-                    <table class="table table-stiped table-bordered table-penjualan">
+                    <table class="table table-stiped table-bordered table-sales">
                         <thead>
                             <th width="5%">#</th>
                             <th>Code</th>
@@ -132,8 +131,7 @@
                 </div>
 
                 <div class="box-footer">
-                    <button type="submit" class="btn btn-success btn-sm btn-flat pull-right btn-simpan"><i
-                            class="fa fa-floppy-o"></i> Save Transaction</button>
+                    <button type="submit" class="btn btn-success btn-sm btn-flat pull-right btn-simpan"><i class="fa fa-floppy-o"></i> Save Transaction</button>
                 </div>
             </div>
         </div>
@@ -151,7 +149,7 @@
         $(function() {
             $('body').addClass('sidebar-collapse');
 
-            table = $('.table-penjualan').DataTable({
+            table = $('.table-sales').DataTable({
                     responsive: true,
                     processing: true,
                     serverSide: true,
@@ -238,7 +236,7 @@
                 });
             });
 
-            $(document).on('input'ion() {
+            $(document).on('input', function() {
                 if ($(this).val() == "") {
                     $(this).val(0).select();
                 }
@@ -251,7 +249,7 @@
                     $(this).val(0).select();
                 }
 
-                loadForm(, $(this).val());
+                loadForm($(this).val());
             }).focus(function() {
                 $(this).select();
             });
@@ -263,12 +261,12 @@
 
         // show the modal of product selection
         function showProduct() {
-            $('#modal-produk').modal('show');
+            $('#modal-product').modal('show');
         }
 
         // hide the modal of product selection
         function hideProduct() {
-            $('#modal-produk').modal('hide');
+            $('#modal-product').modal('hide');
         }
 
         // get the product details
@@ -353,29 +351,30 @@
                 });
         }
 
-        // load the sales value in the data table realtime
-        function loadForm( change = 0) {
+  // load the sales value in the data table realtime
+  function loadForm(change = 0) {
             $('#total').val($('.total').text());
             $('#total_item').val($('.total_item').text());
 
             $.get(`{{ url('/transaction/loadform') }}/${$('.total').text()}/${change}`)
                 .done(response => {
                     $('#totalrp').val('₱' + response.totalrp);
-                    $('#total_pay_rp').val('₱' + response.total_pay_rp);
-                    $('#total_pay').val(response.total_pay);
-                    $('.responsive_number').text('Pay: ₱ ' + response.total_pay_rp);
-                    $('.number_text').text(response.number_text);
+                    $('#bayarrp').val('₱' + response.bayarrp);
+                    $('#bayar').val(response.bayar);
+                    $('.tampil-bayar').text('Pay: ₱ ' + response.bayarrp);
+                    $('.tampil-terbilang').text(response.terbilang);
 
-                    $('#kembali').val('₱' + response.number_text_rp);
-                    if ($('#change').val() != 0) {
-                        $('.responsive_number').text('Return: ₱ ' + response.number_text_rp);
-                        $('.number_text').text(response.number_text2);
+                    $('#kembali').val('₱' + response.kembalirp);
+                    if ($('#diterima').val() != 0) {
+                        $('.tampil-bayar').text('Return: ₱ ' + response.kembalirp);
+                        $('.tampil-terbilang').text(response.kembali_terbilang);
                     }
                 })
                 .fail(errors => {
-                    Swal.fire("Error", response.message, 'error');
+                    Swal.fire("Error", "Error fetching form!", 'error');
                     return;
                 })
         }
+
     </script>
 @endpush

@@ -226,29 +226,29 @@ class SalesDetailsController extends Controller
         }
     }
 
-    // load the data realtime
-    public function loadForm($total = 0, $change = 0)
-    {
-        $total_pay   = $total;
-        $return = ($change != 0) ? $change - $total_pay : 0;
-        try {
-            $data    = [
-                'totalrp' => format_uang($total),
-                'total_pay' => $total_pay,
-                'total_pay_rp' => format_uang($total_pay),
-                'number_text' => ucwords(terbilang($total_pay). ' Pesos'),
-                'number_text_rp' => format_uang($return),
-                'number_text_2' => ucwords(terbilang($return). ' Pesos'),
-            ];
-            return response()->json($data);
-        } catch (\Throwable $th) {
-            $message = 'Unable to load data!';
-            Session::flash('sweetAlertMessage', $message);
-            Session::flash('showSweetAlert', true);
-            Session::flash('sweetAlertIcon', 'error');
-            Session::flash('sweetAlertTitle', 'error');
+   // load the data realtime
+   public function loadForm($total = 0, $change = 0)
+   {
+       $bayar   = $total;
+       $kembali = ($change != 0) ? $change - $bayar : 0;
+       try {
+           $data    = [
+               'totalrp' => format_uang($total),
+               'bayar' => $bayar,
+               'bayarrp' => format_uang($bayar),
+               'terbilang' => ucwords(terbilang($bayar). ' Pesos'),
+               'kembalirp' => format_uang($kembali),
+               'kembali_terbilang' => ucwords(terbilang($kembali). ' Pesos'),
+           ];
+           return response()->json($data);
+       } catch (\Throwable $th) {
+           $message = 'Unable to load data!';
+           Session::flash('sweetAlertMessage', $message);
+           Session::flash('showSweetAlert', true);
+           Session::flash('sweetAlertIcon', 'error');
+           Session::flash('sweetAlertTitle', 'error');
 
-            return redirect()->route('transaction.create')->withInput();
-        }
-    }
+           return redirect()->route('transaction.create')->withInput();
+       }
+   }
 }
