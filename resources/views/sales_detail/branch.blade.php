@@ -4,27 +4,27 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                         aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Select Members</h4>
+                <h4 class="modal-title">Select Branch</h4>
             </div>
             <div class="modal-body">
                 <table class="table table-striped table-bordered table-member table-hover">
                     <thead>
                         <th width="5%">#</th>
                         <th>Name</th>
-                        <th>Telephone</th>
+                        <th>Phone</th>
                         <th>Address</th>
                         <th><i class="fa fa-cog"></i></th>
                     </thead>
                     <tbody>
-                        @foreach ($member as $key => $item)
+                        @foreach ($branch as $key => $item)
                             <tr>
                                 <td width="5%">{{ $key+1 }}</td>
-                                <td>{{ $item->nama }}</td>
-                                <td>{{ $item->telepon }}</td>
-                                <td>{{ $item->alamat }}</td>
+                                <td>{{ $item->name }}</td>
+                                <td>{{ $item->phone }}</td>
+                                <td>{{ $item->address }}</td>
                                 <td>
                                     <a href="#" class="btn btn-primary btn-xs btn-flat"
-                                        onclick="pilihMember('{{ $item->id_member }}', '{{ $item->kode_member }}')">
+                                        onclick="selectBranch('{{ $item->id_branch }}', '{{ $item->code_branch }}')">
                                         <i class="fa fa-check-circle"></i>
                                         Select
                                     </a>
@@ -37,4 +37,3 @@
         </div>
     </div>
 </div>
-<!-- visit "codeastro" for more projects! -->

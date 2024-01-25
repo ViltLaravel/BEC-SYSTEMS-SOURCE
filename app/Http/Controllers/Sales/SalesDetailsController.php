@@ -230,15 +230,15 @@ class SalesDetailsController extends Controller
     public function loadForm($total = 0, $change = 0)
     {
         $total_pay   = $total;
-        $changes = ($change != 0) ? $change - $total_pay : 0;
+        $return = ($change != 0) ? $change - $total_pay : 0;
         try {
             $data    = [
                 'totalrp' => format_uang($total),
                 'total_pay' => $total_pay,
                 'total_pay_rp' => format_uang($total_pay),
-                'change' => ucwords(terbilang($total_pay). ' Pesos'),
-                'change_rp' => format_uang($changes),
-                'change_change' => ucwords(terbilang($changes). ' Pesos'),
+                'number_text' => ucwords(terbilang($total_pay). ' Pesos'),
+                'number_text_rp' => format_uang($return),
+                'number_text_2' => ucwords(terbilang($return). ' Pesos'),
             ];
             return response()->json($data);
         } catch (\Throwable $th) {

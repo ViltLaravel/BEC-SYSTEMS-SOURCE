@@ -18,7 +18,7 @@
                         <thead>
                             <th width="5%">#</th>
                             <th>Date</th>
-                            <th>BranchCode</th>
+                            <th>Branch Code</th>
                             <th>Quantity</th>
                             <th>Total Price</th>
                             <th>Total Pay</th>

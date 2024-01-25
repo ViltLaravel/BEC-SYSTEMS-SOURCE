@@ -79,14 +79,14 @@
         <!-- small box -->
         <div class="small-box bg-green">
             <div class="inner">
-                <h3>₱ {{ $penjualan }}</h3>
+                <h3>₱ {{ $sales }}</h3>
 
                 <p>Sales</p>
             </div>
             <div class="icon">
                 <i class="fa fa-line-chart"></i>
             </div>
-            <a href="{{ route('penjualan.index') }}" class="small-box-footer">View <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="{{ route('sales.index') }}" class="small-box-footer">View <i class="fa fa-arrow-circle-right"></i></a>
         </div>
     </div>
     <!-- ./col -->
@@ -122,15 +122,13 @@
         </div>
     </div>
     <!-- ./col -->
-
-    <!-- visit "codeastro" for more projects! -->
 </div>
 <!-- Main row -->
 <div class="row">
     <div class="col-lg-12">
         <div class="box">
             <div class="box-header with-border">
-                <h3 class="box-title">Income Chart {{ tanggal_indonesia($tanggal_awal, false) }} - {{ tanggal_indonesia($tanggal_akhir, false) }}</h3>
+                <h3 class="box-title">Income Chart {{ tanggal_indonesia($date1, false) }} - {{ tanggal_indonesia($date2, false) }}</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -164,7 +162,7 @@ $(function() {
     var salesChart = new Chart(salesChartCanvas);
 
     var salesChartData = {
-        labels: {{ json_encode($data_tanggal) }},
+        labels: {{ json_encode($data1) }},
         datasets: [
             {
                 label: 'Pendapatan',
@@ -174,7 +172,7 @@ $(function() {
                 pointStrokeColor    : 'rgba(60,141,188,1)',
                 pointHighlightFill  : '#fff',
                 pointHighlightStroke: 'rgba(60,141,188,1)',
-                data: {{ json_encode($data_pendapatan) }}
+                data: {{ json_encode($data2) }}
             }
         ]
     };

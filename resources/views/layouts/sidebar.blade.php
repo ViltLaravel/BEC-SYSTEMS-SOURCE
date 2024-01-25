@@ -61,17 +61,17 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('penjualan.index') }}">
+                <a href="{{ route('sales.index') }}">
                     <i class="fa fa-dollar"></i> <span>Sales List</span>
                 </a>
             </li>
             <li>
-                <a href="{{ route('transaksi.baru') }}">
+                <a href="{{ route('transaction.create') }}">
                     <i class="fa fa-cart-plus"></i> <span>New Transaction</span>
                 </a>
             </li>
             <li>
-                <a href="{{ route('transaksi.index') }}">
+                <a href="{{ route('transaction_details.index') }}">
                     <i class="fa fa-cart-arrow-down"></i> <span>Active Transaction</span>
                 </a>
             </li>
@@ -95,12 +95,12 @@
             </li>
             @else
             <li>
-                <a href="{{ route('transaksi.baru') }}">
+                <a href="{{ route('transaction.create') }}">
                     <i class="fa fa-cart-plus"></i> <span>New Transaction</span>
                 </a>
             </li>
             <li>
-                <a href="{{ route('transaksi.index') }}">
+                <a href="{{ route('transaction_details.index') }}">
                     <i class="fa fa-cart-arrow-down"></i> <span>Active Transaction</span>
                 </a>
             </li>

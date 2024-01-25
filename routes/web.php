@@ -2,14 +2,8 @@
 
 use App\Http\Controllers\{
     DashboardController,
-    KategoriController,
     LaporanController,
-    ProdukController,
-    MemberController,
     PengeluaranController,
-    PembelianDetailController,
-    PenjualanController,
-    PenjualanDetailController,
     SettingController,
     UserController,
 };
@@ -103,20 +97,20 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::group(['middleware' => 'level:1,2'], function () {
         // start sales route by role access
-        Route::get('/transaction/create', [SalesController::class, 'create'])->name('transaction.create');
+        Route::get('/transaction/show', [SalesController::class, 'create'])->name('transaction.create');
         Route::post('/transaction/store', [SalesController::class, 'store'])->name('transaction.store');
         Route::get('/transaction/sales', [SalesController::class, 'sales'])->name('transaction.sales');
-        Route::get('/transaksi/nota-kecil', [SalesController::class, 'smallFormat'])->name('transaction.smPDF');
-        Route::get('/transaksi/nota-besar', [SalesController::class, 'pdfFormat'])->name('transaction.lgPDF');
+        Route::get('/transaction/small', [SalesController::class, 'smallFormat'])->name('transaction.smPDF');
+        Route::get('/transaction/large', [SalesController::class, 'pdfFormat'])->name('transaction.lgPDF');
 
         Route::get('/transaction/{id}/data', [SalesDetailsController::class, 'data'])->name('transaction.data');
         Route::get('/transaction/loadform/{total}/{change}', [SalesDetailsController::class, 'loadForm'])->name('transaction.load_form');
-        Route::resource('/transaction', SalesDetailsController::class)
+        Route::resource('/transaction_details', SalesDetailsController::class)
             ->except('create', 'show', 'edit');
         // end sales route by role access
     });
 
-    
+
 
     Route::group(['middleware' => 'level:1'], function () {
         Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan.index');

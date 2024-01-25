@@ -82,7 +82,7 @@ class SalesController extends Controller
 
             session(['id_sales' => $sales->id_sales]);
 
-            return redirect()->route('transaction.index');
+            return redirect()->route('transaction_details.index');
 
         } catch (\Throwable $th) {
             $message = 'Error archieving latest sales!';
@@ -91,7 +91,7 @@ class SalesController extends Controller
             Session::flash('sweetAlertIcon', 'error');
             Session::flash('sweetAlertTitle', 'error');
 
-            return redirect()->route('transaction.index')->withInput();
+            return redirect()->route('transaction_details.index')->withInput();
         }
     }
 

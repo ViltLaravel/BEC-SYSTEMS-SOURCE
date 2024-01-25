@@ -72,19 +72,19 @@
         <tfoot>
             <tr>
                 <td colspan="5" class="text-right"><b>Total Price</b></td>
-                <td class="text-right"><b>{{ format_uang($sales->total_harga) }}</b></td>
+                <td class="text-right"><b>{{ format_uang($sales->total_price) }}</b></td>
             </tr>
             <tr>
                 <td colspan="5" class="text-right"><b>Total Pay</b></td>
-                <td class="text-right"><b>{{ format_uang($penjualan->bayar) }}</b></td>
+                <td class="text-right"><b>{{ format_uang($sales->total_pay) }}</b></td>
             </tr>
             <tr>
                 <td colspan="5" class="text-right"><b>Received</b></td>
-                <td class="text-right"><b>{{ format_uang($penjualan->diterima) }}</b></td>
+                <td class="text-right"><b>{{ format_uang($sales->change) }}</b></td>
             </tr>
             <tr>
                 <td colspan="5" class="text-right"><b>Return</b></td>
-                <td class="text-right"><b>{{ format_uang($penjualan->diterima - $penjualan->bayar) }}</b></td>
+                <td class="text-right"><b>{{ format_uang($sales->change - $sales->total_pay) }}</b></td>
             </tr>
         </tfoot>
     </table>

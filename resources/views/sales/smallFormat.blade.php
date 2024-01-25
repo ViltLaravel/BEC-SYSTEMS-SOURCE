@@ -30,11 +30,11 @@
         @media print {
             @page {
                 margin: 0;
-                size: 75mm 
+                size: 75mm
     ';
     ?>
-    <?php 
-    $style .= 
+    <?php
+    $style .=
         ! empty($_COOKIE['innerHeight'])
             ? $_COOKIE['innerHeight'] .'mm; }'
             : '}';
@@ -66,19 +66,19 @@
         <p style="float: right">{{ strtoupper(auth()->user()->name) }}</p>
     </div>
     <div class="clear-both" style="clear: both;"></div>
-    <p>No: {{ tambah_nol_didepan($penjualan->id_penjualan, 10) }}</p>
+    <p>No: {{ tambah_nol_didepan($sales->id_sales, 10) }}</p>
     <p class="text-center">===================================</p>
-    
+
     <br>
     <table width="100%" style="border: 0;">
         @foreach ($detail as $item)
             <tr>
-                <td colspan="3">{{ $item->produk->nama_produk }}</td>
+                <td colspan="3">{{ $item->product->name_product }}</td>
             </tr>
             <tr>
-                <td>{{ $item->jumlah }} x {{ format_uang($item->harga_jual) }}</td>
+                <td>{{ $item->stock }} x {{ format_uang($item->selling_price) }}</td>
                 <td></td>
-                <td class="text-right">{{ format_uang($item->jumlah * $item->harga_jual) }}</td>
+                <td class="text-right">{{ format_uang($item->stock * $item->selling_price) }}</td>
             </tr>
         @endforeach
     </table>
@@ -87,27 +87,23 @@
     <table width="100%" style="border: 0;">
         <tr>
             <td>Total Price:</td>
-            <td class="text-right">{{ format_uang($penjualan->total_harga) }}</td>
+            <td class="text-right">{{ format_uang($sales->total_price) }}</td>
         </tr>
         <tr>
             <td>Total Item:</td>
-            <td class="text-right">{{ format_uang($penjualan->total_item) }}</td>
-        </tr>
-        <tr>
-            <td>Discount:</td>
-            <td class="text-right">{{ format_uang($penjualan->diskon) }}</td>
+            <td class="text-right">{{ format_uang($sales->total_item) }}</td>
         </tr>
         <tr>
             <td>Total Pay:</td>
-            <td class="text-right">{{ format_uang($penjualan->bayar) }}</td>
+            <td class="text-right">{{ format_uang($sales->total_pay) }}</td>
         </tr>
         <tr>
             <td>Received:</td>
-            <td class="text-right">{{ format_uang($penjualan->diterima) }}</td>
+            <td class="text-right">{{ format_uang($sales->change) }}</td>
         </tr>
         <tr>
             <td>Return:</td>
-            <td class="text-right">{{ format_uang($penjualan->diterima - $penjualan->bayar) }}</td>
+            <td class="text-right">{{ format_uang($sales->change - $sales->total_pay) }}</td>
         </tr>
     </table>
 

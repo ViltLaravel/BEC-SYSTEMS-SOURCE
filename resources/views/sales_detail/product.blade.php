@@ -7,7 +7,7 @@
                 <h4 class="modal-title">Select Product</h4>
             </div>
             <div class="modal-body">
-                <table class="table table-striped table-bordered table-produk table-hover">
+                <table class="table table-striped table-bordered table-product table-hover">
                     <thead>
                         <th width="5%">#</th>
                         <th>Code</th>
@@ -17,16 +17,16 @@
                         <th><i class="fa fa-cog"></i></th>
                     </thead>
                     <tbody>
-                        @foreach ($produk as $key => $item)
+                        @foreach ($product as $key => $item)
                             <tr>
                                 <td width="5%">{{ $key+1 }}</td>
-                                <td><span class="label label-success">{{ $item->kode_produk }}</span></td>
-                                <td>{{ $item->nama_produk }}</td>
-                                <td>{{ $item->harga_beli }}</td>
-                                <td>{{ $item->stok }}</td>
+                                <td><span class="label label-success">{{ $item->code_product }}</span></td>
+                                <td>{{ $item->name_product }}</td>
+                                <td>{{ $item->price_purchase }}</td>
+                                <td>{{ $item->stock }}</td>
                                 <td>
                                     <a href="#" class="btn btn-primary btn-xs btn-flat"
-                                        onclick="pilihProduk('{{ $item->id_produk }}', '{{ $item->kode_produk }}')">
+                                        onclick="getProduct('{{ $item->id_product }}', '{{ $item->code_product }}')">
                                         <i class="fa fa-check-circle"></i>
                                         Select
                                     </a>
