@@ -21,7 +21,7 @@ class CreateSalesTable extends Migration
             $table->integer('total_item');
             $table->integer('total_price');
             $table->integer('total_pay')->default(0);
-            $table->integer('diterima')->default(0);
+            $table->integer('change')->default(0);
             $table->integer('id_user');
             $table->timestamps();
         });

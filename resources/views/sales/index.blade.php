@@ -14,14 +14,13 @@
         <div class="col-lg-12">
             <div class="box">
                 <div class="box-body table-responsive">
-                    <table class="table table-stiped table-bordered table-penjualan table-hover">
+                    <table class="table table-stiped table-bordered table-sales table-hover">
                         <thead>
                             <th width="5%">#</th>
                             <th>Date</th>
-                            <th>MemberCode</th>
+                            <th>BranchCode</th>
                             <th>Quantity</th>
                             <th>Total Price</th>
-                            {{-- <th>Discount</th> --}}
                             <th>Total Pay</th>
                             <th>Cashier</th>
                             <th width="15%"><i class="fa fa-cog"></i></th>
@@ -32,7 +31,7 @@
         </div>
     </div>
 
-    @includeIf('penjualan.detail')
+    @includeIf('sales.detail')
 @endsection
 
 @push('scripts')
@@ -41,13 +40,13 @@
 
         // data tables
         $(function() {
-            table = $('.table-penjualan').DataTable({
+            table = $('.table-sales').DataTable({
                 responsive: true,
                 processing: true,
                 serverSide: true,
                 autoWidth: false,
                 ajax: {
-                    url: '{{ route('penjualan.data') }}',
+                    url: '{{ route('sales.data') }}',
                 },
                 columns: [{
                         data: 'DT_RowIndex',
@@ -55,28 +54,25 @@
                         sortable: false
                     },
                     {
-                        data: 'tanggal'
+                        data: 'date'
                     },
                     {
-                        data: 'kode_member'
+                        data: 'code_branch'
                     },
                     {
                         data: 'total_item'
                     },
                     {
-                        data: 'total_harga'
-                    },
-                    // {
-                    //     data: 'diskon'
-                    // },
-                    {
-                        data: 'bayar'
+                        data: 'total_price'
                     },
                     {
-                        data: 'kasir'
+                        data: 'total_pay'
                     },
                     {
-                        data: 'aksi',
+                        data: 'cashier'
+                    },
+                    {
+                        data: 'action',
                         searchable: false,
                         sortable: false
                     },
@@ -93,16 +89,16 @@
                         sortable: false
                     },
                     {
-                        data: 'kode_produk'
+                        data: 'code_product'
                     },
                     {
-                        data: 'nama_produk'
+                        data: 'name_product'
                     },
                     {
-                        data: 'harga_jual'
+                        data: 'price_selling'
                     },
                     {
-                        data: 'jumlah'
+                        data: 'stock'
                     },
                     {
                         data: 'subtotal'
