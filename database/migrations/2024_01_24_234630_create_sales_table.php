@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class EditIdMemberToPenjualanTable extends Migration
+class CreateSalesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,17 @@ class EditIdMemberToPenjualanTable extends Migration
      */
     public function up()
     {
-        Schema::table('penjualan', function (Blueprint $table) {
+        Schema::create('sales', function (Blueprint $table) {
+            $table->increments('id_sales');
             $table->integer('id_member')
                   ->nullable()
                   ->change();
+            $table->integer('total_item');
+            $table->integer('total_price');
+            $table->integer('total_pay')->default(0);
+            $table->integer('diterima')->default(0);
+            $table->integer('id_user');
+            $table->timestamps();
         });
     }
 
@@ -27,9 +34,6 @@ class EditIdMemberToPenjualanTable extends Migration
      */
     public function down()
     {
-        Schema::table('penjualan', function (Blueprint $table) {
-            $table->integer('id_member')
-                  ->change();
-        });
+        Schema::dropIfExists('sales');
     }
 }
