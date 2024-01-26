@@ -18,10 +18,9 @@
                         <thead>
                             <th width="5%">#</th>
                             <th>Date</th>
-                            <th>MemberCode</th>
+                            <th>Branch Code</th>
                             <th>Quantity</th>
                             <th>Total Price</th>
-                            <th>Discount</th>
                             <th>Total Pay</th>
                             <th>Cashier</th>
                             <th width="15%"><i class="fa fa-cog"></i></th>
@@ -65,9 +64,6 @@
                     },
                     {
                         data: 'total_harga'
-                    },
-                    {
-                        data: 'diskon'
                     },
                     {
                         data: 'bayar'

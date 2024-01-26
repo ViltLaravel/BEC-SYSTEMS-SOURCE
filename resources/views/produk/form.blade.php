@@ -51,14 +51,14 @@
                             <span class="help-block with-errors"></span>
                         </div>
                     </div>
-                    <div class="form-group row">
+                    <div class="form-group row" hidden>
                         <label for="diskon" class="col-lg-2 col-lg-offset-1 control-label">Discount</label>
                         <div class="col-lg-6">
                             <input type="number" name="diskon" id="diskon" class="form-control" value="0">
                             <span class="help-block with-errors"></span>
                         </div>
                     </div>
-                    <div class="form-group row">
+                    <div class="form-group row" hidden>
                         <label for="stok" class="col-lg-2 col-lg-offset-1 control-label">Stock</label>
                         <div class="col-lg-6">
                             <input type="number" name="stok" id="stok" class="form-control" required value="0">

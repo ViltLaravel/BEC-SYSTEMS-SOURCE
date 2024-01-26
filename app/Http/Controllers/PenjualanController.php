@@ -97,16 +97,12 @@ class PenjualanController extends Controller
             $penjualan->id_member = $request->id_member;
             $penjualan->total_item = $request->total_item;
             $penjualan->total_harga = $request->total;
-            $penjualan->diskon = $request->diskon;
             $penjualan->bayar = $request->bayar;
             $penjualan->diterima = $request->diterima;
             $penjualan->update();
 
             $detail = PenjualanDetail::where('id_penjualan', $penjualan->id_penjualan)->get();
             foreach ($detail as $item) {
-                $item->diskon = $request->diskon;
-                $item->update();
-
                 $produk = Produk::find($item->id_produk);
                 $produk->stok -= $item->jumlah;
                 $produk->update();

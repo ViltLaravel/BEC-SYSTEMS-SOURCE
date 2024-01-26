@@ -1,12 +1,12 @@
 @extends('layouts.master')
 
 @section('title')
-    List of Members
+    List of Branches
 @endsection
 
 @section('breadcrumb')
     @parent
-    <li class="active">List of Members</li>
+    <li class="active">List of Branches</li>
 @endsection
 
 @section('content')
@@ -15,9 +15,9 @@
             <div class="box">
                 <div class="box-header with-border">
                     <button onclick="addForm('{{ route('member.store') }}')" class="btn btn-success btn-flat"><i
-                            class="fa fa-plus-circle"></i> Add New Member</button>
+                            class="fa fa-plus-circle"></i> Add New Branch</button>
                     <button onclick="cetakMember('{{ route('member.cetak_member') }}')" class="btn btn-primary btn-flat"><i
-                            class="fa fa-id-card"></i> Download Membership Card</button>
+                            class="fa fa-id-card"></i> Download Branch Card</button>
                 </div>
                 <div class="box-body table-responsive">
                     <form action="" method="post" class="form-member">
@@ -30,7 +30,7 @@
                                 <th width="5%">#</th>
                                 <th>Code</th>
                                 <th>Name</th>
-                                <th>Telephone</th>
+                                <th>Phone</th>
                                 <th>Address</th>
                                 <th width="15%"><i class="fa fa-cog"></i></th>
                             </thead>
@@ -40,7 +40,6 @@
             </div>
         </div>
     </div>
-    <!-- visit "codeastro" for more projects! -->
     @includeIf('member.form')
 @endsection
 

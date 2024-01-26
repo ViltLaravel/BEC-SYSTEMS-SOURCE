@@ -1,12 +1,12 @@
 @extends('layouts.master')
 
 @section('title')
-    Product List
+    Items List
 @endsection
 
 @section('breadcrumb')
     @parent
-    <li class="active">Product List</li>
+    <li class="active">Items List</li>
 @endsection
 
 @section('content')
@@ -16,7 +16,7 @@
                 <div class="box-header with-border">
                     <div class="btn-group">
                         <button onclick="addForm('{{ route('produk.store') }}')" class="btn btn-success  btn-flat"><i
-                                class="fa fa-plus-circle"></i> Add New Product</button>
+                                class="fa fa-plus-circle"></i> Add New Item</button>
                         <button onclick="deleteSelected('{{ route('produk.delete_selected') }}')"
                             class="btn btn-danger  btn-flat"><i class="fa fa-trash"></i> Delete</button>
                         <button onclick="cetakBarcode('{{ route('produk.cetak_barcode') }}')"
@@ -38,7 +38,7 @@
                                 <th>Brand</th>
                                 <th>Purchase Price</th>
                                 <th>Selling Price</th>
-                                <th>Discount</th>
+                                {{-- <th>Discount</th> --}}
                                 <th>Stock</th>
                                 <th width="15%"><i class="fa fa-cog"></i></th>
                             </thead>
@@ -94,9 +94,9 @@
                     {
                         data: 'harga_jual'
                     },
-                    {
-                        data: 'diskon'
-                    },
+                    // {
+                    //     data: 'diskon'
+                    // },
                     {
                         data: 'stok'
                     },

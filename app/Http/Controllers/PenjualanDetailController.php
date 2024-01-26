@@ -116,8 +116,7 @@ class PenjualanDetailController extends Controller
         $detail->id_produk = $produk->id_produk;
         $detail->harga_jual = $produk->harga_jual;
         $detail->jumlah = 1;
-        $detail->diskon = $produk->diskon;
-        $detail->subtotal = $produk->harga_jual - ($produk->diskon / 100 * $produk->harga_jual);
+        $detail->subtotal = $produk->harga_jual;
         $detail->save();
 
         // Update the product stock
@@ -159,28 +158,18 @@ class PenjualanDetailController extends Controller
     }
 
     // load the data realtime
-    public function loadForm($diskon = 0, $total = 0, $diterima = 0)
+    public function loadForm($total)
     {
-        $bayar   = $total - ($diskon / 100 * $total);
-        $kembali = ($diterima != 0) ? $diterima - $bayar : 0;
-        try {
-            $data    = [
-                'totalrp' => format_uang($total),
-                'bayar' => $bayar,
-                'bayarrp' => format_uang($bayar),
-                'terbilang' => ucwords(terbilang($bayar). ' Pesos'),
-                'kembalirp' => format_uang($kembali),
-                'kembali_terbilang' => ucwords(terbilang($kembali). ' Pesos'),
-            ];
-            return response()->json($data);
-        } catch (\Throwable $th) {
-            $message = 'Unable to load data!';
-            Session::flash('sweetAlertMessage', $message);
-            Session::flash('showSweetAlert', true);
-            Session::flash('sweetAlertIcon', 'error');
-            Session::flash('sweetAlertTitle', 'error');
+        $bayar = $total;
+        $data  = [
+            'totalrp' => format_uang($total),
+            'bayar' => $bayar,
+            'change' => $bayar,
+            'bayarrp' => format_uang($bayar),
+            'changerp' => format_uang($bayar),
+            'terbilang' => ucwords(terbilang($bayar). ' Pesos')
+        ];
 
-            return redirect()->route('transaksi.baru')->withInput();
-        }
+        return response()->json($data);
     }
 }
