@@ -237,7 +237,7 @@ class SalesDetailsController extends Controller
             ], 500);
         }
     }
-    
+
     // Load the data in real-time
     public function loadForm($total = 0, $received = 0)
     {
