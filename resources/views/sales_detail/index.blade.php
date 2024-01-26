@@ -6,13 +6,13 @@
 
 @push('css')
     <style>
-        .responsive_number {
+        .display-payment {
             font-size: 5em;
             text-align: center;
             height: 100px;
         }
 
-        .number_text {
+        .display-words {
             padding: 10px;
             background: #f0f0f0;
         }
@@ -22,7 +22,7 @@
         }
 
         @media(max-width: 768px) {
-            .responsive_number {
+            .display-payment {
                 font-size: 3em;
                 height: 70px;
                 padding-top: 5px;
@@ -73,8 +73,8 @@
 
                     <div class="row">
                         <div class="col-lg-8">
-                            <div class="responsive_number bg-primary"></div>
-                            <div class="number_text"></div>
+                            <div class="display-payment bg-primary"></div>
+                            <div class="display-words"></div>
                         </div>
                         <div class="col-lg-4">
                             <form action="{{ route('transaction.store') }}" class="form-sales" method="post">
@@ -82,7 +82,7 @@
                                 <input type="hidden" name="id_sales" value="{{ $id_sales }}">
                                 <input type="hidden" name="total" id="total">
                                 <input type="hidden" name="total_item" id="total_item">
-                                <input type="hidden" name="total_pay" id="total_pay">
+                                <input type="hidden" name="total_pay" id="payment">
                                 <input type="hidden" name="id_branch" id="id_branch"
                                     value="{{ $branchSelected->id_branch }}">
 
@@ -106,9 +106,9 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="total_pay" class="col-lg-2 control-label">Pay</label>
+                                    <label for="paymentrp" class="col-lg-2 control-label">Pay</label>
                                     <div class="col-lg-8">
-                                        <input type="text" id="total_pay_rp" class="form-control" readonly>
+                                        <input type="text" id="paymentrp" class="form-control" readonly>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -131,7 +131,8 @@
                 </div>
 
                 <div class="box-footer">
-                    <button type="submit" class="btn btn-success btn-sm btn-flat pull-right btn-simpan"><i class="fa fa-floppy-o"></i> Save Transaction</button>
+                    <button type="submit" class="btn btn-success btn-sm btn-flat pull-right btn-simpan"><i
+                            class="fa fa-floppy-o"></i> Save Transaction</button>
                 </div>
             </div>
         </div>
@@ -351,30 +352,28 @@
                 });
         }
 
-  // load the sales value in the data table realtime
-  function loadForm(change = 0) {
-            $('#total').val($('.total').text());
-            $('#total_item').val($('.total_item').text());
+        function loadForm(received = 0) {
+    $('#total').val($('.total').text());
+    $('#total_item').val($('.total_item').text());
 
-            $.get(`{{ url('/transaction/loadform') }}/${$('.total').text()}/${change}`)
-                .done(response => {
-                    $('#totalrp').val('₱' + response.totalrp);
-                    $('#bayarrp').val('₱' + response.bayarrp);
-                    $('#bayar').val(response.bayar);
-                    $('.tampil-bayar').text('Pay: ₱ ' + response.bayarrp);
-                    $('.tampil-terbilang').text(response.terbilang);
+    $.get(`{{ url('/transaction/loadform') }}/${$('.total').text()}/${received}`)
+        .done(response => {
+            $('#totalrp').val('₱' + response.totalrp);
+            $('#paymentrp').val('₱' + response.paymentrp);
+            $('#payment').val(response.payment);
+            $('.display-payment').text('Pay: ₱ ' + response.paymentrp);
+            $('.display-words').text(response.words);
 
-                    $('#kembali').val('₱' + response.kembalirp);
-                    if ($('#diterima').val() != 0) {
-                        $('.tampil-bayar').text('Return: ₱ ' + response.kembalirp);
-                        $('.tampil-terbilang').text(response.kembali_terbilang);
-                    }
-                })
-                .fail(errors => {
-                    Swal.fire("Error", "Error fetching form!", 'error');
-                    return;
-                })
-        }
-
+            $('#return').val('₱' + response.changerp);
+            if ($('#received').val() != 0) {
+                $('.display-payment').text('Return: ₱ ' + response.changerp);
+                $('.display-words').text(response.change_words);
+            }
+        })
+        .fail(errors => {
+            Swal.fire("Error", "Error fetching form!", 'error');
+            return;
+        });
+}
     </script>
 @endpush

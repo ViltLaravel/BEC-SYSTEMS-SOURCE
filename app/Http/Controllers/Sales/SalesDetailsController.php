@@ -24,7 +24,8 @@ class SalesDetailsController extends Controller
         $branch = Branch::orderBy('name')->get();
 
         // Check whether there are any transactions in progress
-        if ($id_sales = session('id_sales')) {
+        $id_sales = session('id_sales');
+        if ($id_sales) {
             $sales = Sales::find($id_sales);
             $branchSelected = $sales->branch ?? new Branch();
 
@@ -42,39 +43,42 @@ class SalesDetailsController extends Controller
     public function data($id)
     {
         try {
-            $detail = SalesDetails::with('product')
-            ->where('id_sales', $id)
-            ->get();
+            $details = SalesDetails::with('product')
+                ->where('id_sales', $id)
+                ->get();
 
-            $data = array();
+            $data = [];
             $total = 0;
             $total_item = 0;
 
-            foreach ($detail as $item) {
-                $row = array();
-                $row['code_product'] = '<span class="label label-success">'. $item->product['code_product'] .'</span';
-                $row['name_product'] = $item->product['name_product'];
-                $row['selling_price']  = '₱ '. format_uang($item->selling_price);
-                $row['stock']      = '<input type="number" class="form-control input-sm quantity" data-id="'. $item->id_sales_detail .'" value="'. $item->stock .'">';
-                $row['subtotal']    = '₱ '. format_uang($item->subtotal);
-                $row['action']        = '<div class="btn-group">
-                                        <button onclick="deleteData(`'. route('transaction.destroy', $item->id_sales_detail) .'`)" class="btn btn-xs btn-danger btn-flat"><i class="fa fa-trash"></i></button>
-                                    </div>';
+            foreach ($details as $detail) {
+                $row = [
+                    'code_product' => '<span class="label label-success">' . $detail->product['code_product'] . '</span>',
+                    'name_product' => $detail->product['name_product'],
+                    'selling_price' => '₱ ' . format_uang($detail->selling_price),
+                    'stock' => '<input type="number" class="form-control input-sm quantity" data-id="' . $detail->id_sales_detail . '" value="' . $detail->stock . '">',
+                    'subtotal' => '₱ ' . format_uang($detail->subtotal),
+                    'action' => '<div class="btn-group">
+                                    <button onclick="deleteData(`' . route('transaction.destroy', $detail->id_sales_detail) . '`)" class="btn btn-xs btn-danger btn-flat"><i class="fa fa-trash"></i></button>
+                                </div>',
+                ];
+
                 $data[] = $row;
 
-                $total += $item->selling_price * $item->stock;
-                $total_item += $item->stock;
+                $total += $detail->selling_price * $detail->stock;
+                $total_item += $detail->stock;
             }
-            $data[] = [
-                'code_product' => '
-                    <div class="total hide">'. $total .'</div>
-                    <div class="total_item hide">'. $total_item .'</div>',
-                'name_product'   => '',
-                'selling_price'  => '',
-                'stock'          => '',
-                'subtotal'       => '',
-                'action'         => '',
+
+            $summaryRow = [
+                'code_product' => '<div class="total hide">' . $total . '</div><div class="total_item hide">' . $total_item . '</div>',
+                'name_product' => '',
+                'selling_price' => '',
+                'stock' => '',
+                'subtotal' => '',
+                'action' => '',
             ];
+
+            $data[] = $summaryRow;
 
             return datatables()
                 ->of($data)
@@ -138,8 +142,16 @@ class SalesDetailsController extends Controller
         $detail->save();
 
         // Update the product stock
-        $product->stock - 1;
-        $product->save();
+        if ($product->stock >= 1) {
+            $product->stock -= 1;
+            $product->save();
+        } else {
+            // Handle the case where there is not enough stock
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Product is out of stock and cannot be added to the sale.'
+            ], 400);
+        }
 
         return response()->json([
             'status' => 'success',
@@ -225,30 +237,31 @@ class SalesDetailsController extends Controller
             ], 500);
         }
     }
+    
+    // Load the data in real-time
+    public function loadForm($total = 0, $received = 0)
+    {
+        $payment   = $total;
+        $change = ($received != 0) ? $received - $payment : 0;
+        try {
+            $data    = [
+                'totalrp' => format_money($total),
+                'payment' => $payment,
+                'paymentrp' => format_money($payment),
+                'words' => ucwords(terbilang($payment). ' Pesos'),
+                'changerp' => format_money($change),
+                'change_words' => ucwords(terbilang($change). ' Pesos'),
+            ];
+            return response()->json($data);
+        } catch (\Throwable $th) {
+            $message = 'Unable to load data!';
+            Session::flash('sweetAlertMessage', $message);
+            Session::flash('showSweetAlert', true);
+            Session::flash('sweetAlertIcon', 'error');
+            Session::flash('sweetAlertTitle', 'error');
 
-   // load the data realtime
-   public function loadForm($total = 0, $change = 0)
-   {
-       $bayar   = $total;
-       $kembali = ($change != 0) ? $change - $bayar : 0;
-       try {
-           $data    = [
-               'totalrp' => format_uang($total),
-               'bayar' => $bayar,
-               'bayarrp' => format_uang($bayar),
-               'terbilang' => ucwords(terbilang($bayar). ' Pesos'),
-               'kembalirp' => format_uang($kembali),
-               'kembali_terbilang' => ucwords(terbilang($kembali). ' Pesos'),
-           ];
-           return response()->json($data);
-       } catch (\Throwable $th) {
-           $message = 'Unable to load data!';
-           Session::flash('sweetAlertMessage', $message);
-           Session::flash('showSweetAlert', true);
-           Session::flash('sweetAlertIcon', 'error');
-           Session::flash('sweetAlertTitle', 'error');
+            return redirect()->route('transaksi.baru')->withInput();
+        }
+    }
 
-           return redirect()->route('transaction.create')->withInput();
-       }
-   }
 }

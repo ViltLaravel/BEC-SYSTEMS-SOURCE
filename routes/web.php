@@ -102,7 +102,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/transaction/large', [SalesController::class, 'pdfFormat'])->name('transaction.lgPDF');
 
         Route::get('/transaction/{id}/data', [SalesDetailsController::class, 'data'])->name('transaction.data');
-        Route::get('/transaction/loadform/{total}/{change}', [SalesDetailsController::class, 'loadForm'])->name('transaction.load_form');
+        Route::get('/transaction/loadform/{total}/{received}', [SalesDetailsController::class, 'loadForm'])->name('transaction.load_form');
         Route::resource('/transaction_details', SalesDetailsController::class)
             ->except('create', 'show', 'edit');
         // end sales route by role access
