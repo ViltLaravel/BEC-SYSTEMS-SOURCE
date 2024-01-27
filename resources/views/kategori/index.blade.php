@@ -14,7 +14,7 @@
         <div class="col-lg-12">
             <div class="box">
                 <div class="box-header with-border">
-                    <button onclick="addForm('{{ route('kategori.store') }}')" class="btn btn-success btn-flat"><i
+                    <button onclick="addForm('{{ route('category.store') }}')" class="btn btn-success btn-flat"><i
                             class="fa fa-plus-circle"></i> Add New Category</button>
                 </div>
                 <div class="box-body table-responsive">
@@ -45,7 +45,7 @@
                 serverSide: true,
                 autoWidth: false,
                 ajax: {
-                    url: '{{ route('kategori.data') }}',
+                    url: '{{ route('category.data') }}',
                 },
                 columns: [{
                         data: 'DT_RowIndex',

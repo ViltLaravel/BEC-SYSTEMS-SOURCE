@@ -78,7 +78,7 @@
                             <div class="tampil-terbilang"></div>
                         </div>
                         <div class="col-lg-4">
-                            <form action="{{ route('transaksi.simpan') }}" class="form-penjualan" method="post">
+                            <form action="{{ route('transaction.store_sales') }}" class="form-penjualan" method="post">
                                 @csrf
                                 <input type="hidden" name="id_penjualan" value="{{ $id_penjualan }}">
                                 <input type="hidden" name="total" id="total">
@@ -150,7 +150,7 @@
                     serverSide: true,
                     autoWidth: false,
                     ajax: {
-                        url: '{{ route('transaksi.data', $id_penjualan) }}',
+                        url: '{{ route('transaction.data', $id_penjualan) }}',
                     },
                     columns: [{
                             data: 'DT_RowIndex',
@@ -202,7 +202,7 @@
                     return;
                 }
 
-                $.post(`{{ url('/transaksi') }}/${id}`, {
+                $.post(`{{ url('/transaction') }}/${id}`, {
                         '_token': $('[name=csrf-token]').attr('content'),
                         '_method': 'put',
                         'jumlah': jumlah
@@ -251,7 +251,7 @@
 
         // add the products
         function tambahProduk() {
-            $.post('{{ route('transaksi.store') }}', $('.form-produk').serialize())
+            $.post('{{ route('transaction.store') }}', $('.form-produk').serialize())
                 .done(response => {
                     $('#kode_produk').focus();
                     table.ajax.reload(() => loadForm());
@@ -328,7 +328,7 @@
             $('#total').val($('.total').text());
             $('#total_item').val($('.total_item').text());
 
-            $.get(`{{ url('/transaksi/loadform') }}/${$('.total').text()}`)
+            $.get(`{{ url('/transaction/loadform') }}/${$('.total').text()}`)
                 .done(response => {
                     $('#totalrp').val('₱ ' + response.totalrp);
                     $('#bayarrp').val('₱ ' + response.bayarrp);

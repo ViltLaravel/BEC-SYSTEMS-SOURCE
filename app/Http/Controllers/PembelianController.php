@@ -49,8 +49,8 @@ class PembelianController extends Controller
                 ->addColumn('aksi', function ($purchase) {
                     return '
                     <div class="btn-group">
-                        <button onclick="showDetail(`'. route('pembelian.show', $purchase->id_pembelian) .'`)" class="btn btn-xs btn-primary btn-flat"><i class="fa fa-eye"></i></button>
-                        <button onclick="deleteData(`'. route('pembelian.destroy', $purchase->id_pembelian) .'`)" class="btn btn-xs btn-danger btn-flat"><i class="fa fa-trash"></i></button>
+                        <button onclick="showDetail(`'. route('purchase.show', $purchase->id_pembelian) .'`)" class="btn btn-xs btn-primary btn-flat"><i class="fa fa-eye"></i></button>
+                        <button onclick="deleteData(`'. route('purchase.destroy', $purchase->id_pembelian) .'`)" class="btn btn-xs btn-danger btn-flat"><i class="fa fa-trash"></i></button>
                     </div>
                     ';
                 })
@@ -79,7 +79,7 @@ class PembelianController extends Controller
             session(['id_pembelian' => $purchase->id_pembelian]);
             session(['id_supplier' => $purchase->id_supplier]);
 
-            return redirect()->route('pembelian_detail.index');
+            return redirect()->route('purchase_detail.index');
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => 'error',
@@ -113,7 +113,7 @@ class PembelianController extends Controller
             Session::flash('sweetAlertIcon', 'success');
             Session::flash('sweetAlertTitle', 'Success');
 
-            return redirect()->route('pembelian.index')->withInput();
+            return redirect()->route('purchase.index')->withInput();
 
         } catch (\Throwable $th) {
             $message = 'Error adding this purchase!';
@@ -122,7 +122,7 @@ class PembelianController extends Controller
             Session::flash('sweetAlertIcon', 'error');
             Session::flash('sweetAlertTitle', 'Error');
 
-            return redirect()->route('pembelian.index')->withInput();
+            return redirect()->route('purchase.index')->withInput();
         }
     }
 

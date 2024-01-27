@@ -94,7 +94,7 @@
                             <div class="tampil-terbilang"></div>
                         </div>
                         <div class="col-lg-4">
-                            <form action="{{ route('pembelian.store') }}" class="form-pembelian" method="post">
+                            <form action="{{ route('purchase.store') }}" class="form-pembelian" method="post">
                                 @csrf
                                 <input type="hidden" name="id_pembelian" value="{{ $id_pembelian }}">
                                 <input type="hidden" name="total" id="total">
@@ -150,7 +150,7 @@
                     serverSide: true,
                     autoWidth: false,
                     ajax: {
-                        url: '{{ route('pembelian_detail.data', $id_pembelian) }}',
+                        url: '{{ route('purchase_detail.data', $id_pembelian) }}',
                     },
                     columns: [{
                             data: 'DT_RowIndex',
@@ -203,7 +203,7 @@
                     return;
                 }
 
-                $.post(`{{ url('/pembelian_detail') }}/${id}`, {
+                $.post(`{{ url('/purchase_detail') }}/${id}`, {
                         '_token': $('[name=csrf-token]').attr('content'),
                         '_method': 'put',
                         'jumlah': jumlah
@@ -252,7 +252,7 @@
 
         // adding the selected product into data table
         function tambahProduk() {
-            $.post('{{ route('pembelian_detail.store') }}', $('.form-produk').serialize())
+            $.post('{{ route('purchase_detail.store') }}', $('.form-produk').serialize())
                 .done(response => {
                     $('#kode_produk').focus();
                     table.ajax.reload(() => loadForm($('#diskon').val()));
@@ -304,7 +304,7 @@
             $('#total').val($('.total').text());
             $('#total_item').val($('.total_item').text());
 
-            $.get(`{{ url('/pembelian_detail/loadform') }}/${diskon}/${$('.total').text()}`)
+            $.get(`{{ url('/purchase_detail/loadform') }}/${diskon}/${$('.total').text()}`)
                 .done(response => {
                     $('#totalrp').val('₱ ' + response.totalrp);
                     $('#bayarrp').val('₱ ' + response.bayarrp);

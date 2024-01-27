@@ -25,17 +25,17 @@
             @if (auth()->user()->level == 1)
             <li class="header">MASTER</li>
             <li>
-                <a href="{{ route('kategori.index') }}">
+                <a href="{{ route('category.index') }}">
                     <i class="fa fa-cube"></i> <span>Category</span>
                 </a>
             </li>
             <li>
-                <a href="{{ route('produk.index') }}">
+                <a href="{{ route('items.index') }}">
                     <i class="fa fa-cubes"></i> <span>Items</span>
                 </a>
             </li>
             <li>
-                <a href="{{ route('member.index') }}">
+                <a href="{{ route('branch.index') }}">
                     <i class="fa fa-id-card"></i> <span>Branch</span>
                 </a>
             </li>
@@ -46,27 +46,27 @@
             </li>
             <li class="header">TRANSACTION</li>
             <li>
-                <a href="{{ route('pengeluaran.index') }}">
+                <a href="{{ route('expense.index') }}">
                     <i class="fa fa-money"></i> <span>Expenses</span>
                 </a>
             </li>
             <li>
-                <a href="{{ route('pembelian.index') }}">
+                <a href="{{ route('purchase.index') }}">
                     <i class="fa fa-download"></i> <span>Purchase</span>
                 </a>
             </li>
             <li>
-                <a href="{{ route('penjualan.index') }}">
+                <a href="{{ route('sales.index') }}">
                     <i class="fa fa-dollar"></i> <span>Sales List</span>
                 </a>
             </li>
             <li>
-                <a href="{{ route('transaksi.baru') }}">
+                <a href="{{ route('transaction.create') }}">
                     <i class="fa fa-cart-plus"></i> <span>New Transaction</span>
                 </a>
             </li>
             <li>
-                <a href="{{ route('transaksi.index') }}">
+                <a href="{{ route('transaction.index') }}">
                     <i class="fa fa-cart-arrow-down"></i> <span>Active Transaction</span>
                 </a>
             </li>

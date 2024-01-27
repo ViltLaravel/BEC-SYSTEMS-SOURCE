@@ -14,9 +14,9 @@
         <div class="col-lg-12">
             <div class="box">
                 <div class="box-header with-border">
-                    <button onclick="addForm('{{ route('member.store') }}')" class="btn btn-success btn-flat"><i
+                    <button onclick="addForm('{{ route('branch.store') }}')" class="btn btn-success btn-flat"><i
                             class="fa fa-plus-circle"></i> Add New Branch</button>
-                    <button onclick="cetakMember('{{ route('member.cetak_member') }}')" class="btn btn-primary btn-flat"><i
+                    <button onclick="cetakMember('{{ route('branch.generate_branch') }}')" class="btn btn-primary btn-flat"><i
                             class="fa fa-id-card"></i> Download Branch Card</button>
                 </div>
                 <div class="box-body table-responsive">
@@ -55,7 +55,7 @@
                 serverSide: true,
                 autoWidth: false,
                 ajax: {
-                    url: '{{ route('member.data') }}',
+                    url: '{{ route('branch.data') }}',
                 },
                 columns: [{
                         data: 'select_all',
@@ -110,7 +110,7 @@
         // add form
         function addForm(url) {
             $('#modal-form').modal('show');
-            $('#modal-form .modal-title').text('Add Member');
+            $('#modal-form .modal-title').text('Add Branch');
 
             $('#modal-form form')[0].reset();
             $('#modal-form form').attr('action', url);
@@ -121,7 +121,7 @@
         // edit form
         function editForm(url) {
             $('#modal-form').modal('show');
-            $('#modal-form .modal-title').text('Edit Member');
+            $('#modal-form .modal-title').text('Edit Branch');
 
             $('#modal-form form')[0].reset();
             $('#modal-form form').attr('action', url);

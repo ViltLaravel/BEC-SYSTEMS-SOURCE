@@ -26,7 +26,7 @@ class PenjualanDetailController extends Controller
             return view('penjualan_detail.index', compact('produk', 'member', 'diskon', 'id_penjualan', 'penjualan', 'memberSelected'));
         } else {
             if (auth()->user()->level == 1) {
-                return redirect()->route('transaksi.baru');
+                return redirect()->route('transaction.create');
             } else {
                 return redirect()->route('home');
             }
@@ -54,7 +54,7 @@ class PenjualanDetailController extends Controller
                 $row['diskon']      = $item->diskon . '%';
                 $row['subtotal']    = '₱ '. format_uang($item->subtotal);
                 $row['aksi']        = '<div class="btn-group">
-                                        <button onclick="deleteData(`'. route('transaksi.destroy', $item->id_penjualan_detail) .'`)" class="btn btn-xs btn-danger btn-flat"><i class="fa fa-trash"></i></button>
+                                        <button onclick="deleteData(`'. route('transaction.destroy', $item->id_penjualan_detail) .'`)" class="btn btn-xs btn-danger btn-flat"><i class="fa fa-trash"></i></button>
                                     </div>';
                 $data[] = $row;
 
@@ -85,7 +85,7 @@ class PenjualanDetailController extends Controller
             Session::flash('sweetAlertIcon', 'error');
             Session::flash('sweetAlertTitle', 'Error');
 
-            return redirect()->route('transaksi.baru')->withInput();
+            return redirect()->route('transaction.create')->withInput();
         }
     }
 

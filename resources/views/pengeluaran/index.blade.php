@@ -14,7 +14,7 @@
         <div class="col-lg-12">
             <div class="box">
                 <div class="box-header with-border">
-                    <button onclick="addForm('{{ route('pengeluaran.store') }}')" class="btn btn-success btn-flat"><i
+                    <button onclick="addForm('{{ route('expense.store') }}')" class="btn btn-success btn-flat"><i
                             class="fa fa-plus-circle"></i> New Expenses Entry</button>
                 </div>
                 <div class="box-body table-responsive">
@@ -47,7 +47,7 @@
                 serverSide: true,
                 autoWidth: false,
                 ajax: {
-                    url: '{{ route('pengeluaran.data') }}',
+                    url: '{{ route('expense.data') }}',
                 },
                 columns: [{
                         data: 'DT_RowIndex',

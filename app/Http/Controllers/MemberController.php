@@ -34,8 +34,8 @@ class MemberController extends Controller
             ->addColumn('aksi', function ($member) {
                 return '
                 <div class="btn-group">
-                    <button type="button" onclick="editForm(`'. route('member.update', $member->id_member) .'`)" class="btn btn-xs btn-primary btn-flat"><i class="fa fa-pencil"></i></button>
-                    <button type="button" onclick="deleteData(`'. route('member.destroy', $member->id_member) .'`)" class="btn btn-xs btn-danger btn-flat"><i class="fa fa-trash"></i></button>
+                    <button type="button" onclick="editForm(`'. route('branch.update', $member->id_member) .'`)" class="btn btn-xs btn-primary btn-flat"><i class="fa fa-pencil"></i></button>
+                    <button type="button" onclick="deleteData(`'. route('branch.destroy', $member->id_member) .'`)" class="btn btn-xs btn-danger btn-flat"><i class="fa fa-trash"></i></button>
                 </div>
                 ';
             })
@@ -51,28 +51,20 @@ class MemberController extends Controller
     // store new branch
     public function store(Request $request)
     {
-        try {
-            $latestMember = Member::latest()->first();
-            $kode_member = $latestMember ? (int) $latestMember->kode_member + 1 : 1;
+        $member = Member::latest()->first() ?? new Member();
+        $kode_member = (int) $member->kode_member +1;
 
-            $member = new Member();
-            $member->kode_member = 'BRANCH' . tambah_nol_didepan($kode_member, 6);
-            $member->nama = $request->nama;
-            $member->telepon = $request->telepon;
-            $member->alamat = $request->alamat;
+        $member = new Member();
+        $member->kode_member = tambah_nol_didepan($kode_member, 5);
+        $member->nama = $request->nama;
+        $member->telepon = $request->telepon;
+        $member->alamat = $request->alamat;
+        $member->save();
 
-            $member->save();
-
-            return response()->json([
-                'status' => 'success',
-                'message' => 'Branch successfully added!',
-            ], 200);
-        } catch (\Exception $e) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Error adding branch!',
-            ], 500);
-        }
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Branch successfully added.'
+        ], 200);
     }
 
     // show the specific branch

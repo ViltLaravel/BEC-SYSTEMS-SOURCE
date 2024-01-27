@@ -46,7 +46,7 @@
                 serverSide: true,
                 autoWidth: false,
                 ajax: {
-                    url: '{{ route('penjualan.data') }}',
+                    url: '{{ route('sales.data') }}',
                 },
                 columns: [{
                         data: 'DT_RowIndex',

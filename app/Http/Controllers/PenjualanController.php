@@ -51,8 +51,8 @@ class PenjualanController extends Controller
             ->addColumn('aksi', function ($sales) {
                 return '
                 <div class="btn-group">
-                    <button onclick="showDetail(`'. route('penjualan.show', $sales->id_penjualan) .'`)" class="btn btn-xs btn-primary btn-flat"><i class="fa fa-eye"></i></button>
-                    <button onclick="deleteData(`'. route('penjualan.destroy', $sales->id_penjualan) .'`)" class="btn btn-xs btn-danger btn-flat"><i class="fa fa-trash"></i></button>
+                    <button onclick="showDetail(`'. route('sales.show', $sales->id_penjualan) .'`)" class="btn btn-xs btn-primary btn-flat"><i class="fa fa-eye"></i></button>
+                    <button onclick="deleteData(`'. route('sales.destroy', $sales->id_penjualan) .'`)" class="btn btn-xs btn-danger btn-flat"><i class="fa fa-trash"></i></button>
                 </div>
                 ';
             })
@@ -76,7 +76,7 @@ class PenjualanController extends Controller
 
             session(['id_penjualan' => $penjualan->id_penjualan]);
 
-            return redirect()->route('transaksi.index');
+            return redirect()->route('transaction.index');
 
         } catch (\Throwable $th) {
             $message = 'Error archieving latest sales!';
@@ -85,7 +85,7 @@ class PenjualanController extends Controller
             Session::flash('sweetAlertIcon', 'error');
             Session::flash('sweetAlertTitle', 'error');
 
-            return redirect()->route('transaksi.index')->withInput();
+            return redirect()->route('transaction.index')->withInput();
         }
     }
 
@@ -113,7 +113,7 @@ class PenjualanController extends Controller
             Session::flash('sweetAlertIcon', 'success');
             Session::flash('sweetAlertTitle', 'Success');
 
-            return redirect()->route('transaksi.selesai')->withInput();
+            return redirect()->route('transaction.sales')->withInput();
 
         } catch (\Throwable $th) {
             $message = 'Error saving this sales!';
@@ -122,7 +122,7 @@ class PenjualanController extends Controller
             Session::flash('sweetAlertIcon', 'error');
             Session::flash('sweetAlertTitle', 'error');
 
-            return redirect()->route('transaksi.selesai')->withInput();
+            return redirect()->route('transaction.sales')->withInput();
         }
     }
 
@@ -189,7 +189,7 @@ class PenjualanController extends Controller
 
 
     // settings in customizing the layouts
-    public function selesai()
+    public function sales()
     {
         $setting = Setting::first();
 

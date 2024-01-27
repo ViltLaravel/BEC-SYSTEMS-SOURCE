@@ -15,11 +15,11 @@
             <div class="box">
                 <div class="box-header with-border">
                     <div class="btn-group">
-                        <button onclick="addForm('{{ route('produk.store') }}')" class="btn btn-success  btn-flat"><i
+                        <button onclick="addForm('{{ route('items.store') }}')" class="btn btn-success  btn-flat"><i
                                 class="fa fa-plus-circle"></i> Add New Item</button>
-                        <button onclick="deleteSelected('{{ route('produk.delete_selected') }}')"
+                        <button onclick="deleteSelected('{{ route('items.delete_selected') }}')"
                             class="btn btn-danger  btn-flat"><i class="fa fa-trash"></i> Delete</button>
-                        <button onclick="cetakBarcode('{{ route('produk.cetak_barcode') }}')"
+                        <button onclick="cetakBarcode('{{ route('items.generate_barcode') }}')"
                             class="btn btn-warning  btn-flat"><i class="fa fa-barcode"></i> Print Barcode</button>
                     </div>
                 </div>
@@ -64,7 +64,7 @@
                 serverSide: true,
                 autoWidth: false,
                 ajax: {
-                    url: '{{ route('produk.data') }}',
+                    url: '{{ route('items.data') }}',
                 },
                 columns: [{
                         data: 'select_all',

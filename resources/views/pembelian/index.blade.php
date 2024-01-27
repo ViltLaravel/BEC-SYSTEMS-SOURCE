@@ -17,7 +17,7 @@
                     <button onclick="addForm()" class="btn btn-success btn-flat"><i class="fa fa-plus-circle"></i> Add New
                         Purchase</button>
                     @empty(!session('id_pembelian'))
-                        <a href="{{ route('pembelian_detail.index') }}" class="btn btn-info btn-xs btn-flat"><i
+                        <a href="{{ route('purchase_detail.index') }}" class="btn btn-info btn-xs btn-flat"><i
                                 class="fa fa-pencil"></i> Active Transaction</a>
                     @endempty
                 </div>
@@ -55,7 +55,7 @@
                 serverSide: true,
                 autoWidth: false,
                 ajax: {
-                    url: '{{ route('pembelian.data') }}',
+                    url: '{{ route('purchase.data') }}',
                 },
                 columns: [{
                         data: 'DT_RowIndex',

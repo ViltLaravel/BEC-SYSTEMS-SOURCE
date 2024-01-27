@@ -15,11 +15,11 @@
         <div class="box">
             <div class="box-footer">
                 @if ($setting->tipe_nota == 1)
-                <button class="btn btn-warning btn-flat" onclick="notaKecil('{{ route('transaksi.nota_kecil') }}', 'Nota Kecil')">Print Invoice</button>
+                <button class="btn btn-warning btn-flat" onclick="notaKecil('{{ route('transaction.sm_pdf') }}', 'Nota Kecil')">Print Invoice</button>
                 @else
-                <button class="btn btn-warning btn-flat" onclick="notaBesar('{{ route('transaksi.nota_besar') }}', 'Nota PDF')">Print Invoice</button>
+                <button class="btn btn-warning btn-flat" onclick="notaBesar('{{ route('transaction.lg_pdf') }}', 'Nota PDF')">Print Invoice</button>
                 @endif
-                <a href="{{ route('transaksi.baru') }}" class="btn btn-primary btn-flat">New Transaction</a>
+                <a href="{{ route('transaction.create') }}" class="btn btn-primary btn-flat">New Transaction</a>
             </div>
         </div>
     </div>
