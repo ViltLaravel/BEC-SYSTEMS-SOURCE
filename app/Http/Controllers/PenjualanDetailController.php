@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Member;
-use App\Models\Penjualan;
-use App\Models\PenjualanDetail;
 use App\Models\Produk;
 use App\Models\Setting;
+use App\Models\Penjualan;
 use Illuminate\Http\Request;
+use App\Models\PenjualanDetail;
+use Illuminate\Support\Facades\Session;
 
 class PenjualanDetailController extends Controller
 {
@@ -37,57 +38,71 @@ class PenjualanDetailController extends Controller
     public function data($id)
     {
         try {
-            $detail = PenjualanDetail::with('produk')
-            ->where('id_penjualan', $id)
-            ->get();
+            $details = PenjualanDetail::with('produk')
+                ->where('id_penjualan', $id)
+                ->get();
 
-            $data = array();
+            $data = [];
             $total = 0;
             $total_item = 0;
 
-            foreach ($detail as $item) {
-                $row = array();
-                $row['kode_produk'] = '<span class="label label-success">'. $item->produk['kode_produk'] .'</span';
-                $row['nama_produk'] = $item->produk['nama_produk'];
-                $row['harga_jual']  = '₱ '. format_uang($item->harga_jual);
-                $row['jumlah']      = '<input type="number" class="form-control input-sm quantity" data-id="'. $item->id_penjualan_detail .'" value="'. $item->jumlah .'">';
-                $row['diskon']      = $item->diskon . '%';
-                $row['subtotal']    = '₱ '. format_uang($item->subtotal);
-                $row['aksi']        = '<div class="btn-group">
-                                        <button onclick="deleteData(`'. route('transaction.destroy', $item->id_penjualan_detail) .'`)" class="btn btn-xs btn-danger btn-flat"><i class="fa fa-trash"></i></button>
-                                    </div>';
+            foreach ($details as $item) {
+                $row = [
+                    'kode_produk' => '<span class="label label-success">' . $item->produk->kode_produk . '</span>',
+                    'nama_produk' => $item->produk->nama_produk,
+                    'harga_jual'  => '₱ ' . format_uang($item->harga_jual),
+                    'jumlah'      => '<input type="number" class="form-control input-sm quantity" data-id="' . $item->id_penjualan_detail . '" value="' . $item->jumlah . '" onchange="validateQuantity($(this));">',
+                    'diskon'      => $item->diskon . '%',
+                    'subtotal'    => '₱ ' . format_uang($item->subtotal),
+                    'aksi'        => '<div class="btn-group">
+                                        <button onclick="deleteData(`' . route('transaction.destroy', $item->id_penjualan_detail) . '`)" class="btn btn-xs btn-danger btn-flat"><i class="fa fa-trash"></i></button>
+                                    </div>',
+                    'warning'     => '', // No warning by default
+                ];
+
+                // Check if input quantity exceeds product stock
+                $stock = $item->produk->stok;
+                $inputQuantity = $item->jumlah;
+
+                if ($inputQuantity > $stock) {
+                    $row['warning'] = '<span class="text-danger">Warning: Input quantity exceeds product stock!</span>';
+                }
+
                 $data[] = $row;
 
-                $total += $item->harga_jual * $item->jumlah - (($item->diskon * $item->jumlah) / 100 * $item->harga_jual);;
+                $total += $item->harga_jual * $item->jumlah - (($item->diskon * $item->jumlah) / 100 * $item->harga_jual);
                 $total_item += $item->jumlah;
             }
+
+            // Add a summary row at the end
             $data[] = [
-                'kode_produk' => '
-                    <div class="total hide">'. $total .'</div>
-                    <div class="total_item hide">'. $total_item .'</div>',
+                'kode_produk' => '<div class="total hide">' . $total . '</div>
+                                  <div class="total_item hide">' . $total_item . '</div>',
                 'nama_produk' => '',
                 'harga_jual'  => '',
                 'jumlah'      => '',
                 'diskon'      => '',
                 'subtotal'    => '',
                 'aksi'        => '',
+                'warning'     => '',
             ];
 
             return datatables()
                 ->of($data)
                 ->addIndexColumn()
-                ->rawColumns(['aksi', 'kode_produk', 'jumlah'])
+                ->rawColumns(['aksi', 'kode_produk', 'jumlah', 'warning']) // Add 'warning' to rawColumns
                 ->make(true);
         } catch (\Throwable $th) {
             $message = 'Unable to display the data!';
-            Session::flash('sweetAlertMessage', $message);
-            Session::flash('showSweetAlert', true);
-            Session::flash('sweetAlertIcon', 'error');
-            Session::flash('sweetAlertTitle', 'Error');
+            session()->flash('sweetAlertMessage', $message);
+            session()->flash('showSweetAlert', true);
+            session()->flash('sweetAlertIcon', 'error');
+            session()->flash('sweetAlertTitle', 'Error');
 
             return redirect()->route('transaction.create')->withInput();
         }
     }
+
 
     // store the product that is selected and will be displayed in the data
     public function store(Request $request)
@@ -98,7 +113,7 @@ class PenjualanDetailController extends Controller
         if (!$produk) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Error adding this product!'
+                'message' => 'Error adding this item!'
             ], 500);
         }
 
@@ -106,7 +121,7 @@ class PenjualanDetailController extends Controller
         if ($produk->stok <= 0) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Product is out of stock and cannot be added to the sale.'
+                'message' => 'Items is out of stock and cannot be added to the sale.'
             ], 400);
         }
 
@@ -125,7 +140,7 @@ class PenjualanDetailController extends Controller
 
         return response()->json([
             'status' => 'success',
-            'message' => 'Product successfully added.'
+            'message' => 'Items successfully added.'
         ], 200);
     }
 
@@ -138,6 +153,7 @@ class PenjualanDetailController extends Controller
         $detail->update();
     }
 
+
     // deleted the selected product
     public function destroy($id)
     {
@@ -147,12 +163,12 @@ class PenjualanDetailController extends Controller
 
             return response()->json([
                 'status' => 'success',
-                'message' => 'Product removed successfully.'
+                'message' => 'Item removed successfully.'
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Error removing this product!'
+                'message' => 'Error removing this item!'
             ], 500);
         }
     }

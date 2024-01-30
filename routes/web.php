@@ -15,6 +15,7 @@ use App\Http\Controllers\{
     SupplierController,
     UserController,
 };
+use App\Http\Controllers\Realtime\RealtimeController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 
@@ -101,4 +102,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/profil', [UserController::class, 'profil'])->name('user.profil');
         Route::post('/profil', [UserController::class, 'updateProfil'])->name('user.update_profil');
     });
+
+
+
+
+    Route::get('/check_real_time_updates', [RealtimeController::class, 'checkRealTimeUpdates']);
 });

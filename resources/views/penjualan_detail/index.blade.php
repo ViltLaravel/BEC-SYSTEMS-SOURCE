@@ -67,6 +67,7 @@
                             <th>Name</th>
                             <th>Price</th>
                             <th width="15%">Quantity</th>
+                            <th>Message</th>
                             <th>Subtotal</th>
                             <th width="15%"><i class="fa fa-cog"></i></th>
                         </thead>
@@ -168,6 +169,9 @@
                         },
                         {
                             data: 'jumlah'
+                        },
+                        {
+                            data: 'warning'
                         },
                         {
                             data: 'subtotal'

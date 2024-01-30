@@ -16,9 +16,9 @@
         <div class="box">
             <div class="box-body text-center">
                 <h1>WELCOME,</h1>
-                <h2>You are logged in as CASHIER</h2>
+                <h2>You are logged in as CPU-CASHIER</h2>
                 <br><br>
-                <a href="{{ route('transaksi.baru') }}" class="btn btn-success btn-lg">New Transaction</a>
+                <a href="{{ route('transaction.create') }}" class="btn btn-success btn-lg">New Transaction</a>
                 <br><br><br>
             </div>
         </div>
