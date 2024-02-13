@@ -41,7 +41,11 @@ class PembelianController extends Controller
                     return tanggal_indonesia($purchase->created_at, false);
                 })
                 ->addColumn('supplier', function ($purchase) {
-                    return $purchase->supplier->nama;
+                    if ($purchase->supplier && $purchase->supplier->nama !== null) {
+                        return $purchase->supplier->nama;
+                    } else {
+                        return 'N/A';
+                    }
                 })
                 ->editColumn('diskon', function ($purchase) {
                     return $purchase->diskon . '%';

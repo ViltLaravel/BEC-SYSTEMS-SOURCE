@@ -51,7 +51,7 @@ class PenjualanDetailController extends Controller
                     'kode_produk' => '<span class="label label-success">' . $item->produk->kode_produk . '</span>',
                     'nama_produk' => $item->produk->nama_produk,
                     'harga_jual'  => '₱ ' . format_uang($item->harga_jual),
-                    'jumlah'      => '<input type="number" class="form-control input-sm quantity" data-id="' . $item->id_penjualan_detail . '" value="' . $item->jumlah . '" onchange="validateQuantity($(this));">',
+                    'jumlah'      => '<input type="number" class="form-control input-sm quantity" data-id="' . $item->id_penjualan_detail . '" value="' . $item->jumlah . '">',
                     'diskon'      => $item->diskon . '%',
                     'subtotal'    => '₱ ' . format_uang($item->subtotal),
                     'aksi'        => '<div class="btn-group">
