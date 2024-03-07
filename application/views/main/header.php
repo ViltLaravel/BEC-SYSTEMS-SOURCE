@@ -16,7 +16,7 @@
                 <div class="col-md-4 col-xs-12">
                     <div class="sn_cname">
                         <a href="<?php echo base_url('/');?>homepage">
-                            <i class="fa fa-globe"> </i> <?php echo $this->db->get_where('mp_langingpage', array('id' => 1))->result_array()[0]['companyname'] ;?>
+                            <i class="fa fa-home"> </i> <?php echo $this->db->get_where('mp_langingpage', array('id' => 1))->result_array()[0]['companyname'] ;?>
                         </a>
                         <a class=" link-setting-header" href="javscript:void(0)">
                             <i class="fa fa-clock-o" aria-hidden="true"></i> <?php echo date('d-m-Y'); ?> 	
@@ -29,7 +29,7 @@
                         <ul class="nav navbar-nav pull-right">
                             <li class="dropdown">
                                 <a class="btn account dropdown-toggle" data-toggle="dropdown" href="#">
-                            <img alt="" style="width:36px; height:36px;" src="<?php echo base_url(); ?>assets/img/avatar.png" class="mini_avatar img-rounded">
+                            <img alt="" style="width:36px; height:36px;" src="<?php echo base_url(); ?>assets/img/male.png" class="mini_avatar img-rounded">
 
                             <div class="user">
                                 <span>Welcome owner</span>
@@ -56,32 +56,33 @@
 
                         <ul class="nav navbar-nav pull-right responsivetop">                           
                             <li class="con-tooltip bottom hidden-xs">
-                                <a class="btn tip"  data-placement="bottom" href="<?php echo base_url('/');?>homepage "><i class="fa fa-dashboard"></i></a>
+                                <a class="btn bdarkGreen tip"  data-placement="bottom" href="<?php echo base_url('/');?>homepage "><i class="fa fa-area-chart"></i></a>
                                 <div class="tooltip ">
                                     <p>Dashboard</p> 
                                 </div>             
                             </li>                            
                            
                             <li class="con-tooltip bottom hidden-sm">
-                                <a  data-placement="bottom" href="<?php echo base_url('/');?>invoice/manage">
-                             <img src="<?php echo base_url(); ?>assets/img/quote.png">
-                        </a>
-                           <div class="tooltip ">
+                                <a class="btn bdarkGreen tip"  data-placement="bottom" href="<?php echo base_url('/');?>invoice/manage">
+                                    <i class="fa fa-bolt"></i> <span class="padding05">Today Invoice</span>
+                                </a>
+                                <div class="tooltip ">
                                     <p>Today Invoice</p>
                                 </div>
                             </li>
+                            
                             <li class="con-tooltip bottom hidden-xs">
                                 <a class="btn bdarkGreen tip" data-placement="bottom" href="<?php echo base_url('/');?>invoice">
-                            <i class="fa fa-th-large"></i> <span class="padding05">POS</span>
-                        </a>
-                           <div class="tooltip ">
-                                    <p>POS</p>
+                                    <i class="fa fa-shopping-cart"></i> <span class="padding05">POS</span>
+                                </a>
+                                <div class="tooltip ">
+                                    <p>Pull Out System</p>
                                 </div>
                             </li>
                            
                             <li class="con-tooltip bottom hidden-xs">
                                 <a class="btn bdarkGreen tip"   data-placement="bottom" href="<?php echo base_url('/');?>salesreport">
-                            <i class="fa fa-hourglass-2"></i>
+                            <i class="fa fa-line-chart"></i>
                         </a>
                            <div class="tooltip ">
                                     <p>Today's Profit</p>
