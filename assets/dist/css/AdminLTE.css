@@ -1232,7 +1232,7 @@ a:focus {
  * ---------------
  */
 .form-control {
-  border-radius: 0;
+  border-radius: 10px;
   box-shadow: none;
   border-color: #d2d6de;
 }
