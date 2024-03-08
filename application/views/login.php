@@ -20,10 +20,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/dist/css/AdminLTE.css">
+    <!-- Responsive style -->
+    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/dist/css/style.css">
 </head>
 <body style="background-image:url('<?php echo base_url(); ?>uploads/systemimgs/bg.jpg'); background-size:cover; position: relative;">
    <br/><br/><br/><br/><br><br><br/>
-    <div style="background: rgb(255, 247, 241); border-radius:20px; border: none; box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); display: flex; flex-direction: row; justify-content: center; margin: auto; width: 600px;">
+    <div class="login-ui">
         <div class="login-box-body" style="margin: 0">
             <h3 class="text-center" style="font-family: 'Poppins', sans-serif; font-size: 30px">
                 <a href="<?php echo base_url('login'); ?>"> <b style="color: black;">Sign In</b></a>
@@ -31,15 +33,15 @@
             <p class="login-box-msg" style="color: black;font-size: 11px; font-family: 'Poppins', sans-serif;">Please provide your email and password</p>
                 <?php $attributes = array('id'=>'Customer_form','method'=>'post','class'=>'form-horizontal');?>
                 <?php echo form_open('login/authentication',$attributes); ?>
-                    <div class="form-group has-feedback">
+                    <div class="form-group has-feedback input">
                         <?php
-                            $data = array('style' => 'border-radius: 10px; font-size: 12px; font-family: Poppins; margin-left: 4px;', 'class'=>'form-control input-md rounded','id'=>'user_email','type'=>'email','name'=>'user_email','value'=>'','placeholder'=>'Email Address','reqiured'=>'','AUTOCOMPLETE'=>'ON');
+                            $data = array('style' => 'border-radius: 10px; font-size: 12px; font-family: Poppins; margin: 0 4px;', 'class'=>'form-control input-md','id'=>'user_email','type'=>'email','name'=>'user_email','value'=>'','placeholder'=>'Email Address','reqiured'=>'','AUTOCOMPLETE'=>'ON');
                             echo form_input($data);
                         ?>  
                     </div>
-                    <div class="form-group has-feedback">
+                    <div class="form-group has-feedback input">
                         <?php
-                        $data = array('style' => 'border-radius: 10px; font-size: 12px; font-family: Poppins; margin-left: 4px;', 'class'=>'form-control input-md rounded','id'=>'user_password','type'=>'password','name'=>'user_password','value'=>'','placeholder'=>'Password','reqiured'=>'','AUTOCOMPLETE'=>'ON');
+                        $data = array('style' => 'border-radius: 10px; font-size: 12px; font-family: Poppins; margin: 0 4px;', 'class'=>'form-control input-md','id'=>'user_password','type'=>'password','name'=>'user_password','value'=>'','placeholder'=>'Password','reqiured'=>'','AUTOCOMPLETE'=>'ON');
                         echo form_input($data);
                         ?>
                     </div>
@@ -57,7 +59,7 @@
                 <a style="color: black; font-size: 12px;" href="javascript:void(0)" data-toggle="modal" data-target="#ForgetModel" class="pull-left link-set">Forget Password?</a>
             </div> 
         </div>
-        <div style="background-color: rgb(135, 169, 34); width: 300px; margin-left: 10px; margin-right: 0; border-top-left-radius: 80px; border-bottom-left-radius: 80px; border-bottom-right-radius: 20px; border-top-right-radius: 20px; color: white;">
+        <div class="bec-logo">
             <div style="margin: 0 4px 0 4px;" class="text-center">
             <img style="width: 170px; margin-top: 70px;" src="<?php echo base_url(); ?>uploads/systemimgs/logo/BEC.png" alt="">
                 <h1 style="font-family: 'Poppins', sans-serif; font-size: 30px; font-weight: bold">Welcome Back!</h1>
