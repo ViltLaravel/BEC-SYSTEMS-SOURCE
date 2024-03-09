@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 html,
 body {
   height: 100%;
@@ -7,7 +8,7 @@ body {
   height: 100%;
 }
 body {
-  font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-weight: 400;
   overflow-x: hidden;
   overflow-y: auto;
@@ -1505,14 +1506,14 @@ a:focus {
   right: 10px;
   z-index: 0;
   font-size: 60px;
-  color: rgba(0, 0, 0, 0.15);
+  color: rgb(135, 169, 34);
 }
 .small-box:hover {
   text-decoration: none;
   color: #f9f9f9;
 }
 .small-box:hover .icon {
-  font-size: 95px;
+  font-size: 50px;
 }
 @media (max-width: 767px) {
   .small-box {

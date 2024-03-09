@@ -16,7 +16,7 @@
                 <div class="col-md-4 col-xs-12">
                     <div class="sn_cname">
                         <a href="<?php echo base_url('/');?>homepage">
-                            <i class="fa fa-home"> </i> <?php echo $this->db->get_where('mp_langingpage', array('id' => 1))->result_array()[0]['companyname'] ;?>
+                            <?php echo $this->db->get_where('mp_langingpage', array('id' => 1))->result_array()[0]['companyname'] ;?>
                         </a>
                         <a class=" link-setting-header" href="javscript:void(0)">
                             <i class="fa fa-clock-o" aria-hidden="true"></i> <?php echo date('d-m-Y'); ?> 	
@@ -29,26 +29,22 @@
                         <ul class="nav navbar-nav pull-right">
                             <li class="dropdown">
                                 <a class="btn account dropdown-toggle" data-toggle="dropdown" href="#">
-                            <img alt="" style="width:36px; height:36px;" src="<?php echo base_url(); ?>assets/img/male.png" class="mini_avatar img-rounded">
-
-                            <div class="user">
-                                <span>Welcome owner</span>
-                            </div>
-                        </a>
-                                <ul class="dropdown-menu pull-right">
-                                    <li>
-                                        <a href="<?php echo base_url('profile');?>">
-                                    <?php echo img(array('width'=>'18','height'=>'18','class'=>'img-circle','alt'=>'User Image','src'=>'uploads/users/'.$this->db->get_where('mp_users', array('id' =>$user_name['id']))->result_array()[0]['cus_picture'])); ?>
-		                  <?php echo $user_name['name']; ?>                               </a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa fa-key"></i> Change Password                                </a>
-                                    </li>
-                                    <li class="divider"></li>
-                                    <li>
-                                        <a href="<?php echo base_url('homepage/sign_out');?>">
-                                    <i class="fa fa-sign-out"></i> Logout                                </a>
-                                    </li>
+                                    <?php echo img(array('width'=>'24','height'=>'24','class'=>'img-circle','alt'=>'User Image','src'=>'uploads/users/'.$this->db->get_where('mp_users', array('id' =>$user_name['id']))->result_array()[0]['cus_picture'])); ?>
+		                            <?php echo $user_name['name']; ?>   
+                                </a>
+                                <ul class="dropdown-menu pull-right" style="border-bottom-right-radius: 10px; border-bottom-left-radius: 10px; box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);">
+                                    <div style="margin: 4px 4px; background-color: rgb(84, 180, 53); padding: 3px 4px; border-radius: 10px;">
+                                        <a href="<?php echo base_url('profile');?>" style="font-size: 12px; color: #fff">
+                                            <?php echo img(array('style' => 'margin: 2px 1px','width'=>'18','height'=>'18','class'=>'img-circle','alt'=>'User Image','src'=>'uploads/users/'.$this->db->get_where('mp_users', array('id' =>$user_name['id']))->result_array()[0]['cus_picture'])); ?>
+                                            <?php echo $user_name['name']; ?>
+                                        </a>
+                                    </div>
+                                    <div style="margin: 4px 4px; background-color: rgb(84, 180, 53); padding: 3px 4px; border-radius: 10px;">
+                                        <a href="<?php echo base_url('profile');?>" style="font-size: 12px; color: #fff"><i class="fas fa-lock" style="margin: 2px 4px"></i> Change Password</a>
+                                    </div>
+                                    <div style="margin: 4px 4px; background-color: rgb(84, 180, 53); padding: 3px 4px; border-radius: 10px;" class="text-center">
+                                        <a href="<?php echo base_url('homepage/sign_out');?>" style="font-size: 12px; color: #fff"><i class="fas fa-sign-out-alt" style="margin: 2px 4px"></i>Sign Out</a>
+                                    </div>
                                 </ul>
                             </li>
                         </ul>

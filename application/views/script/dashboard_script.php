@@ -58,22 +58,22 @@
             var areaChartDataSales = {
                 labels: ["Jan", "Feb", "March", "April", "May", "June", "July", "August", "Sep", "Oct", "Nov", "Dec"],
                 datasets: [{
-                        label: "Medicine Revenue This Month",
-                        fillColor: "rgba(210, 214, 222, 1)",
-                        strokeColor: "rgba(210, 214, 222, 1)",
-                        pointColor: "rgba(210, 214, 222, 1)",
+                        label: "BEC Revenue This Month",
+                        fillColor: "rgb(130, 205, 71, 0.6)",
+                        strokeColor: "rgb(130, 205, 71)",
+                        pointColor: "rgb(130, 205, 71)",
                         pointStrokeColor: "#c1c7d1",
                         pointHighlightFill: "#fff",
                         pointHighlightStroke: "rgba(220,220,220,1)",
                         data: <?php echo $result_sales_arr; ?>
                     }, {
-                        label: "Medicine Expense This Month",
-                        fillColor: "rgba(60,141,188,0.9)",
-                        strokeColor: "rgba(60,141,188,0.8)",
-                        pointColor: "#3b8bba",
-                        pointStrokeColor: "rgba(60,141,188,1)",
+                        label: "BEC Expense This Month",
+                        fillColor: "rgba(252, 129, 158, 0.6)",
+                        strokeColor: "rgba(252, 129, 158)",
+                        pointColor: "rgba(252, 129, 158)",
+                        pointStrokeColor: "rgb(208, 72, 72)",
                         pointHighlightFill: "#fff",
-                        pointHighlightStroke: "rgba(60,141,188,1)",
+                        pointHighlightStroke: "rgb(208, 72, 72)",
                         data: <?php echo $result_expense_this_year; ?>
                     }
 
@@ -84,9 +84,9 @@
                 labels: ["Jan", "Feb", "March", "April", "May", "June", "July", "August", "Sep", "Oct", "Nov", "Dec"],
                 datasets: [{
                     label: "Profit This Month",
-                    fillColor: "rgba(210, 214, 222, 1)",
-                    strokeColor: "rgba(210, 214, 222, 1)",
-                    pointColor: "rgba(210, 214, 222, 1)",
+                    fillColor: "rgb(130, 205, 71, 0.6)",
+                    strokeColor: "rgb(130, 205, 71)",
+                    pointColor: "rgb(130, 205, 71)",
                     pointStrokeColor: "#c1c7d1",
                     pointHighlightFill: "#fff",
                     pointHighlightStroke: "rgba(220,220,220,1)",
