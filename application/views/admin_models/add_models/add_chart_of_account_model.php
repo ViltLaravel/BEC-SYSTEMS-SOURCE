@@ -26,7 +26,7 @@
 						<label>Nature:</label>				
 						<select class="form-control select2 input-lg" onchange="visible_expense(this.value)" name="nature" id="nature"  style="width: 100%;">
 								<option value="Assets" >Assets</option>
-								<option value="Libility" >Libility</option>
+								<option value="Liability" >Liability</option>
 								<option value="Equity" >Equity</option>
 								<option value="Expense" >Expense</option>
 								<option value="Revenue" >Revenue</option>
