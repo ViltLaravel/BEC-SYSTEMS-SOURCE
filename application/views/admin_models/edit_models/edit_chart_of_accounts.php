@@ -31,7 +31,7 @@
 								
                                 $head_options = array(
                                     'Assets'  => 'Assets',
-                                    'Libility'  => 'Libility',
+                                    'Liability'  => 'Liability',
                                     'Equity'  => 'Equity',
                                     'Expense'  => 'Expense',
                                     'Revenue'  => 'Revenue'
