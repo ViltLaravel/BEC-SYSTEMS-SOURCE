@@ -26,9 +26,6 @@
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/bootstrap/css/bootstrap.min.css">
-  <!-- Font Awesome -->
-  <!-- Theme style -->
-  <link rel="stylesheet" href="<?php echo base_url(); ?>assets/fonts/fontawesome/css/font-awesome.css">
   
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/css/import-font.css" />
   <!-- Theme style -->
@@ -52,6 +49,44 @@
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/colorpicker/bootstrap-colorpicker.min.css">
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/dist/css/custom.css">
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">  
+
+  <link rel="stylesheet" href="<?php echo base_url(); ?>assets/dist/css/home.css">
+
+  <!-- Add Poppins font styles -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- Reset default styles -->
+  <style>
+  html {
+    font-family: sans-serif;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+  }
+
+  /* Apply Poppins font to the entire document */
+  body {
+    font-family: 'Poppins', sans-serif;
+  }
+
+  /* Optional: Improve font loading performance */
+  @font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    src: url('https://fonts.gstatic.com/s/poppins/v15/pxiEyp8kv8JHgFVrFJA.ttf') format('truetype');
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    src: url('https://fonts.gstatic.com/s/poppins/v15/pxiByp8kv8JHgFVrLGT9Z1r.ttf') format('truetype');
+    font-display: swap;
+  }
+</style>
  
   <!-- jQuery 2.2.3 -->
   <script src="<?php echo base_url(); ?>assets/plugins/jQuery/jquery-2.2.3.min.js"></script>
@@ -89,6 +124,7 @@
     }
   ?>
 </div>
+<script src="https://kit.fontawesome.com/0dd4cb479e.js" crossorigin="anonymous"></script>
 <!-- ./wrapper -->
 <script src="<?php echo base_url(); ?>assets/bootstrap/js/bootstrap.min.js"></script>
 <!-- Bootstrap Gowl -->

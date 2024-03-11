@@ -1,0 +1,101 @@
+/* Reset some default styles for better cross-browser consistency */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+}
+
+.login-ui {
+    background: rgb(255, 247, 241);
+    border-radius: 20px;
+    border: none;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: auto;
+    width: 600px;
+}
+
+.row .btn {
+    background-color: rgb(135, 169, 34);
+    color: white;
+    font-family: Poppins, sans-serif;
+    border-radius: 10px;
+    padding: 4px 22px;
+}
+
+.bec-logo {
+    background-color: rgb(135, 169, 34);
+    width: 300px;
+    margin-left: 10px;
+    margin-right: 0;
+    border-top-left-radius: 80px;
+    border-bottom-left-radius: 80px;
+    border-bottom-right-radius: 20px;
+    border-top-right-radius: 20px;
+    color: white;
+}
+
+.bec-logo img {
+    width: 170px;
+    margin-top: 70px;
+}
+
+.bec-logo h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.bec-logo span {
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+}
+
+@media (max-width: 768px) {
+
+    .login-ui {
+        flex-direction: column;
+        width: 350px;
+        margin: auto;
+        margin-top: 10px;
+        margin-bottom: 25px;
+    }
+
+    .bec-logo {
+        align-self: flex-end;
+        height: 30px;
+        width: 350px;
+        border-bottom-left-radius: 70px;
+        border-bottom-right-radius: 70px;
+        border-top-left-radius: 150px;
+        border-top-right-radius: 150px;
+    }
+
+    .bec-logo img,
+    .bec-logo h1,
+    .bec-logo span {
+        display: none;
+    }
+
+    .form-control  {
+        width: 332px;
+    }
+
+    .reset-password {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .reset-password  .reset {
+        width: 270px;
+    }
+}
+

@@ -89,3 +89,10 @@
        url('../fonts/source-sans-pro-v11-greek_cyrillic_cyrillic-ext_latin-900italic.ttf') format('truetype'), /* Safari, Android, iOS */
        url('../fonts/source-sans-pro-v11-greek_cyrillic_cyrillic-ext_latin-900italic.svg#SourceSansPro') format('svg'); /* Legacy iOS */
 }
+
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400; /* You can adjust the weight as needed */
+  src: url('https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap') format('woff2'); /* Adjust the font weight and URL as needed */
+}
