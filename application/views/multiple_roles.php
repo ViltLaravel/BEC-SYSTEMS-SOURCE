@@ -14,7 +14,7 @@
         <div class="col-xs-12">
             <div class="box">
                 <div class="box-header">
-                    <h3 class="box-title"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> <?php echo $table_name; ?></h3>
+                    <h3 style="font-family: 'Poppins'" class="box-title"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> <?php echo $table_name; ?></h3>
                 </div>
                 <div class="box-body">
                     <div class="col-md-12 table-responsive">

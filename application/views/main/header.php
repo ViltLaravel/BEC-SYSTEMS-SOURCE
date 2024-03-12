@@ -26,31 +26,33 @@
                 <div class="col-md-8 col-xs-12 topmenushowhide">
 
                     <div class="header-nav">
-                        <ul class="nav navbar-nav pull-right">
+                        <ul class="nav navbar-nav pull-right" style="margin-bottom: 10px">
                             <li class="dropdown">
                                 <a class="btn account dropdown-toggle" data-toggle="dropdown" href="#">
-                                    <?php echo img(array('width'=>'24','height'=>'24','class'=>'img-circle','alt'=>'User Image','src'=>'uploads/users/'.$this->db->get_where('mp_users', array('id' =>$user_name['id']))->result_array()[0]['cus_picture'])); ?>
-		                            <?php echo $user_name['name']; ?>   
+                                    <?php echo img(array('style' => 'border: 2px solid', 'width'=>'30','height'=>'30','class'=>'img-circle','alt'=>'User Image','src'=>'uploads/users/'.$this->db->get_where('mp_users', array('id' =>$user_name['id']))->result_array()[0]['cus_picture'])); ?>  
                                 </a>
-                                <ul class="dropdown-menu pull-right" style="border-bottom-right-radius: 10px; border-bottom-left-radius: 10px; box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);">
-                                    <div style="margin: 4px 4px; background-color: rgb(84, 180, 53); padding: 3px 4px; border-radius: 10px;">
-                                        <a href="<?php echo base_url('profile');?>" style="font-size: 12px; color: #fff">
-                                            <?php echo img(array('style' => 'margin: 2px 1px','width'=>'18','height'=>'18','class'=>'img-circle','alt'=>'User Image','src'=>'uploads/users/'.$this->db->get_where('mp_users', array('id' =>$user_name['id']))->result_array()[0]['cus_picture'])); ?>
+                                <ul class="dropdown-menu pull-right" style="margin-top: 4px; border-radius: 8px; box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); background-color: rgba(238, 245, 255, 1); opacity: 0.95;">
+                                    <div style="height: 26px;">
+                                        <div class="text-center">
+                                            <?php echo img(array('style' => 'border: 2px solid', 'margin: 2px 1px','width'=>'40','height'=>'40','class'=>'img-circle','alt'=>'User Image','src'=>'uploads/users/'.$this->db->get_where('mp_users', array('id' =>$user_name['id']))->result_array()[0]['cus_picture'])); ?>
+                                        </div>
+                                        <div class="text-center" style="color: #000000;">
                                             <?php echo $user_name['name']; ?>
-                                        </a>
+                                        </div>
                                     </div>
-                                    <div style="margin: 4px 4px; background-color: rgb(84, 180, 53); padding: 3px 4px; border-radius: 10px;">
-                                        <a href="<?php echo base_url('profile');?>" style="font-size: 12px; color: #fff"><i class="fas fa-lock" style="margin: 2px 4px"></i> Change Password</a>
+                                    <br>
+                                    <hr style="m-0px">
+                                    <div style="margin: 0px 4px; background-color: #EEF5FF; padding: 3px 4px; border-radius: 8px;" onmouseover="this.style.backgroundColor='rgba(189, 205, 214, 0.3)'" onmouseout="this.style.backgroundColor='#EEF5FF'">
+                                        <a href="<?php echo base_url('profile');?>" style="font-size: 12px; color: #000000; padding: 2px;">My Profile</a>
                                     </div>
-                                    <div style="margin: 4px 4px; background-color: rgb(84, 180, 53); padding: 3px 4px; border-radius: 10px;" class="text-center">
-                                        <a href="<?php echo base_url('homepage/sign_out');?>" style="font-size: 12px; color: #fff"><i class="fas fa-sign-out-alt" style="margin: 2px 4px"></i>Sign Out</a>
+                                    <div style="margin: 0px 4px; background-color: #EEF5FF; padding: 3px 4px; border-radius: 8px;" onmouseover="this.style.backgroundColor='rgba(189, 205, 214, 0.3)'" onmouseout="this.style.backgroundColor='#EEF5FF'">
+                                        <a href="<?php echo base_url('homepage/sign_out');?>" style="font-size: 12px; color: red; padding: 2px;">Sign Out</a>
                                     </div>
                                 </ul>
                             </li>
                         </ul>
-                                    
 
-                        <ul class="nav navbar-nav pull-right responsivetop">                           
+                        <ul class="nav navbar-nav pull-right responsivetop" style="margin-top: 6px">                           
                             <li class="con-tooltip bottom hidden-xs">
                                 <a class="btn bdarkGreen tip"  data-placement="bottom" href="<?php echo base_url('/');?>homepage "><i class="fa fa-area-chart"></i></a>
                                 <div class="tooltip ">

@@ -2,7 +2,7 @@
 <section class="content">
     <div class="box box-info">
         <div class="box-header text-center">
-            <h3 class="box-title"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> <?php echo $title1; ?></h3>
+            <h3 class="box-title" style="font-family: 'Poppins'"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> <?php echo $title1; ?></h3>
         </div>
         <div class="box-body">
             <div class="col-md-8">

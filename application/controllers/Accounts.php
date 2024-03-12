@@ -25,8 +25,8 @@ class Accounts extends CI_Controller
 
       // DEFINES THE TABLE HEAD
       $data['table_heading_names_of_coloums'] = array(
-       'Name',
-       'Nature',
+       'Account Name',
+       'Account Type',
        'Type',
        'Relation',
        'Expense Type',

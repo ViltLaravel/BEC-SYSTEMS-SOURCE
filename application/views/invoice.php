@@ -11,15 +11,15 @@
           </h3>
         </div> 
                 <div class="col-md-1 pull-right ">
-            <a class="pull-right btn-flat homescreen-icon btn btn-primary" href="<?php echo base_url('supply/create_new_supply'); ?>">   <i class="fa fa-truck"></i>    Whole sale
+            <a class="pull-right btn-flat homescreen-icon btn btn-primary" style="font-size: 11px" href="<?php echo base_url('supply/create_new_supply'); ?>">   <i class="fa fa-truck"></i>    Whole sale
             </a>
         </div>        
         <div class="col-md-1 pull-right ">
-            <a class="pull-right btn-flat homescreen-icon btn btn-primary" href="<?php echo base_url('homepage'); ?>">   <i class="fa fa-dashboard"></i>    Home screen
+            <a class="pull-right btn-flat homescreen-icon btn btn-primary" style="font-size: 11px" href="<?php echo base_url('homepage'); ?>">   <i class="fa fa-dashboard"></i>    Home screen
             </a>
         </div>                
         <div class="col-md-1 pull-right ">
-            <a class="pull-right btn-flat pos-invoice-btn homescreen-icon btn btn-primary" href="<?php echo base_url('invoice/manage'); ?>">   <i class="fa fa-file-text"></i>    Invoices
+            <a class="pull-right btn-flat pos-invoice-btn homescreen-icon btn btn-primary" style="font-size: 11px" href="<?php echo base_url('invoice/manage'); ?>">   <i class="fa fa-file-text"></i>    Invoices
             </a>
         </div>
 
