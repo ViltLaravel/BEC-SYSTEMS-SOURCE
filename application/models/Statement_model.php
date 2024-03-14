@@ -558,7 +558,7 @@ class Statement_model extends CI_Model
     public function chart_list()
     {
         $accounts_list = '';
-        $accounts_nature  = array('Assets','Libility','Equity','Revenue','Expense');
+        $accounts_nature  = array('Assets','Liability','Equity','Revenue','Expense');
         for ($i = 0; $i < count($accounts_nature); $i++) 
         {
             $accounts_list .= '<option value="0">-------------</option>';  
