@@ -2,9 +2,9 @@
     <div class="row">
         <div class="col-md-12">
             <div class="pull pull-right">
-                <button type="button" class="btn btn-info btn-outline-primary" style="font-size: 12px;"  onclick="show_modal_page('<?php echo base_url().'accounts/popup/add_chart_of_accounts'; ?>')" ><i class="fa fa-plus-square" aria-hidden="true"></i> Create Head
+                <button type="button" class="btn btn-info btn-outline-primary" style="font-size: 12px;"  onclick="show_modal_page('<?php echo base_url().'accounts/popup/add_chart_of_accounts'; ?>')" ><i class="fas fa-plus-square" aria-hidden="true"></i> Create Head
                 </button>
-                <button onclick="printDiv('print-section')" class="btn btn-default btn-outline-primary   pull-right" style="font-size: 12px; margin-left: 2px"><i class="fa fa-print  pull-left"></i> Print Report</button>
+                <button onclick="printDiv('print-section')" class="btn btn-default btn-outline-primary   pull-right" style="font-size: 12px; margin-left: 2px"><i class="fas fa-print  pull-center"></i> Print Report</button>
             </div>
         </div>
     </div>
@@ -14,7 +14,7 @@
         <div class="col-xs-12">
             <div class="box" id="print-section">
                 <div class="box-header">
-                    <h3 class="box-title" style="font-family: 'Poppins'"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> <?php echo $table_name; ?></h3>
+                    <h3 class="box-title" style="font-family: 'Poppins'"><i class="fas fa-arrow-circle-right" aria-hidden="true"></i> <?php echo $table_name; ?></h3>
                 </div>
                 <div class="box-body">
                      <div class="table-responsive col-md-12">

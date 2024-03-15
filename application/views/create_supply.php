@@ -1,7 +1,7 @@
 <section class="content">
     <div class="box" id="print-section">
         <div class="box-header">
-            <h3 class="box-title"><i class="fa fa-hand-o-right" aria-hidden="true"></i>        Create  Supply
+            <h3 class="box-title" style="font-family: 'Poppins'"><i class="fas fa-hand-o-right" aria-hidden="true"></i>        Create  Supply
             </h3>
             <small>
                 <br />
@@ -15,7 +15,7 @@
             <?php echo form_open_multipart('supply/add_supply_invoice',$attributes); ?>
             <div class="row">
                 <div class="col-md-12">
-                    <h4 class="purchase-heading"><i class="fa fa-check-circle"></i> General details :
+                    <h4 class="purchase-heading" style="font-family: 'Poppins'"><i class="fas fa-check-circle"></i> General details :
                       <small >Select region where you are suppling.</small>    
                     </h4>   
                 </div>           
@@ -87,7 +87,7 @@
             </div>
         <div class="row">
             <div class="col-md-12">
-                <h4 class="purchase-heading"><i class="fa fa-check-circle"></i> Create supply items :
+                <h4 class="purchase-heading" style="font-family: 'Poppins'"><i class="fas fa-check-circle"></i> Create supply items :
                  <small >Create a invoice for wholesale purpose.</small>   
                 </h4>  
 

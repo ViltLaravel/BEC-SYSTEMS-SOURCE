@@ -2,9 +2,9 @@
 <div class="row">
     <div class="col-md-12">
         <div class="pull pull-right">
-            <button type="button" class="btn btn-info btn-outline-primary"  onclick="show_modal_page('<?php echo base_url().'customers/popup/add_customer_model/'; ?>')" ><i class="fa fa-plus-square" aria-hidden="true"></i> Add Customer
+            <button type="button" class="btn btn-info btn-outline-primary"  onclick="show_modal_page('<?php echo base_url().'customers/popup/add_customer_model/'; ?>')" style="border-radius: 8px"><i class="fas fa-plus-square" aria-hidden="true"></i> Add Customer
             </button>
-            <button onclick="printDiv('print-section')" class="btn btn-default btn-outline-primary   pull-right "><i class="fa fa-print  pull-left"></i> Print Report</button>
+            <button onclick="printDiv('print-section')" class="btn btn-default btn-outline-primary   pull-right " style="border-radius: 8px; margin-left: 2px"><i class="fas fa-print  pull-center"></i> Print Report</button>
         </div>
     </div>
 </div>
@@ -14,7 +14,7 @@
     <div class="col-xs-12">
         <div class="box" id="print-section">
             <div class="box-header">
-                <h3 class="box-title"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> <?php echo $table_name; ?></h3> <br/>
+                <h3 class="box-title" style="font-family: 'Poppins'"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> <?php echo $table_name; ?></h3> <br/>
                 <small>By default it will fetch the current months data.</small>
             </div>
             <div class="box-body">
@@ -52,9 +52,9 @@
                                 ?>
                             </select>
                     </div> 
-                    <div class="form-group col-md-2" style="margin-top:16px;">
+                    <div class="form-group col-md-2" style="margin-top:20px;">
                         <?php
-                            $data = array('class'=>'btn btn-primary btn-flat margin btn-lg pull-right ','type' => 'submit','name'=>'btn_submit_customer','value'=>'true', 'content' => '<i class="fa fa-floppy-o" aria-hidden="true"></i> Build ledger  ');
+                            $data = array('style' => 'border-radius: 8px','class'=>'btn btn-primary btn-flat margin btn-lg pull-right ','type' => 'submit','name'=>'btn_submit_customer','value'=>'true', 'content' => '<i class="fas fa-floppy-o" aria-hidden="true"></i> Build ledger  ');
                             
                             echo form_button($data);
                             ?>  
@@ -69,15 +69,15 @@
             if($ledger != NULL)
             {
                 ?>
-            <h2 class="text-center">
+            <h2 class="text-center" style="font-family: 'Poppins'; color: red">
                 <?php echo $heading; ?> 
             </h2>
-            <h4 class="text-center">
+            <h4 class="text-center" style="font-family: 'Poppins'">
                 <?php echo $email_phone; ?> 
             </h4>
-            <h4  class="purchase-heading"> <i class="fa fa-check-circle"></i> 
+            <h4  class="purchase-heading" style="font-family: 'Poppins'"> <i class="fas fa-check-circle"></i> 
                 Purchased Items 
-                <small>List of bills piad by customer against purchases. </small>
+                <small>List of bills paid by customer against purchases. </small>
             </h4>
             <div class="table-responsive  ">
                 <table id="" class="table table-bordered table-striped">
@@ -293,7 +293,7 @@
                         $total = 0;
                         $paid = 0;
                 ?>
-                <h4  class="purchase-heading"><i class="fa fa-check-circle"></i> 
+                <h4  class="purchase-heading" style="font-family: 'Poppins'"><i class="fas fa-check-circle"></i> 
                 Expenses piad to customer
                 <small>List of expense amounts piad to customer. </small>
                 </h4>
@@ -376,7 +376,7 @@
                     if($bank_transactions != NULL)
                     {  
                 ?>
-                    <h4  class="purchase-heading"><i class="fa fa-check-circle"></i> 
+                    <h4  class="purchase-heading" style="font-family: 'Poppins'"><i class="fas fa-check-circle"></i> 
                         Transactions occured via banks
                         <small>List of cheques piad or recieved from customer. </small>
                     </h4>
@@ -481,14 +481,14 @@
 
 
  <!------------------ From jewel Farazi---------------->
-                        <h4 class="purchase-heading" style="background-color:#dd4b39;"><i class="fa fa-check-circle"></i> 
+                        <h4 class="purchase-heading" style="background-color:#dd4b39; font-family: 'Poppins'"><i class="fas fa-check-circle"></i> 
                             Customer Legder
-                            <small>List of amounts piad by customer against balances. </small>
+                            <small>List of amounts paid by customer against balances. </small>
                         </h4>
-                        <h4 style="front-size:18px;">Opening Blance-<strong><?php echo (!empty($openingblance)?$openingblance->totalamount: '') ?></strong>
-                        Total Purchased Items-<strong><?php echo $currency.' '.$received_total; ?></strong> /-
-                        Total Paid-<?php echo $currency.' '.$paid_total; ?> /- 
-                        Customer paid amount Customer Paid - <strong><?php echo $currency.' '. (!empty($total)? number_format($total,'2','.',''):''); ?></strong>
+                        <h4 style="front-size:18px; font-family: 'Poppins'">Opening Blance-<strong style="color: red"><?php echo (!empty($openingblance)?$openingblance->totalamount: '') ?></strong>
+                        Total Purchased Items-<strong style="color: red"><?php echo $currency.' '.$received_total; ?></strong> /-
+                        Total Paid-<strong style="color: red"><?php echo $currency.' '.$paid_total; ?></strong> /- 
+                        Customer paid amount Customer Paid - <strong style="color: red"><?php echo $currency.' '. (!empty($total)? number_format($total,'2','.',''):''); ?></strong>
                         </h4>
                               
 

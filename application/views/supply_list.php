@@ -2,9 +2,9 @@
     <div class="row">
         <div class="col-md-12">
             <div class="pull pull-right">
-                <a href="<?php echo base_url('supply/create_new_supply'); ?>"  class="btn btn-primary btn-outline-primary" ><i class="fa fa-plus-square" aria-hidden="true"></i>  Create Supply
+                <a href="<?php echo base_url('supply/create_new_supply'); ?>"  class="btn btn-primary btn-outline-primary" style="border-radius: 8px"><i class="fas fa-plus-square" aria-hidden="true"></i>  Create Supply
                 </a>
-                <button onclick="printDiv('print-section')" class="btn btn-default btn-outline-primary   pull-right "><i class="fa fa-print  pull-left"></i> Print Report</button>
+                <button onclick="printDiv('print-section')" class="btn btn-default btn-outline-primary   pull-right " style="border-radius: 8px; margin-left: 4px"><i class="fas fa-print  pull-center"></i> Print Report</button>
             </div>
         </div>
     </div>
@@ -14,7 +14,7 @@
         <div class="col-xs-12">
             <div class="box" id="print-section">
                 <div class="box-header">
-                    <h3 class="box-title"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Customer Supply Payments</h3>
+                    <h3 class="box-title" style="font-family: 'Poppins'"><i class="fas fa-arrow-circle-right" aria-hidden="true"></i> Customer Supply Payments</h3>
                     <br>
                     <small>By default it will fetch the supplies of current month.  </small>
                 </div>
@@ -53,9 +53,9 @@
                             </div>
                         </div>
                             <div class="col-md-3">
-                                <div class="form-group margin" style="margin-top:25px;">
+                                <div class="form-group margin" style="margin-top:30px;">
                                     <?php
-                                        $data = array('class'=>'btn btn-info input-lg btn-outline-primary margin ','type' => 'submit','name'=>'searchecord','value'=>'true', 'content' => '<i class="fa fa-search" aria-hidden="true"></i> Search Payments');
+                                        $data = array('style' => 'border-radius: 8px','class'=>'btn btn-info input-lg btn-outline-primary margin ','type' => 'submit','name'=>'searchecord','value'=>'true', 'content' => '<i class="fas fa-search" aria-hidden="true"></i> Search Payments');
                                         echo form_button($data);
                                     ?>
                                 </div>

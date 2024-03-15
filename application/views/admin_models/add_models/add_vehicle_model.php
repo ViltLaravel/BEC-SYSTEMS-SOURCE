@@ -1,6 +1,6 @@
 <div class="modal-header">
 	<button type="button" class="close" data-dismiss="modal">&times;</button>
-	<h4 class="modal-title"><i class="fa fa-plus-square" aria-hidden="true"></i> 
+	<h4 style="font-family: 'Poppins'" class="modal-title"><i class="fas fa-plus-square" aria-hidden="true"></i> 
 		Add New Vehicle 
 	</h4>
 </div>

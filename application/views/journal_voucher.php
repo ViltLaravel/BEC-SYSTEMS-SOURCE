@@ -8,17 +8,17 @@
             <?php echo form_open('statements/create_journal_voucher',$attributes); ?>
             <div class="">
                 <div class="row no-print invoice">
-                    <h4  class="purchase-heading" > <i class="fa fa-check-circle"></i> 
+                    <h4  class="purchase-heading" style="font-family: 'Poppins'"> <i class="fas fa-check-circle"></i> 
                       Add journal transactions
                       <small>
-                        Note: All balances are in <?php echo $currency;  ?>
+                        <b style="color: red">Note :</b> All balances are in <b style="color: red"><?php echo $currency;  ?></b>
                       </small> 
                     </h4>
                     <div class="col-md-12 ">
                         <div class="form-group">
                             <?php echo form_label('Description'); ?>
                              <?php
-                                $data = array('class'=>'form-control input-lg','type'=>'text','name'=>'description','reqiured'=>'');
+                                $data = array('placeholder' => 'e.g. Opening balance for account payable', 'class'=>'form-control input-lg','type'=>'text','name'=>'description','reqiured'=>'');
                                 echo form_input($data);
                             ?>
                         </div>                    
@@ -98,7 +98,7 @@
                 <div class="col-md-12 ">
                     <div class="form-group">
                         <?php
-                            $data = array('class'=>'btn btn-info  margin btn-lg pull-right ','type' => 'submit','name'=>'btn_submit_customer','value'=>'true','id'=>'btn_save_transaction','content' => '<i class="fa fa-floppy-o" aria-hidden="true"></i> 
+                            $data = array('style' => 'border-radius: 8px','class'=>'btn btn-primary  margin btn-md pull-right ','type' => 'submit','name'=>'btn_submit_customer','value'=>'true','id'=>'btn_save_transaction','content' => '<i class="fas fa-floppy-o" aria-hidden="true"></i> 
                                 Save ');
                             echo form_button($data);
                          ?>  

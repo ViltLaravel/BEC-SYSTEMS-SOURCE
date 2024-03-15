@@ -14,7 +14,7 @@
             ?>
             <?php echo form_open('bank/add_cheque',$attributes); ?>
                 <div class="row no-print invoice" >
-                    <h4  class="purchase-heading" > <i class="fa fa-check-circle"></i>  Create Cheque <span class="pull-right"> <i class="fa fa-calendar"></i> Cheque Date : <?php
+                    <h4  class="purchase-heading" style="font-family: 'Poppins'"> <i class="fas fa-check-circle"></i>  Create Cheque <span class="pull-right"> <i class="fas fa-calendar"></i> Cheque Date : <?php
                       $data = array('class'=>' cheque-fields','type'=>'date','name'=>'deposit_date','reqiured'=>'');
                       echo form_input($data);
                     ?></span>
@@ -99,7 +99,7 @@
                     </div>  
                     <div class="form-group ">
                       <?php
-                          $data = array('class'=>'btn btn-info btn-submit-cheque btn-lg pull-right ','type' => 'submit','name'=>'btn_submit_balance','value'=>'true','disabled'=>'disabled','content' => '<i class="fa fa-floppy-o" aria-hidden="true"></i> 
+                          $data = array('style' => 'border-radius: 8px', 'class'=>'btn btn-info btn-submit-cheque btn-lg pull-right ','type' => 'submit','name'=>'btn_submit_balance','value'=>'true','disabled'=>'disabled','content' => '<i class="fa fa-floppy-o" aria-hidden="true"></i> 
                               Save Cheque ');
                           echo form_button($data);
                        ?>  

@@ -2,11 +2,11 @@
     <div class="row">
         <div class="col-md-12">
             <div class="pull pull-right">
-                <a class="btn btn-info btn-outline-primary" href="<?php echo base_url('purchase/create_purchase');?>" ><i class="fa fa-plus-square" aria-hidden="true"></i> Create Purchase
+                <a class="btn btn-info btn-outline-primary" href="<?php echo base_url('purchase/create_purchase');?>" style="border-radius: 8px"><i class="fas fa-plus-square" aria-hidden="true"></i> Create Purchase
                 </a>
-                <a class="btn btn-success btn-outline-primary" href="<?php echo base_url('purchase/return_purchase');?>" ><i class="fa fa-arrow-left" aria-hidden="true"></i> Purchase Return
+                <a class="btn btn-success btn-outline-primary" href="<?php echo base_url('purchase/return_purchase');?>" style="border-radius: 8px"><i class="fas fa-arrow-left" aria-hidden="true"></i> Purchase Return
                 </a>
-                <button onclick="printDiv('print-section')" class="btn btn-default btn-outline-primary   pull-right "><i class="fa fa-print  pull-left"></i> Print Report</button>
+                <button onclick="printDiv('print-section')" class="btn btn-default btn-outline-primary   pull-right " style="border-radius: 8px; margin-left: 4px"><i class="fas fa-print  pull-center"></i> Print Report</button>
             </div>
         </div>
     </div>
@@ -16,7 +16,7 @@
         <div class="col-xs-12">
             <div class="box" id="print-section">
                 <div class="box-header">
-                    <h3 class="box-title"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> <?php echo $table_name; ?></h3>
+                    <h3 class="box-title" style="font-family: 'Poppins'"><i class="fas fa-arrow-circle-right" aria-hidden="true"></i> <?php echo $table_name; ?></h3>
                      <br>
                     <small>By default it will fetch the purchases of current month.  </small>
                 </div>
@@ -55,9 +55,9 @@
                             </div>
                         </div>
                             <div class="col-md-3">
-                            <div class="form-group margin" style="margin-top:25px;">
+                            <div class="form-group margin" style="margin-top:30px;">
                                 <?php
-                                    $data = array('class'=>'btn btn-info input-lg btn-outline-primary margin  pull-right','type' => 'submit','name'=>'searchecord','value'=>'true', 'content' => '<i class="fa fa-search" aria-hidden="true"></i> Search Purchases');
+                                    $data = array('style' => 'border-radius: 8px','class'=>'btn btn-info input-lg btn-outline-primary margin  pull-right','type' => 'submit','name'=>'searchecord','value'=>'true', 'content' => '<i class="fas fa-search" aria-hidden="true"></i> Search Purchases');
                                     echo form_button($data);
                                  ?>
                             </div>
@@ -162,9 +162,9 @@
         </div>
         <div class="row bg-setting-product">
             <div class="col-md-12">
-                <b>Total Purchased Bill : </b>  <?php echo number_format($total_bill,'2','.',''); ?>/-
-                <b>Total Purchased Paid : </b>    <?php echo number_format($total_pur,'2','.',''); ?>/-
-                <b>Total Balances  : </b>   <?php echo number_format($total_bal,'2','.',''); ?>/-
+                <b>Total Purchased Bill : </b>  <b style="color: red"><?php echo number_format($total_bill,'2','.',''); ?></b>/-
+                <b>Total Purchased Paid : </b>    <b style="color: red"><?php echo number_format($total_pur,'2','.',''); ?></b>/-
+                <b>Total Balances  : </b>   <b style="color: red"><?php echo number_format($total_bal,'2','.',''); ?></b>/-
             </div>
         </div>
 </section>

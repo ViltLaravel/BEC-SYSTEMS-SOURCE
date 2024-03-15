@@ -3,8 +3,8 @@
         <div class="col-xs-12">
             <div class="box" id="print-section">
                 <div class="box-header">
-                    <h3 class="box-title">
-                        <i class="fa fa-arrow-circle-right" aria-hidden="true"></i> 
+                    <h3 class="box-title" style="font-family: 'Poppins'">
+                        <i class="fas fa-arrow-circle-right" aria-hidden="true"></i> 
                              Take Backup :
                     </h3>
                 </div>
@@ -18,7 +18,7 @@
 
                                 <div class="form-group text-center">                  
                                         <?php
-                                            $data = array('class'=>'btn btn-default btn-outline-primary ','type' => 'submit','name'=>'btn_submit_Service','value'=>'true', 'content' => '<i class="fa fa-download" aria-hidden="true"></i> Click here to take Back up');
+                                            $data = array('class'=>'btn btn-danger btn-outline-primary ','type' => 'submit','name'=>'btn_submit_Service','value'=>'true', 'content' => '<i class="fas fa-download" aria-hidden="true"></i> Click here to take Back up');
                                             echo form_button($data);
                                          ?>    
                                   </div>
