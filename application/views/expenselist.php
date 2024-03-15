@@ -1,11 +1,11 @@
 <section class="content-header">
     <div class="row">
         <div class="col-md-12">
-            <div class="pull pull-right">
-                <button type="button" onclick="show_modal_page('<?php echo base_url();?>expense/popup/add_expense_model')" class="btn btn-info btn-outline-primary"><i class="fa fa-plus-square" aria-hidden="true"></i>
+            <div class="pull pull-center">
+                <button type="button" onclick="show_modal_page('<?php echo base_url();?>expense/popup/add_expense_model')" class="btn btn-info btn-outline-primary" style="border-radius: 10px"><i class="fas fa-plus-square" aria-hidden="true"></i>
                     <?php echo $page_add_button_name; ?>
                 </button>
-                <button onclick="printDiv('print-section')" class="btn btn-default btn-outline-primary pull-right "><i class="fa fa-print pull-left"></i> Print Report</button>
+                <button onclick="printDiv('print-section')" class="btn btn-default btn-outline-primary pull-right " style="border-radius: 10px"><i class="fas fa-print pull-center"></i> Print Report</button>
             </div>
         </div>
     </div>
@@ -15,7 +15,7 @@
         <div class="col-xs-12 col-md-12 col-sm-12">
             <div class="box " id="print-section">
                 <div class="box-header">
-                    <h3 class="box-title"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> <?php echo $table_name; ?></h3>
+                    <h3 class="box-title" style="font-family: 'Poppins'"><i class="fas fa-arrow-circle-right" aria-hidden="true"></i> <b><?php echo $table_name; ?></b></h3>
                 </div>
                 <div class="box-body">
                     <?php
@@ -42,7 +42,7 @@
                                 <div class="form-group">
                                 
                                     <?php
-                                        $data = array('class'=>'btn btn-info input-lg btn-outline-primary','type' => 'submit','name'=>'btnSubmit','value'=>'true', 'content' => '<i class="fa fa-search" aria-hidden="true"></i> Search');
+                                        $data = array('style' => 'border-radius: 10px','class'=>'btn btn-info input-lg btn-outline-primary','type' => 'submit','name'=>'btnSubmit','value'=>'true', 'content' => '<i class="fas fa-search" aria-hidden="true"></i> Search Expenses');
                                         echo form_button($data);
                                     ?>
                                 </div>
@@ -122,7 +122,7 @@
                                         {
                                     ?>
                                             <tr  class="text-center">
-                                                <td colspan="9"><b>Sorry! no expense found</b></td>
+                                                <td colspan="9"><b style="color: red">Sorry! no expense found</b></td>
                                             </tr>
                                     <?php
                                         }

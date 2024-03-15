@@ -111,11 +111,11 @@ class Statement_model extends CI_Model
     //USED TO GET THE LEDGER USING NATURE 
     public function the_ledger($date1,$date2)
     {
-        $accounts_types = array('Assets','Libility','Equity','Revenue','Expense');
+        $accounts_types = array('Assets','Liability','Equity','Revenue','Expense');
         $form_content = '';
         for ($i =0; $i  < count($accounts_types); $i++) 
         { 
-            $form_content .= '<h4 class="ledger_head"><b><i class="fa fa-hand-o-right"> '.$accounts_types[$i].' : </i></b></h4>';    
+            $form_content .= '<h4 class="ledger_head" style="font-family: "Poppins""><b><i class="fas fa-hand-o-right"> '.$accounts_types[$i].' : </i></b></h4>';    
             $this->db->select('mp_head.*');
             $this->db->from('mp_head');
             $this->db->where(['mp_head.nature' => $accounts_types[$i]]);
@@ -235,7 +235,7 @@ class Statement_model extends CI_Model
     public function trail_balance($current_date)
     {
         //ACCOUNTING START DATE
-        $date1 = '2017-11-31';
+        $date1 = '2024-02-30';
 
         $date2 = $current_date;
 
@@ -351,7 +351,7 @@ class Statement_model extends CI_Model
     public function balancesheet($end_date)
     {
         //ACCOUNTING START DATE
-        $date1 = '2017-12-31';
+        $date1 = '2024-02-30';
 
         $date2 = $end_date;
 
@@ -438,7 +438,7 @@ class Statement_model extends CI_Model
         $this->db->select("*");
         $this->db->from('mp_head');
         $this->db->where(['mp_head.type' => 'Current']);
-        $this->db->where(['mp_head.nature' => 'Libility']);
+        $this->db->where(['mp_head.nature' => 'Liability']);
         $query = $this->db->get();
         if($query->num_rows() > 0)
         {
@@ -475,7 +475,7 @@ class Statement_model extends CI_Model
         $this->db->select("*");
         $this->db->from('mp_head');
         $this->db->where(['mp_head.type' => 'Non-Current']);
-        $this->db->where(['mp_head.nature' => 'Libility']);
+        $this->db->where(['mp_head.nature' => 'Liability']);
         $query = $this->db->get();
         if($query->num_rows() > 0)
         {

@@ -1,10 +1,9 @@
 <section class="content-header">
     <div class="row">
         <div class="col-md-12">
-            <div class="pull pull-right">
-                <button type="button" onclick="show_modal_page('<?php echo base_url('customers/popup/add_customer_payment_model');?>')" class="btn btn-primary btn-outline-primary" ><i class="fa fa-plus-square" aria-hidden="true"></i>  Create Payment
-                </button>
-                <button onclick="printDiv('print-section')" class="btn btn-default btn-outline-primary   pull-right "><i class="fa fa-print  pull-left"></i> Print Report</button>
+            <div class="pull-center">
+                <button type="button" onclick="show_modal_page('<?php echo base_url('customers/popup/add_customer_payment_model');?>')" class="btn btn-primary btn-outline-primary" style="border-radius: 10px"><i class="fas fa-plus-square" aria-hidden="true"></i>  Create Payment</button>
+                <button onclick="printDiv('print-section')" class="btn btn-default btn-outline-primary pull-right" style="border-radius: 10px"><i class="fas fa-print  pull-center"></i> Print Report</button>
             </div>
         </div>
     </div>
@@ -14,7 +13,7 @@
         <div class="col-xs-12">
             <div class="box" id="print-section">
                 <div class="box-header">
-                    <h3 class="box-title"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Customer Payments</h3>
+                    <h3 class="box-title" style="font-family: 'Poppins'"><i class="fas fa-arrow-circle-right" aria-hidden="true"></i> Customer Payments</h3>
                     <br>
                     <small>By default it will fetch the payments of current month.  </small>
                 </div>
@@ -52,9 +51,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3" style="margin-top:16px">
+                        <div class="col-md-3" style="margin-top: 30px">
                             <?php
-                                $data = array('class'=>'btn btn-info btn-outline-primary margin  pull-right','type' => 'submit','name'=>'searchecord','value'=>'true', 'content' => '<i class="fa fa-search" aria-hidden="true"></i> Search Payments');
+                                $data = array('style' => 'border-radius: 10px','class'=>'btn btn-lg btn-info btn-outline-primary margin  pull-right','type' => 'submit','name'=>'searchecord','value'=>'true', 'content' => '<i class="fas fa-search" aria-hidden="true"></i> Search Payments');
                                 echo form_button($data);
                              ?>
                         </div>

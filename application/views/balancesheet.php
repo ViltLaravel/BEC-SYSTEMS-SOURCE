@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="pull pull-right">
-                <button onclick="printDiv('print-section')" class="btn btn-default btn-outline-primary   pull-right "><i class="fa fa-print  pull-left"></i> Print Report</button>
+                <button onclick="printDiv('print-section')" class="btn btn-default btn-outline-primary   pull-right " style="border-radius: 10px"><i class="fas fa-print  pull-center"></i> Print Report</button>
             </div>
         </div>
     </div>
@@ -34,9 +34,9 @@
                     </div>
                 </div>                    
                 <div class="col-md-3">
-                    <div class="form-group" style="margin-top:16px;">
+                    <div class="form-group" style="margin-top:21px;">
                         <?php
-                            $data = array('class'=>'btn btn-info btn-flat margin btn-lg pull-right ','type' => 'submit','name'=>'btn_submit_customer','value'=>'true', 'content' => '<i class="fa fa-floppy-o" aria-hidden="true"></i> 
+                            $data = array('style' => 'border-radius: 10px','class'=>'btn btn-info btn-flat margin btn-lg pull-right ','type' => 'submit','name'=>'btn_submit_customer','value'=>'true', 'content' => '<i class="fa fa-floppy-o" aria-hidden="true"></i> 
                                 Create Statement');
                             echo form_button($data);
                          ?>  
@@ -47,15 +47,15 @@
         <div class="row">
             <div class="col-md-3"></div>
                 <div class="col-md-6">
-                    <h2 style="text-align:center"> Balance Sheet </h2>
-                    <h3 style="text-align:center">
+                    <h2 style="text-align:center; font-family: 'Poppins'"> Balance Sheet </h2>
+                    <h3 style="text-align:center; font-family: 'Poppins'">
                         <?php echo $this->db->get_where('mp_langingpage', array('id' => 1))->result_array()[0]['companyname'] ;
                         ?>
                     </h3>
                  
-                   <h4 style="text-align:center">As of : <?php echo $to; ?> <b>
+                   <h4 style="text-align:center; font-family: 'Poppins'">As of : <b style="color: red"><?php echo $to; ?></b> <b>
                    </h4>
-                   <h4 style="text-align:center">Created : <?php echo Date('Y-m-d'); ?> <b>
+                   <h4 style="text-align:center; font-family: 'Poppins'">Created : <b style="color: red"><?php echo Date('Y-m-d'); ?></b> <b>
                    </h4>
                 </div>
                 <div class="col-md-3"></div>  

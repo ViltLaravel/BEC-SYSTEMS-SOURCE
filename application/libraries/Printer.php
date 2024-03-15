@@ -16,32 +16,6 @@ class Printer
 
     public function testPrint($business_info)
     {
-        /*require_once(dirname(__FILE__) . "/../../i18N/Arabic.php");
-        $fontPath = dirname(__FILE__) . "/../../i18N/Arabic/Examples/GD/ae_AlHor.ttf";
-        $textUtf8 = "صِف خَلقَ خَودِ كَمِثلِ الشَمسِ إِذ بَزَغَت — يَحظى الضَجيعُ بِها نَجلاءَ مِعطارِ";
-        $maxChars = 50;
-        $fontSize = 28;
-        mb_internal_encoding("UTF-8");
-        $Arabic = new \I18N_Arabic('Glyphs');
-        $textLtr = $Arabic -> utf8Glyphs($textUtf8, $maxChars);
-        $textLine = explode("\n", $textLtr);
-        //$buffer = new ImagePrintBuffer();
-        //$buffer -> setFont($fontPath);
-        //$buffer -> setFontSize($fontSize);
-        $profile = EposTepCapabilityProfile::getInstance();
-        $connector = new FilePrintConnector("php://output");
-        // = new WindowsPrintConnector("LPT2");
-        // Windows LPT2 was used in the bug tracker
-        $printer = new P($connector, $profile);
-        //$printer -> setPrintBuffer($buffer);
-        $printer -> setJustification(P::JUSTIFY_RIGHT);
-        foreach($textLine as $text) {
-            // Print each line separately. We need to do this since Imagick thinks
-            // text is left-to-right
-            $printer -> text($text . "\n");
-        }
-        $printer -> cut();
-        $printer -> close();*/
         $pos = self::findOne(['type' => self::TYPE_POS, 'status' => 1, 'is_default' => 1]);
 
         if(! $pos) {
@@ -254,7 +228,7 @@ class Printer
             $printer -> selectPrintMode(P::MODE_UNDERLINE);
             $printer -> setTextSize(1, 1);
             $printer -> setFont(0);
-            $printer -> text("Software Solution by Gigabyteltd.net\n");
+            $printer -> text("Bread's Edge Corporation\n");
             $printer -> setJustification(P::JUSTIFY_CENTER);
             $printer -> text("+923472394224\n");
             // $printer -> setJustification(P::JUSTIFY_RIGHT);
