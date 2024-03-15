@@ -1,10 +1,10 @@
 <section class="content">
     <div class="box" id="print-section">
         <div class="box-header">
-            <h3 class="box-title purchase-top-header"><i class="fa fa-hand-o-right" aria-hidden="true"></i> Create Purchase
+            <h3 class="box-title purchase-top-header" style="font-family: 'Poppins'"><i class="fas fa-hand-o-right" aria-hidden="true"></i> Create Purchase
             </h3>
             <div class="pull pull-right purchase-top-header">
-                <a type="button" class="btn btn-danger btn-flat btn-sm" href="<?php echo base_url('purchase');?>" ><i class="fa fa-times" aria-hidden="true"></i> Cancel Purchase
+                <a type="button" class="btn btn-danger btn-flat btn-sm" href="<?php echo base_url('purchase');?>" style="border-radius: 8px"><i class="fas fa-times" aria-hidden="true"></i> Cancel Purchase
                 </a>
             </div>
         </div>
@@ -15,7 +15,7 @@
                 <?php echo form_open_multipart('purchase/add_purchase',$attributes); ?>
                 <div class="row">
                     <div class="col-md-12">
-                        <h4 class="purchase-heading"><i class="fa fa-check-circle"></i> General Detail :</h4>       
+                        <h4 class="purchase-heading" style="font-family: 'Poppins'"><i class="fas fa-check-circle"></i> General Detail :</h4>       
                         <div class="col-md-3 ">
                             <div class="form-group">
                                 <?php echo form_label('Supplier'); ?>
@@ -69,7 +69,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <h4 class="purchase-heading"><i class="fa fa-check-circle"></i>  Purchase Detail :</h4>
+                        <h4 class="purchase-heading" style="font-family: 'Poppins'"><i class="fas fa-check-circle"></i>  Purchase Detail :</h4>
                         <div class="col-md-3 ">
                             <div class="form-group">
                                 <?php echo form_label('Grand Total'); ?>
@@ -93,7 +93,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <h4 class="purchase-heading"><i class="fa fa-check-circle"></i>  Payment Detail :</h4>
+                        <h4 class="purchase-heading" style="font-family: 'Poppins'"><i class="fas fa-check-circle"></i>  Payment Detail :</h4>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <?php echo form_label('Payment Method'); ?>
@@ -185,7 +185,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <h4 class="purchase-heading"><i class="fa fa-check-circle"></i>  Purchase Description :</h4>         
+                            <h4 class="purchase-heading" style="font-family: 'Poppins'"><i class="fas fa-check-circle"></i>  Purchase Description :</h4>         
                             <?php
                                 $data = array('class'=>'form-control input-lg','type'=>'text','name'=>'pur_description','placeholder'=>'Any description','reqiured'=>'');
                                 echo form_input($data);
@@ -201,7 +201,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <?php
-                                $data = array('class'=>'btn btn-info btn-flat margin btn-lg pull-right ','type' => 'submit','name'=>'btn_submit_customer','value'=>'true', 'content' => '<i class="fa fa-floppy-o" aria-hidden="true"></i> Save Purchase');
+                                $data = array('style' => 'border-radius: 8px','class'=>'btn btn-info btn-flat margin btn-lg pull-right ','type' => 'submit','name'=>'btn_submit_customer','value'=>'true', 'content' => '<i class="fa fa-floppy-o" aria-hidden="true"></i> Save Purchase');
                                 
                                 echo form_button($data);
                              ?>  

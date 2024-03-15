@@ -1,6 +1,6 @@
 <div class="modal-header">
 	<button type="button" class="close" data-dismiss="modal">&times;</button>
-	<h4 class="modal-title"><i class="fa fa-plus-square" aria-hidden="true"></i> Add bank </h4>
+	<h4 class="modal-title" style="font-family: 'Poppins'"><i class="fas fa-plus-square" aria-hidden="true"></i> Add bank </h4>
 </div>
   <div class="modal-body">
 	<div class="row">
@@ -72,7 +72,7 @@
 			  </div>	
 			  <div class="form-group">  				
 				<?php
-					$data = array('class'=>'btn btn-info btn-outline-primary','type' => 'submit','name'=>'btn_submit_category','value'=>'true', 'content' => '<i class="fa fa-floppy-o" aria-hidden="true"></i> Save Bank');
+					$data = array('style' => 'border-radius: 8px','class'=>'btn btn-info btn-outline-primary','type' => 'submit','name'=>'btn_submit_category','value'=>'true', 'content' => '<i class="fas fa-floppy-o" aria-hidden="true"></i> Save Bank');
 					
 					echo form_button($data);	
 				 ?>    

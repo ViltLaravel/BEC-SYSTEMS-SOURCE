@@ -2,9 +2,9 @@
     <div class="row">
         <div class="col-md-12">
             <div class="pull pull-right">
-                <button class="btn btn-info btn-outline-primary" onclick="show_modal_page('<?php echo base_url().'initilization/popup/add_unit_model/'; ?>')" ><i class="fa fa-plus-square" aria-hidden="true"></i> Create Unit
+                <button class="btn btn-info btn-outline-primary" onclick="show_modal_page('<?php echo base_url().'initilization/popup/add_unit_model/'; ?>')" style="border-radius: 8px"><i class="fas fa-plus-square" aria-hidden="true"></i> Create Unit
                 </button>
-                <button onclick="printDiv('print-section')" class="btn btn-default btn-outline-primary   pull-right "><i class="fa fa-print  pull-left"></i> Print Report</button>
+                <button onclick="printDiv('print-section')" class="btn btn-default btn-outline-primary   pull-right " style="border-radius: 8px; margin-left: 2px"><i class="fas fa-print  pull-center"></i> Print Report</button>
             </div>
         </div>
     </div>
@@ -14,7 +14,7 @@
         <div class="col-xs-12">
             <div class="box" id="print-section">
                 <div class="box-header">
-                    <h3 class="box-title"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> <?php echo $table_name; ?></h3>
+                    <h3 class="box-title" style="font-family: 'Poppins'"><i class="fas fa-arrow-circle-right" aria-hidden="true"></i> <?php echo $table_name; ?></h3>
                 </div>
                 <div class="box-body">
                     <div class="col-md-12 table-responsive">

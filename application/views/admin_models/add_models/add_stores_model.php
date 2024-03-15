@@ -1,6 +1,6 @@
 <div class="modal-header">
 	<button type="button" class="close" data-dismiss="modal">&times;</button>
-	<h4 class="modal-title"><i class="fa fa-plus-square" aria-hidden="true"></i>
+	<h4 class="modal-title" style="font-family: 'Poppins'"><i class="fas fa-plus-square" aria-hidden="true"></i>
 	 	Add new store
 	</h4>
 </div>

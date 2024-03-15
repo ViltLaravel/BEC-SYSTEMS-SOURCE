@@ -9,7 +9,7 @@
             <div class="">
                 <div class="">
                     <div class="col-md-12 ">
-                        <h4  class="purchase-heading" > <i class="fa fa-check-circle"></i>   Opening Balances 
+                        <h4  class="purchase-heading" style="font-family: 'Poppins'"> <i class="fas fa-check-circle"></i>   Opening Balances 
                             <small>Use when importing account heads</small>
                         </h4>
                         <div class="form-group">
@@ -121,7 +121,7 @@
                         <div class="form-group">
                             <?php echo form_label('Amount (BDT)'); ?>
                              <?php
-                                $data = array('class'=>'form-control input-lg','type'=>'number','name'=>'amount','reqiured'=>'','step'=>'.01');
+                                $data = array('placeholder' => 'e.g. 1000.00','class'=>'form-control input-lg','type'=>'number','name'=>'amount','reqiured'=>'','step'=>'.01');
                                 echo form_input($data);
                             ?>
                         </div>
@@ -137,14 +137,14 @@
                         <div class="form-group">
                             <?php echo form_label('Description'); ?>
                              <?php
-                                $data = array('class'=>'form-control input-lg','type'=>'text','name'=>'description','reqiured'=>'');
+                                $data = array('placeholder' => 'e.g. Opening balance for account payable', 'class'=>'form-control input-lg','type'=>'text','name'=>'description','reqiured'=>'');
                                 echo form_input($data);
                             ?>
                         </div>                    
                     </div>
                         <div class="form-group">
                           <?php
-                              $data = array('class'=>'btn btn-info  margin btn-lg pull-right ','type' => 'submit','name'=>'btn_submit_balance','value'=>'true','id'=>'btn_save_transaction','content' => '<i class="fa fa-floppy-o" aria-hidden="true"></i> 
+                              $data = array('style' => 'border-radius: 8px','class'=>'btn btn-primary  margin btn-md pull-right ','type' => 'submit','name'=>'btn_submit_balance','value'=>'true','id'=>'btn_save_transaction','content' => '<i class="fa fa-floppy-o" aria-hidden="true"></i> 
                                   Save ');
                               echo form_button($data);
                            ?>  

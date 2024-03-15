@@ -1,6 +1,6 @@
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal">&times;</button>
-    <h4 class="modal-title"><i class="fa fa-plus-square" aria-hidden="true"></i> 
+    <h4 class="modal-title" style="font-family: 'Poppins'"><i class="fas fa-plus-square" aria-hidden="true"></i> 
     	Add new supplier
     </h4>
 </div>  
@@ -22,7 +22,7 @@
 						  
 						  	<div class="col-md-12">	
 	              			<div class="col-md-6">
-								<h4><label class="box-label"><b>Supplier Basic Info</b></label></h4>
+								<h4><label class="box-label" style="font-family: 'Poppins'; color: red"><b>Supplier Basic Info</b></label></h4>
 							</div>
 							<div class="col-md-6">
 							 <div class="col-md-8 pull-right row">	

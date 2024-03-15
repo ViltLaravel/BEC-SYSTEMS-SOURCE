@@ -2,13 +2,13 @@
     <div class="row">
         <div class="col-md-12">
             <div class="pull pull-right">
-                <a class="btn btn-info btn-outline-primary" href="<?php echo base_url('purchase/create_purchase');?>" ><i class="fa fa-plus-square" aria-hidden="true"></i> 
+                <a class="btn btn-info btn-outline-primary" href="<?php echo base_url('purchase/create_purchase');?>" style="border-radius: 8px"><i class="fas fa-plus-square" aria-hidden="true"></i> 
                     Create Purchase
                 </a>
-                <a class="btn btn-success btn-outline-primary" href="<?php echo base_url('purchase/return_purchase');?>" ><i class="fa fa-arrow-left" aria-hidden="true"></i> 
+                <a class="btn btn-success btn-outline-primary" href="<?php echo base_url('purchase/return_purchase');?>" style="border-radius: 8px"><i class="fas fa-arrow-left" aria-hidden="true"></i> 
                     Purchase Return
                 </a>
-                <button onclick="printDiv('print-section')" class="btn btn-default btn-outline-primary   pull-right "><i class="fa fa-print  pull-left"></i>    
+                <button onclick="printDiv('print-section')" class="btn btn-default btn-outline-primary   pull-right " style="border-radius: 8px; margin-left: 4px"><i class="fas fa-print  pull-center"></i>    
                     Print Report
                 </button>
             </div>
@@ -20,7 +20,7 @@
         <div class="col-xs-12">
             <div class="box" id="print-section">
                 <div class="box-header">
-                    <h3 class="box-title"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> <?php echo $table_name; ?></h3>
+                    <h3 class="box-title" style="font-family: 'Poppins'"><i class="fas fa-arrow-circle-right" aria-hidden="true"></i> <?php echo $table_name; ?></h3>
                      <br>
                     <small>By default it will fetch the return purchases of current month.  </small>
                 </div>
@@ -59,9 +59,9 @@
                             </div>
                         </div>
                          <div class="col-md-3">
-                         <div class="form-group" style="margin-top:16px">
+                         <div class="form-group" style="margin-top:20px">
                                 <?php
-                                    $data = array('class'=>'btn btn-info btn-outline-primary margin  input-lg','type' => 'submit','name'=>'searchecord','value'=>'true', 'content' => '<i class="fa fa-search" aria-hidden="true"></i> Search P.Returns');
+                                    $data = array('style' => 'border-radius: 8px','class'=>'btn btn-info btn-outline-primary margin  input-lg','type' => 'submit','name'=>'searchecord','value'=>'true', 'content' => '<i class="fa fa-search" aria-hidden="true"></i> Search Returns');
                                     echo form_button($data);
                                  ?>
                             </div>
@@ -166,9 +166,9 @@
         </div>
         <div class="row bg-setting-product">
             <div class="col-md-12">
-                <b>P.Return Bill : </b>  <?php echo number_format($total_bill,'2','.',''); ?>/-
-                <b>P.Return Recieved : </b>    <?php echo number_format($total_pur,'2','.',''); ?>/-
-                <b>P.Return Receivable  : </b>   <?php echo number_format($total_bal,'2','.',''); ?>/-
+                <b>P.Return Bill : </b>  <b style="color: red"><?php echo number_format($total_bill,'2','.',''); ?></b>/-
+                <b>P.Return Recieved : </b>    <b style="color: red"><?php echo number_format($total_pur,'2','.',''); ?></b>/-
+                <b>P.Return Receivable  : </b>   <b style="color: red"><?php echo number_format($total_bal,'2','.',''); ?></b>/-
             </div>
         </div>
 </section>

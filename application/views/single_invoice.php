@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-md-12 ">
-        <h4  class="purchase-heading" >  
-            <i class="fa fa-hand-o-right" aria-hidden="true"></i> 
+        <h4  class="purchase-heading" style="font-family: 'Poppins'">  
+            <i class="fas fa-hand-o-right" aria-hidden="true"></i> 
             View invoice
             <small>Invoice generated from POS.</small>
         </h4>
@@ -147,7 +147,7 @@
                                 
                                 <tr  style="border-bottom: 2px dotted #eee;">
                                     <td colspan="7"  >
-                                         <b> Cash recieved :</b> <?php echo $invoice_data[0]->bill_paid; ?> /- ] [ <b>  Cash balance:</b> <?php echo number_format($new_amount-$invoice_data[0]->bill_paid,'2','.',''); ?> /- ]
+                                         <b> Cash recieved :</b> <b style="color: red"><?php echo $invoice_data[0]->bill_paid; ?></b> /- ] [ <b>  Cash balance:</b> <b style="color: red"><?php echo number_format($new_amount-$invoice_data[0]->bill_paid,'2','.',''); ?></b> /- ]
                                     </td>
                                 </tr>
                               
