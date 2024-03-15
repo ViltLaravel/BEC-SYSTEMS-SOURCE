@@ -42,7 +42,7 @@
                                     </div>
                                     <br>
                                     <hr style="m-0px">
-                                    <div style="margin: 0px 4px; background-color: #EEF5FF; padding: 3px 4px; border-radius: 8px;" onmouseover="this.style.backgroundColor='rgba(189, 205, 214, 0.3)'" onmouseout="this.style.backgroundColor='#EEF5FF'">
+                                    <div style="margin: 0px 4px; background-color: #EEF5FF; padding: 3px 4px; border-radius: 8px;" onmouseover="this.style.backgroundColor='rgba(189, 205, 214, 0.3)'" onmouseout="this.style.backgroundColor='#EEF5FF'"> 
                                         <a href="<?php echo base_url('profile');?>" style="font-size: 12px; color: #000000; padding: 2px;">My Profile</a>
                                     </div>
                                     <div style="margin: 0px 4px; background-color: #EEF5FF; padding: 3px 4px; border-radius: 8px;" onmouseover="this.style.backgroundColor='rgba(189, 205, 214, 0.3)'" onmouseout="this.style.backgroundColor='#EEF5FF'">

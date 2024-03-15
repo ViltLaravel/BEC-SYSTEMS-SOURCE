@@ -1,6 +1,6 @@
 <div class="modal-header">
 	<button type="button" class="close" data-dismiss="modal">&times;</button>
-	<h4 class="modal-title"><i class="fa fa-money" aria-hidden="true"></i>
+	<h4 class="modal-title" style="font-family: 'Poppins'"><i class="fa fa-money" aria-hidden="true"></i>
 	 	Purchase details 
 	</h4>
 </div>
@@ -10,11 +10,7 @@
         	<div class="box-body">
         		 <div class="col-md-12">
 		            <div class="pull pull-right margin">
-<<<<<<< HEAD
-		                <button onclick="printDiv('print-section-1')" class="btn btn-default btn-outline-primary   pull-right "><i class="fa fa-print  pull-left"></i> Print Report</button>
-=======
 		                <button onclick="printDiv('print-section-1')" class="btn btn-default btn-outline-secondary   pull-right "><i class="fa fa-print  pull-left"></i> Print Report</button>
->>>>>>> 6e83e2a9aae7fb0d9073442aa61f85b307531491
 		            </div>
 		        </div>
 	         	<div class="col-md-12">
@@ -84,12 +80,12 @@
 	         			</tr>
 	         		</table>			    		
 	        	</div>
-	        	<div class="col-md-12">
-	        		<img style="width: 100%; height: auto;" src="<?php echo base_url('./uploads/purchase/'.$single_purchase[0]->cus_picture); ?>" name="" />
-	        			
+				<hr>
+	        	<div class="col-md-12 text-center">
+	        		<img style="width: 20%; height: auto;" src="<?php echo base_url('./uploads/purchase/'.$single_purchase[0]->cus_picture); ?>" name="" />	
 	        	</div>	        	
 	        	<div class="col-md-12 text-center">
-	        		<a href="<?php echo base_url('./uploads/purchase/'.$single_purchase[0]->cus_picture); ?>">Download image</a>
+	        		<a style="width: 20px; height: 30px;" href="<?php echo base_url('./uploads/purchase/'.$single_purchase[0]->cus_picture); ?>" Download>Download image</a>
 	        	</div>	
      		</div>				  
 		</div>
