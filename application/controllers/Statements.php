@@ -83,7 +83,7 @@ class Statements extends CI_Controller
 		if($year == NULL)
 		{
 			$year = date('Y').'-12-31';
-		}
+		} 
 		else
 		{
 			$year = $year.'-12-31';
