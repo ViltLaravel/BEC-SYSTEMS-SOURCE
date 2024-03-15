@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/select2/select2.min.css">
 <div class="modal-header">
 	<button type="button" class="close" data-dismiss="modal">&times;</button>
-	<h4 class="modal-title"><i class="fa fa-money" aria-hidden="true"></i>
+	<h4 class="modal-title" style="font-family: 'Poppins'"><i class="fas fa-money" aria-hidden="true"></i>
 		Customer payment collections
 	 </h4>
 </div>
