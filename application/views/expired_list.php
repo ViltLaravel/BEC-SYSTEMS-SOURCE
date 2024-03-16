@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="pull pull-right">
-                <button onclick="printDiv('print-section')" class="btn btn-default btn-outline-primary pull-right "><i class="fa fa-print pull-left"></i> Print Report</button>
+                <button onclick="printDiv('print-section')" class="btn btn-default btn-outline-primary pull-right " style="border-radius: 8px"><i class="fas fa-print pull-center"></i> Print Report</button>
             </div>
         </div>
     </div>

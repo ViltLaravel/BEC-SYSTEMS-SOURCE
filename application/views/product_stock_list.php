@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="pull pull-right">
-                <button onclick="printDiv('print-section')" class="btn btn-default btn-outline-primary pull-right "><i class="fa fa-print pull-left"></i> Print Report</button>
+                <button onclick="printDiv('print-section')" class="btn btn-default btn-outline-primary pull-right " style="border-radius: 8px"><i class="fas fa-print pull-center"></i> Print Report</button>
             </div>
         </div>
     </div>
@@ -103,8 +103,8 @@
     </div>
     <div class="row bg-setting-product">
         <div class="col-md-12">
-            <p><b> Total no of items in stock(<?php echo $this->db->get_where('mp_langingpage', array('id' => 1))->result_array()[0]['currency'] ;?>)</b>  <?php echo $total_stock; ?> which
-               <b> net worth of (<?php echo $this->db->get_where('mp_langingpage', array('id' => 1))->result_array()[0]['currency'] ;?>): </b> <?php echo $total_worth; ?> /-
+            <p><b> Total no of items in stock(<?php echo $this->db->get_where('mp_langingpage', array('id' => 1))->result_array()[0]['currency'] ;?>)</b> is <b style="color: red"><?php echo $total_stock; ?></b> which
+               <b> net worth of (<?php echo $this->db->get_where('mp_langingpage', array('id' => 1))->result_array()[0]['currency'] ;?>): </b> <b style="color: red"><?php echo $total_worth; ?>.00</b>
 
             </p>
         </div>

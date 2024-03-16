@@ -7,26 +7,26 @@
     <div class="row">
         <div class="col-md-3">
             <h3 >
-            <i class="fa fa-globe"></i> Invoice No # <?php echo $invoice; ?>
+            <i class="fas fa-globe"></i> Invoice No # <?php echo $invoice; ?>
           </h3>
         </div> 
                 <div class="col-md-1 pull-right ">
-            <a class="pull-right btn-flat homescreen-icon btn btn-primary" style="font-size: 11px" href="<?php echo base_url('supply/create_new_supply'); ?>">   <i class="fa fa-truck"></i>    Whole sale
+            <a class="pull-right btn-flat homescreen-icon btn btn-success" style="font-size: 11px; border-radius: 8px;" href="<?php echo base_url('supply/create_new_supply'); ?>">   <i class="fas fa-truck"></i>    Whole Sale
             </a>
         </div>        
         <div class="col-md-1 pull-right ">
-            <a class="pull-right btn-flat homescreen-icon btn btn-primary" style="font-size: 11px" href="<?php echo base_url('homepage'); ?>">   <i class="fa fa-dashboard"></i>    Home screen
+            <a class="pull-right btn-flat homescreen-icon btn btn-primary" style="font-size: 11px; border-radius: 8px" href="<?php echo base_url('homepage'); ?>">   <i class="fas fa-dashboard"></i>    Home screen
             </a>
         </div>                
         <div class="col-md-1 pull-right ">
-            <a class="pull-right btn-flat pos-invoice-btn homescreen-icon btn btn-primary" style="font-size: 11px" href="<?php echo base_url('invoice/manage'); ?>">   <i class="fa fa-file-text"></i>    Invoices
+            <a class="pull-right btn-flat pos-invoice-btn homescreen-icon btn btn-warning" style="font-size: 11px; border-radius: 8px" href="<?php echo base_url('invoice/manage'); ?>">   <i class="fas fa-file-text"></i>    Invoices
             </a>
         </div>
 
     </div>
     <div class="col-md-6 ">
         <div class="form-group">
-            <label><i class="fa fa-barcode"  aria-hidden="true"></i> SCAN BARCODE OR SEARCH ITEMS</label>
+            <label><i class="fas fa-barcode"  aria-hidden="true"></i> SCAN BARCODE OR SEARCH ITEMS</label>
             <input type="text" class="form-control input-lg " onkeyup="add_item_invoice(this.value)" id="barcode_scan_area" name="search_area" autofocus="autofocus" />
             <div id="search_id_result_manual"></div> 
             <small>Search through product name (e.g aquafina) .</small>      
