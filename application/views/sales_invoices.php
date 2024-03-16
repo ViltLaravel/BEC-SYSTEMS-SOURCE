@@ -10,7 +10,7 @@
                     <?php echo form_label('Date From:'); ?>
                     <div class="input-group date ">
                         <div class="input-group-addon   ">
-                            <i class="fa fa-calendar "></i>
+                            <i class="fas fa-calendar "></i>
                         </div>
                         <?php
                             $data = array('class'=>'form-control  input-lg','type'=>'date','id'=>'datepicker','name'=>'date1','placeholder'=>'e.g 12-08-2018','reqiured'=>'');
@@ -24,7 +24,7 @@
                     <?php echo form_label('Date To:'); ?>
                         <div class="input-group date">
                             <div class="input-group-addon">
-                                <i class="fa fa-calendar"></i>
+                                <i class="fas fa-calendar"></i>
                             </div>
                             <?php
                                 $data = array('class'=>'form-control  input-lg' ,'type'=>'date','id'=>'datepicker','name'=>'date2','placeholder'=>'e.g 12-08-2018','reqiured'=>'');
@@ -42,9 +42,9 @@
                     ?>
                 </div>
             </div>
-            <div class="col-md-2" style="margin-top:27px;">
+            <div class="col-md-2" style="margin-top:30px;">
                 <?php
-                    $data = array('class'=>'btn btn-info btn-outline-secondary margin  pull-right input-lg','type' => 'submit','name'=>'searchecord','value'=>'true', 'content' => '<i class="fa fa-search" aria-hidden="true"></i> Search receipts');
+                    $data = array('style' => 'border-radius: 8px','class'=>'btn btn-info btn-outline-secondary margin  pull-right input-lg','type' => 'submit','name'=>'searchecord','value'=>'true', 'content' => '<i class="fa fa-search" aria-hidden="true"></i> Search receipts');
                     echo form_button($data);
                  ?>
             </div>

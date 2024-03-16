@@ -2,9 +2,9 @@
     <div class="row">
         <div class="col-md-12">
             <div class="pull pull-right">
-                <button type="button" onclick="show_modal_page('<?php echo base_url('supplier/popup/add_supplier_payment_model');?>')" class="btn btn-primary btn-outline-primary" ><i class="fa fa-plus-square" aria-hidden="true"></i>  Create Payment
+                <button type="button" onclick="show_modal_page('<?php echo base_url('supplier/popup/add_supplier_payment_model');?>')" class="btn btn-primary btn-outline-primary" style="border-radius: 8px"><i class="fas fa-plus-square" aria-hidden="true"></i>  Create Payment
                 </button>
-                <button onclick="printDiv('print-section')" class="btn btn-default btn-outline-primary   pull-right "><i class="fa fa-print  pull-left"></i> Print Report</button>
+                <button onclick="printDiv('print-section')" class="btn btn-default btn-outline-primary   pull-right " style="border-radius: 8px; margin-left: 4px;"><i class="fas fa-print  pull-center"></i> Print Report</button>
             </div>
         </div>
     </div>
@@ -54,7 +54,7 @@
                         </div>
                             <div class="col-md-3"  style="margin-top:17px">
                                 <?php
-                                    $data = array('class'=>'btn btn-info btn-outline-primary margin  input-lg','type' => 'submit','name'=>'searchecord','value'=>'true', 'content' => '<i class="fa fa-search" aria-hidden="true"></i> Search Payments');
+                                    $data = array('style' => 'border-radius: 8px','class'=>'btn btn-info btn-outline-primary margin  input-lg','type' => 'submit','name'=>'searchecord','value'=>'true', 'content' => '<i class="fas fa-search" aria-hidden="true"></i> Search Payments');
                                     echo form_button($data);
                                  ?>
                             </div>
